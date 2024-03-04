@@ -14,8 +14,6 @@ git config --global core.autocrlf true
 
  ### Preparing the environment
 
-     git clone https://gitlab.com/flavialin/core.git
-
 
  - Create a database named `test` (as in `src/main/resources/application.yml`>spring.datasource.url)
 

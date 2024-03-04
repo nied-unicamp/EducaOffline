@@ -5,7 +5,7 @@
 To download the project files, install [git](https://gitlab.com/nied/AVA-Offline/wikis/instalar-git) and execute:
 
 ```bash
-git clone https://gitlab.com/nied/AVA-Offline.git
+git clone https://github.com/nied-unicamp/EducaOffline.git
 ```
 
 ## WebApp Dev Setup
@@ -51,7 +51,7 @@ If you are using Windows this is by far the fastest way to do it.
 
 ## Additional information
 
-You can access the README files inside the [api/](https://gitlab.com/nied/AVA-Offline/tree/main/api) and [webapp/](https://gitlab.com/nied/AVA-Offline/tree/main/webapp) folders and the [project wiki](https://gitlab.com/nied/AVA-Offline/wikis/home) for more information.
+You can access the README files inside the [api/](https://github.com/nied-unicamp/EducaOffline/tree/main/api) and [webapp/](https://github.com/nied-unicamp/EducaOffline/tree/main/webapp) folders for more information.
 
 There is also a guide written using the CodeTour extension on VS Code that can help you to follow the code more easily. Just search install the extension and the guides will appear in the left panel, below the file list.
 
@@ -66,7 +66,7 @@ git: Necessário para baixar os arquivos do projeto.
 
 Depois de baixar e instalar, execute o comando abaixo para clonar o projeto: 
 ```bash
-git clone https://gitlab.com/nied/AVA-Offline.git
+git clone https://github.com/nied-unicamp/EducaOffline.git
 ```
 ### Instalar no Servidor
 - MySQL 5.7+
@@ -74,11 +74,6 @@ git clone https://gitlab.com/nied/AVA-Offline.git
 - Maven 3.6+	
 - Git
 ### Preparação do ambiente
-#### Abra o git e execute
-```bash
-git clone https://gitlab.com/flavialin/core.git
-```
-
 #### Crie um banco de dados no Mysql chamado teste 
 ```bash
 (como em src/main/resources/application.yml > spring.datasource.url)

@@ -1,0 +1,142 @@
+* {
+  color: var(--colors-nied7);
+}
+
+p {
+  margin: 0;
+}
+
+.row {
+  float: left;
+  margin: 0;
+  width: 100%;
+}
+
+.item {
+  background-color: var(--colors-nied2);
+  margin: -1px 2px 5px -2px;
+  border-right: 3px solid white;
+  padding: 0;
+}
+
+.activity-title {
+  margin-bottom: 0;
+  margin-right: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.block-text {
+  height: 100px;
+  overflow: hidden;
+}
+
+.inner {
+  padding: 5px 10px 11px 10px;
+  margin-right: -35px;
+}
+
+.inner > .files {
+  font-size: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.file {
+  padding: 0 8px 0 8px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  background: white;
+  align-items: center;
+  letter-spacing: 0.09em;
+  display: flex;
+  height: 28px;
+}
+
+.dropdown-item {
+  display: flex;
+  justify-content: center;
+  color: black;
+}
+
+.dropdown-menu {
+  min-width: auto;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.status {
+  background: var(--colors-nied1);
+  width: 100%;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.status-closed {
+  background: var(--colors-nied7);
+}
+
+.status-arrow {
+  /* width: 25px; */
+  margin-left: 0px;
+  border-right: 16px solid transparent;
+  border-top: 32px solid var(--colors-nied7);
+  border-bottom: 32px solid var(--colors-nied7);
+}
+
+.text-closed {
+  height: 60px;
+  align-items: center;
+  z-index: 5;
+  position: absolute;
+}
+
+.text-closed > p {
+  color: white;
+  padding-left: 10%;
+  max-width: 80%;
+}
+.status-open {
+  padding-left: 10%;
+  height: 60px;
+  position: absolute;
+}
+
+.status-open > .row,
+.status-open > .row > .size-icons {
+  display: flex;
+  align-items: center;
+}
+
+.size-icons > * > * > * {
+  display: flex;
+  font-size: 10px;
+  padding-right: 8px;
+}
+
+.status-icon > fa-icon,
+fa-layers > fa-icon,
+fa-layers-text {
+  font-size: 35px;
+}
+
+.notes {
+  justify-content: flex-end;
+}
+
+.disabled {
+  opacity: 65%;
+}
+
+.disabledLink {
+  pointer-events: none;
+}
+
+.disabled-reason {
+  display: block;
+  margin-bottom: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+}

@@ -1,0 +1,83 @@
+<div class="row justify-content-between">
+
+  <!-- Add participant button -->
+  <div *ngIf="(canAddMember$ | async)" class="col-auto mb-2">
+    <button class="btn-icon btn btn-primary rounded-0" style="display: flex;" (click)="submit.open()">
+      <fa-icon icon="user-plus"></fa-icon>
+      <span>{{ translationText?.addParticipant }}</span>
+    </button>
+    <app-modal-form #submit [title]="'Add Participant'">
+      <app-members-add [courseId]="courseId" (closeForm)="submit.close()"></app-members-add>
+    </app-modal-form>
+  </div>
+
+  <!-- Filter and order -->
+  <div class="col-auto ml-auto">
+    <!-- Filter -->
+    <div ngbDropdown class="d-inline-block pr-2 mb-2">
+
+      <!-- Toggle button -->
+      <button class="btn btn-outline-dark rounded-0" id="dropdownBasic1" ngbDropdownToggle>
+        {{ getFilterText(filter$|async) }}
+      </button>
+
+      <!-- Dropdown Menu -->
+      <div ngbDropdownMenu class="rounded-0" aria-labelledby="dropdownBasic1">
+
+        <!-- All users -->
+        <button ngbDropdownItem *ngIf="(filter$ | async)" class="dropdown-item" (click)="filter(null)">{{ translationText?.all }}</button>
+
+        <!-- For each role -->
+        <ng-container *ngFor="let role of (activeRoles$ | async)">
+          <button ngbDropdownItem *ngIf="role?.id !== (filter$|async)?.id" class="dropdown-item"
+            (click)="filter(role)">{{getFilterText(role)}}</button>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Separator -->
+    <span class="pr-2" style="font-weight: 900; color: var(--colors-nied7);">—</span>
+
+    <!-- Order -->
+    <div class="btn-group" role="group">
+      <div ngbDropdown class="d-inline-block btn-group" role="group" [placement]="'bottom-right'">
+        <!-- Selected Order -->
+        <button class="btn btn-outline-dark rounded-0" id="dropdownBasic1" ngbDropdownToggle>{{ sortText[sortBy$ |
+          async] }}</button>
+
+        <!-- Dropdown menu  -->
+        <div ngbDropdownMenu class="rounded-0" aria-labelledby="dropdownBasic1">
+          <button *ngFor="let order of sortOptions" ngbDropdownItem class="dropdown-item"
+            (click)="sort(order)">{{sortText[order]}}</button>
+        </div>
+      </div>
+
+      <!-- Reverse direction -->
+      <button type="button" (click)="reverse()" class="btn btn-outline-dark py-1 rounded-0">
+        <fa-icon *ngIf="(reverseSort$ | async) === false" icon="sort-alpha-down"></fa-icon>
+        <fa-icon *ngIf="(reverseSort$ | async)" icon="sort-alpha-down-alt"></fa-icon>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- List -->
+<div class="container-fluid" style="padding-right: 5px;">
+
+  <!-- <script>
+    console.log("Exibindo roles");
+    console.log(roles);
+    </script> -->
+  <!-- A row for each role shown (with some spacing) -->
+  <div *ngFor="let role of roles$ | async; let i = index" class="row pb-4 justify-content-start">
+<!-- <script>console.log(role)</script> -->
+    <!-- A col for each user -->
+    <div *ngFor="let user of (users$ | async)[i]" class="col-12 col-sm-6 col-xl-4 item">
+
+      <!-- The card -->
+      <app-members-item [user]="user" [isMe]="user.id===(myId$ | async)" [role]="role"></app-members-item>
+    </div>
+  </div>
+</div>
+

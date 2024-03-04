@@ -1,0 +1,76 @@
+
+
+<div class="grid-container" id="grid-container">
+  <!-- User info -->
+  <div class="row text-center mt-2 mb-sm-2 pr-0 createdBy" id="user-info">
+    <!-- User photo -->
+    <a [routerLink]="[ '/profile', comment?.createdBy?.id ]" class="col-auto col-sm-12 p-0" 
+      style="max-width: 50px; margin: auto;">
+      <fa-icon *ngIf="!comment?.createdBy?.picture" icon="user-circle" style="font-size: 50px;"></fa-icon>
+      <img *ngIf="comment?.createdBy?.picture" src="{{ profilePictureLink | async }}" class="rounded-circle img-fluid">
+    </a>
+
+    <!-- User name -->
+    <a [routerLink]="[ '/profile', comment?.createdBy?.id ]" class="col col-sm-12 p-sm-0 d-flex"
+      style="justify-content: center;"><strong>
+        {{ comment?.createdBy?.name }}<fa-icon *ngIf="comment?.teacher" size="xs" style="color: var(--colors-nied4);"
+          icon="graduation-cap"></fa-icon>
+      </strong></a>
+  </div>
+  <div class="content-and-info">
+    <!-- Content -->
+    <div class="content">
+      <pre [ngClass]="{'comment-text': !expanded, 'comment-expand': expanded}" #commentElement>{{ commentText }}</pre>
+      <button *ngIf="!expanded" class="btn p-0 w-100 btn-primary" (click)="expanded = true"><strong>
+          {{ translationText?.readMore }}
+        </strong></button>
+    </div>
+    <div class="row justify-content-between" id="aditional-info">  
+      <!-- Post date -->  
+      <div class="col-auto mt-1 pr-0" id="comment-date">
+        <small>
+          {{ comment?.lastModifiedDate.toLocaleString() }}
+        </small>
+      </div>      
+      <!-- Icons -->
+      <div class="col-auto menu mt-1 pl-0" id="buttons">
+        <!-- Add Reply button -->
+        <button class="btn btn-primary col-auto btn-add-reply item-buttons" style="display: inline-block;" (click)="replyCreate.toggleReply()" >{{ translationText?.addReply }}</button>
+          <!-- Like button -->
+          <button class="col-auto btn item-buttons" id="likeButton" style="color: var(--colors-nied7);" (click)="likeToggle()">
+            <fa-icon [icon]="[comment?.liked?'fas':'far','thumbs-up']" ></fa-icon>
+            {{ comment?.likeCounter}}
+          </button>
+          <!-- Menu -->
+          <div *ngIf="canDelete$ | async" class="col-auto ml-0" id="menu">
+            <div ngbDropdown placement="bottom-right item-buttons" class="d-inline-block">
+              <button class="btn dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle >
+                <fa-icon icon="ellipsis-v" aria-hidden="true" style="color: var(--colors-nied7);"></fa-icon>
+              </button> 
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="dropdown-item" (click)="confirm.open()">
+                  {{ translationText?.delete }}
+                  <app-confirm-delete #confirm (ok)="deleteComment($any($event))"></app-confirm-delete>
+                </button>
+              </div> 
+            </div>
+          </div>      
+      </div>       
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+<div class="col-sm-9 mt-2 comment"  id="replies">
+  
+    <!-- Add Reply -->
+  <app-wall-comment-reply-create [firstComment]="comment" [post]="post" [currentUserId]="comment?.createdBy?.id" #replyCreate></app-wall-comment-reply-create>    
+    <!-- Exibir replies -->
+  <ng-container *ngFor="let reply of replies$ | async; trackBy: trackReply" >
+    <app-wall-comment-reply class="row" [post]="post" [reply]="reply" [commentId]="comment?.id" *ngIf="comment"></app-wall-comment-reply>
+  </ng-container>  
+
+</div>          

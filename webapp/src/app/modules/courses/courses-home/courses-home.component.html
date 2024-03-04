@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col mb-2">
+    <!-- Button to enter course -->
+    <button class="btn-icon btn btn-primary rounded-0" style="display: flex; letter-spacing: 0.09em; font-size: 16px;"
+      (click)="submit.open()">
+      <fa-icon icon="plus"></fa-icon>
+      <span>{{ translationText?.enterCourse }}</span>
+    </button>
+
+    <!-- Modal for entering a course -->
+    <app-modal-form #submit [title]="translationText?.enterCourse">
+      <app-home-enter-course (closeForm)="submit.close()"></app-home-enter-course>
+    </app-modal-form>
+  </div>
+
+  <!-- Filter and order -->
+  <div class="col-auto">
+
+    <!-- Filter by -->
+    <div *ngIf="(roles$ | async)?.length > 0" ngbDropdown placement="bottom-right" class="d-inline-block pr-2 mb-2">
+      <button class="btn btn-outline-dark rounded-0" id="dropdownBasic1" ngbDropdownToggle>{{ filterName(filter$ |
+        async) }}</button>
+
+      <!-- Dropdown -->
+      <div ngbDropdownMenu class="rounded-0" aria-labelledby="dropdownBasic1">
+        <!-- All courses -->
+        <button ngbDropdownItem *ngIf="(filter$ | async)" class="dropdown-item" (click)="filter(null)">{{
+          filterName(null) }}
+        </button>
+
+        <!-- Filter by Role -->
+        <ng-container *ngFor="let role of roles$ | async">
+          <button ngbDropdownItem *ngIf="role!==(filter$ | async)" class="dropdown-item" (click)="filter(role)">{{
+            filterName(role) }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Separator -->
+    <span class="pr-2" style="font-weight: 900; color: var(--colors-nied7);">—</span>
+
+    <!-- Order by -->
+    <div class="btn-group" role="group">
+      <div ngbDropdown placement="bottom-right" class="d-inline-block btn-group" role="group">
+        <button class="btn btn-outline-dark rounded-0" id="dropdownBasic1" ngbDropdownToggle>
+          {{ sortText[(sortBy$ | async)] }}
+        </button>
+
+        <!-- Dropdown -->
+        <div ngbDropdownMenu class="rounded-0" aria-labelledby="dropdownBasic1">
+
+          <!-- Sort Options -->
+          <ng-container *ngFor="let option of sortOptions">
+            <button ngbDropdownItem *ngIf="(sortBy$ | async) !== option" class="dropdown-item" (click)="sort(option)">{{
+              sortText[option] }}</button>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Change order -->
+      <button type="button" class="btn btn-outline-dark py-1 rounded-0" (click)="reverse()">
+
+        <fa-icon *ngIf="(this.reverseSort$ | async) === false" icon="sort-alpha-down"></fa-icon>
+        <fa-icon *ngIf="(this.reverseSort$ | async)" icon="sort-alpha-down-alt"></fa-icon>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Active courses -->
+<div>
+  <h3>
+    {{ translationText.activeCourses }}
+  </h3>
+</div>
+<hr>
+<div class="row">
+  <div *ngFor="let course of activeCourses$ | async; trackBy: trackCourse" class="col-sm-6 col-lg-3 mb-2 h-100">
+    <app-course-card [course]="course"></app-course-card>
+  </div>
+</div>
+&nbsp;
+<!-- Ended courses -->
+<div>
+  <h3>
+    {{ translationText.endedCourses }}
+  </h3>
+</div>
+<hr>
+<div class="row">
+  <div *ngFor="let course of endedCourses$ | async; trackBy: trackCourse" class="col-sm-6 col-lg-3 mb-2 h-100">
+    <app-course-card [course]="course"></app-course-card>
+  </div>
+</div>

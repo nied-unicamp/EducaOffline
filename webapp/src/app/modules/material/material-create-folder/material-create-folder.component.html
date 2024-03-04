@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+  
+      <!-- Title -->
+      <div class="form-item">
+        <label for="title">{{translationText?.title}}</label>
+        <input type="text" id="title" class="form-control" formControlName="title"
+          placeholder="{{ translationText?.titlePH}}">
+  
+        <!-- Errors -->
+        <div *ngIf="formErrors.title" class="alert alert-danger">
+          {{ formErrors.title }}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-item">
+        <label for="description">{{translationText?.description}}</label>
+        <textarea type="text" id="description" class="form-control" formControlName="description"
+          placeholder="{{ translationText?.descriptionPH}}" maxlength="300" (input)="autoGrowTextZone()"
+          #descriptionTextarea></textarea>
+  
+        <!-- Errors -->
+        <div *ngIf="formErrors.description" class="alert alert-danger">
+          {{ formErrors.description }}
+        </div>
+      </div>
+  
+    </div>
+  
+    <!-- Modal footer -->
+    <div class="modal-footer row no-gutters justify-content-between pl-0 pr-0 pb-0">
+
+        <!-- left side -->
+        <div class="col-auto">
+
+        </div>
+
+        <!-- right side -->
+        <div class="col-auto">
+        <!-- Cancel Button -->
+        <button type="button" class="btn btn-secondary" (click)="closeForm.emit()">
+            {{ translationText?.cancel }}
+        </button>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+            {{ translationText?.submit }}
+        </button>
+        </div>
+
+    </div>
+</form>

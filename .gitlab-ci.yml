@@ -1,0 +1,203 @@
+stages:
+  - build
+  - staging
+  - production
+
+front-staging:build:
+  image: node:14
+  stage: build
+  before_script:
+    - cd webapp
+    - npm ci
+  script:
+    - npm run proteo-stag
+    - cd dist/
+    - tar czf frontend.tar.gz AVA-Offline
+  needs: []
+  cache:
+    policy: pull-push
+    key: "frontend_$CI_COMMIT_REF_SLUG" # cache per branch (only frontend)
+    paths:
+      - webapp/node_modules/
+  artifacts:
+    paths:
+      - webapp/dist/frontend.tar.gz
+  only:
+    refs:
+      - main
+    changes:
+      - webapp/**/*
+
+front-production:build:
+  image: node:14
+  stage: build
+  before_script:
+    - cd webapp
+    - npm install
+  script:
+    - npm run proteo-prod
+    - cd dist/
+    - tar czf frontend-prod.tar.gz AVA-Offline
+  needs: []
+  cache:
+    policy: pull-push
+    key: "frontend_$CI_COMMIT_REF_SLUG" # cache per branch (only frontend)
+    paths:
+      - webapp/node_modules/
+  artifacts:
+    paths:
+      - webapp/dist/frontend-prod.tar.gz
+  when: manual
+  only:
+    refs:
+      - main
+    changes:
+      - webapp/**/*
+
+backend:build:
+  image: maven:3-jdk-11
+  stage: build
+  variables:
+    MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
+  before_script:
+    - cd api
+    - mvn $MAVEN_OPTS verify
+  script:
+    - mvn $MAVEN_OPTS verify package
+  needs: []
+  cache:
+    key: "backend_$CI_COMMIT_REF_SLUG" # cache per branch (only backend)
+    paths:
+      - api/target/
+      - api/.m2/
+  artifacts:
+    name: "$CI_JOB_STAGE-$CI_COMMIT_REF_NAME"
+    paths:
+      - api/target/*.jar
+  only:
+    refs:
+      - main
+    changes:
+      - api/**/*
+
+backend:deploy-staging:
+  image: alpine:latest
+  stage: staging
+  needs: ["backend:build"]
+  before_script:
+    - apk add --update openssh sshpass
+  script:
+    - |
+      sshpass -e sftp -oStrictHostKeyChecking=no -oBatchMode=no -b - $SSHUSER@$SSHHOST <<END
+        lcd api/target/
+        cd /home/$SSHUSER/deploy/backend
+        mkdir $CI_PIPELINE_ID
+        cd $CI_PIPELINE_ID
+        put *.jar
+      END
+    - |
+      sshpass -e ssh -oStrictHostKeyChecking=no $SSHUSER@$SSHHOST <<END
+        cd /home/$SSHUSER/deploy/backend/$CI_PIPELINE_ID
+        ls -la
+        rm /srv/stag/api/api/resources/*.jar
+        cp core_back_end-1.0-SNAPSHOT.jar /srv/stag/api/api/resources/
+        cd /srv/stag/api
+        docker-compose down
+        docker-compose up -d --build
+      END
+  only:
+    refs:
+      - main
+    changes:
+      - api/**/*
+
+backend:deploy-production:
+  image: alpine:latest
+  stage: production
+  needs: ["backend:build"]
+  before_script:
+    - apk add --update openssh sshpass
+  script:
+    - |
+      sshpass -e sftp -oStrictHostKeyChecking=no -oBatchMode=no -b - $SSHUSER@$SSHHOST <<END
+        lcd api/target/
+        cd /home/$SSHUSER/deploy/backend/prod
+        mkdir $CI_PIPELINE_ID
+        cd $CI_PIPELINE_ID
+        put *.jar
+      END
+    - |
+      sshpass -e ssh -oStrictHostKeyChecking=no $SSHUSER@$SSHHOST <<END
+        cd /home/$SSHUSER/deploy/backend/prod/$CI_PIPELINE_ID
+        ls -la
+        rm /srv/prod/api/api/resources/*.jar
+        cp core_back_end-1.0-SNAPSHOT.jar /srv/prod/api/api/resources/
+        cd /srv/prod/api
+        docker-compose down
+        docker-compose up -d --build
+      END
+  when: manual
+  only:
+    refs:
+      - main
+    changes:
+      - api/**/*
+
+frontend:deploy-staging:
+  image: alpine:latest
+  stage: staging
+  needs: ["front-staging:build"]
+  before_script:
+    - apk add --update openssh sshpass
+  script:
+    - |
+      sshpass -e sftp -oStrictHostKeyChecking=no -oBatchMode=no -b - $SSHUSER@$SSHHOST <<END
+        lcd webapp/dist/
+        cd /home/$SSHUSER/deploy/frontend
+        mkdir $CI_PIPELINE_ID
+        cd $CI_PIPELINE_ID
+        put frontend.tar.gz
+      END
+    - |
+      sshpass -e ssh -oStrictHostKeyChecking=no $SSHUSER@$SSHHOST <<END
+        cd /home/$SSHUSER/deploy/frontend/$CI_PIPELINE_ID
+        tar xzf frontend.tar.gz
+        mv AVA-Offline webapp
+        rm -R /srv/stag/webapp
+        mv webapp /srv/stag/
+      END
+  only:
+    refs:
+      - main
+    changes:
+      - webapp/**/*
+
+frontend:deploy-production:
+  image: alpine:latest
+  stage: production
+  needs: ["front-production:build"]
+  before_script:
+    - apk add --update openssh sshpass
+  script:
+    - |
+      sshpass -e sftp -oStrictHostKeyChecking=no -oBatchMode=no -b - $SSHUSER@$SSHHOST <<END
+        lcd webapp/dist/
+        cd /home/$SSHUSER/deploy/frontend/prod
+        mkdir $CI_PIPELINE_ID
+        cd $CI_PIPELINE_ID
+        put frontend-prod.tar.gz
+      END
+    - |
+      sshpass -e ssh -oStrictHostKeyChecking=no $SSHUSER@$SSHHOST <<END
+        cd /home/$SSHUSER/deploy/frontend/prod/$CI_PIPELINE_ID
+        tar xzf frontend-prod.tar.gz
+        mv AVA-Offline webapp
+        rm -R /srv/prod/webapp
+        mv webapp /srv/prod/
+      END
+  when: manual
+  only:
+    refs:
+      - main
+    changes:
+      - webapp/**/*

@@ -1,0 +1,50 @@
+.sub-textarea {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: -13px;
+    
+}
+.container-fluid {
+    background-color: var(--colors-nied2);
+}
+textarea {
+    max-height: 133px;
+    min-height: 30px;
+}
+.invalid {
+    color: var(--colors-red-error) !important;
+}
+
+.is-invalid {
+    background-position: top calc(.375em + .1875rem) right 25px !important;
+}
+#textHelpBlock{
+    flex: 1;
+    margin-left: 5%;
+    font-size: 12px;
+    width: 80px;
+}
+
+#publish{
+    flex: 1;
+    float: right;
+    height: 10px;
+    width: 100px;
+}
+
+#publish > button{
+    font-size: 11px !important;
+    margin-top: 4%;
+    padding: 2px;
+    width: 66px;
+    margin-left: 55%;
+    
+}
+
+@media screen and (min-width: 576px) {
+    #publish > button{
+        margin-left: 80%;
+        margin-top: 7px;        
+    }
+} 

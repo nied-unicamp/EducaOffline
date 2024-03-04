@@ -1,0 +1,52 @@
+<!-- Main component -->
+<div class="submission-box" (blur)="onTouched()">
+
+  <!-- Title -->
+  <div class="row no-gutters title">
+    <span class="col">Data de publicação</span>
+  </div>
+  <div class="row no-gutters align-items-center">
+    <div class="col-auto date-list">
+      <!-- value -->
+      <div class="row no-gutters" (click)="calButton.click()">
+        <span *ngIf="!value || today.equals(value)" class="col date auto">Imediatamente (Editar)</span>
+        <span *ngIf="value && !today.equals(value)" class="col date selected">
+          Em: {{value?.day | number:'2.0-0'}}/{{value?.month | number:'2.0-0'}}/{{value?.year}}
+        </span>
+      </div>
+    </div>
+
+    <!-- Button with Calendar Icon -->
+    <div class="col-auto icon-box">
+      <button type="button" class="btn p-0" [ngbPopover]="popContent" [autoClose]="'outside'" #popover="ngbPopover"
+        [placement]="['bottom', 'top',  'auto']" container="body" #calButton>
+
+        <!-- Calendar icon -->
+        <fa-icon class="align-middle color-nied7" [icon]="['far','calendar-alt']" size="lg"></fa-icon>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<!-- Template of a custom datepicker -->
+<ng-template #popContent>
+  <ngb-datepicker #dp class="remove-padding" (dateSelect)="onDateSelection($any($event)); popover.close();"
+    [displayMonths]="1" [startDate]="value" [dayTemplate]="t" [firstDayOfWeek]="7" [navigation]="'arrows'"
+    outsideDays="hidden">
+  </ngb-datepicker>
+</ng-template>
+
+<!-- Template of a custom day -->
+<ng-template #t let-date let-focused="focused">
+  <span class="custom-day disable-select" style="display:inline-block" placement="top"
+    ngbTooltip="{{isToday(date)?'Hoje':''}}" [class.focused]="focused && !isInvalid(date)"
+    [class.custom-today]="isToday(date)" [class.custom-invalid]="isInvalid(date)" [class.value]="date.equals(value)"
+    [class.custom-selectable]="isSelectable(date)" (mouseenter)="hoveredDate = date"
+    [class.publication]="isSelected(date)" (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+    <div *ngIf="isToday(date)" style="color: red;z-index:3;position:relative; left:0; bottom:13px;">
+      o
+    </div>
+  </span>
+</ng-template>

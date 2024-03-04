@@ -1,0 +1,81 @@
+
+/*------------------------------Part-Mural---------------------------------*/
+
+.box-text-post{
+	border-top: 3em solid #ccdbea;
+	border-left: 1em solid #ccdbea;
+	border-bottom:  1em solid #ccdbea;
+	border-right:  1em solid #ccdbea;
+	border-radius: 1em;
+	height: 15em;
+}
+
+.postage {
+	margin: 1em 1em 1em 1em;
+}
+
+.box-text-post, .posts {
+	margin: 1em 1em 1em 1em;
+}
+.publicacao {
+	height:9em; 
+}
+
+#dropdownMenuLink {
+	width: 2em;
+	height: 2em;
+}
+.icone{
+	width: 2em;
+	margin: 0em 1em 0em 1em;
+}
+.icone-publicar{
+	height: 2.2em;
+	border: 1px solid #ccdbea;
+}
+
+.mybutton {
+	height: 2.1em;
+	margin-right: -1em;
+	border-radius: 0em;
+}
+
+.postage-text {
+	height: 9em;
+}
+
+.picture-post-answer {
+	border: 1px solid black;
+	margin-left: 3em;
+}
+
+.picture-post-answer strong{
+	font-size: 0.8em;
+}
+
+p {
+	margin-left: 1em;
+
+}
+/*----------------------------------CSS-----Gustavo------------------------*/
+/*
+#person {
+    display: inline-block;
+    background-color: #fff;
+    border: 2px solid #ccdbea;
+    border-radius: 1em;
+    padding: 0 .5em;
+    font-weight: 700;
+    font-size: .9em;
+    text-align: center;
+}
+
+.ball {
+    width: 85%;
+    background-color: #ccdbea;
+    border-radius: 100%;
+    margin: auto;
+    margin-top: -.5em;
+    margin-bottom: .5em;
+}
+*/

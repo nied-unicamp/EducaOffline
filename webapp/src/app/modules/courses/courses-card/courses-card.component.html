@@ -1,0 +1,68 @@
+<div class="container-fluid small-box">
+  <!-- Header -->
+  <div class="row header">
+
+    <!-- Course Title -->
+    <h4 routerLink="/courses/{{course?.id}}" class="title-course link col pl-2 pr-0">{{ course?.name }}</h4>
+    <!-- Graduation cap -->
+    <fa-icon *ngIf="showCap$ | async" icon="graduation-cap" class="teacher-icon"></fa-icon>
+    <div style="position: relative; align-items: center; display: flex;">
+      <app-sync-status-icon [syncStatus]="$any(course.offlineSync.state)">
+      </app-sync-status-icon> 
+    </div>
+    
+    <!-- Dropdown -->
+    <div class="col-auto p-0">
+      <div ngbDropdown class="d-inline-block align-text-top">
+        <!-- Three dots -->
+        <button class="btn" id="{{dropdownId}}" ngbDropdownToggle>
+          <fa-icon icon="ellipsis-v" aria-hidden="true"></fa-icon>
+        </button>
+
+        <!-- Menu -->
+        <div ngbDropdownMenu [attr.aria-labelledby]="dropdownId">
+          <button ngbDropdownItem>{{ translationText?.seeMoreInformation }}</button>
+          <!-- TODO: Remove this. Debug only -->
+          <button ngbDropdownItem (click)="toggle()">Toggle Offline</button>
+          <div *ngIf="showAddParticipant$ | async" class="col-auto mb-2 container-three-dots" >
+            <button class="btn-icon btn btn-primary rounded-0" style="display: flex; width: 100%;" (click)="submit.open()">
+              <fa-icon icon="user-plus" id="iconeAdd"></fa-icon>
+              <span>{{ translationText?.addParticipant }}</span>
+            </button>
+            <app-modal-form #submit [title]="'Add Participant'">
+              <app-members-add [courseId]="course?.id" (closeForm)="submit.close()"></app-members-add>
+            </app-modal-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Main content -->
+  <div routerLink="/courses/{{course?.id}}" class="middle row link">
+    <div class="col-12 px-2">
+      <!-- Message when there is no activities -->
+      <p *ngIf="(activities$ | async)?.length===0">{{ translationText?.noActivities }}</p>
+      <!-- List activities (3 at most) -->
+      <p *ngFor="let activity of activities$ | async" class="m-0 act">
+        <strong>• {{ activity.submissionEnd.getDate() }}/{{ activity.submissionEnd.getMonth() + 1 }} -</strong>
+        {{ activity.title }}
+      </p>
+
+      <!-- Hidden count -->
+      <p *ngIf="hiddenActivities>0" class="m-0">
+        + {{ hiddenActivities }} {{ translationText?.activities }}
+      </p>
+    </div>
+  </div>
+
+
+  <!-- Teacher name and link -->
+  <div *ngIf="teacher$ | async as teacher" routerLink="/profile/{{teacher.id}}/" class="row footer link">
+    <p class="col m-0 px-2 prof">{{ translationText?.prof }} {{ teacher.name }}</p>
+
+    <!-- Course start date -->
+    <p class="col-auto px-2 m-0 createdDate">{{ course.startDate.toLocaleDateString() }}</p>
+  </div>
+</div>

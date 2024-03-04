@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <!-- Header -->
+    <app-menu-header></app-menu-header>
+
+    <!-- Main content -->
+    <div class="row mHeight">
+
+        <!-- Content -->
+        <div class="col my-scroll pt-3">
+
+            <div *ngIf="profile$ | async as profile" class="painel-fundo">
+                <app-profile-personal-data [profile]="profile" [canEdit]="(canEdit$ | async)">
+                </app-profile-personal-data>
+
+                <app-profile-courses [userId]="profile.id"></app-profile-courses>
+            </div>
+        </div>
+    </div>
+</div>

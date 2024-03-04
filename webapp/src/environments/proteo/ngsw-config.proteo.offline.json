@@ -1,0 +1,54 @@
+{
+  "$schema": "../../../node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/index.html",
+          "/*.css",
+          "/*.js",
+          "/manifest.webmanifest"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**"
+        ]
+      }
+    },
+    {
+      "name": "user-pictures",
+      "installMode": "lazy",
+      "resources": {
+        "urls": [
+          "https://proteo.nied.unicamp.br/stag/api/v1/users/**/picture?access_token=**"
+        ]
+      },
+      "cacheQueryOptions": {
+        "ignoreSearch": true
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "https://proteo.nied.unicamp.br/stag/api/v1/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 1000,
+        "maxAge": "30d",
+        "timeout": "5s",
+        "strategy": "freshness"
+      }
+    }
+  ]
+}

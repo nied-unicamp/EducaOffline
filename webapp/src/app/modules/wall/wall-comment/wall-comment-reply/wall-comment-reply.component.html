@@ -1,0 +1,54 @@
+<!-- User info -->
+<div class="container-reply">
+  <div class="row text-center mt-2 mb-sm-2 pr-0 createdBy" id="user-info" >
+    <!-- User photo -->
+    <a [routerLink]="[ '/profile', reply?.createdById]" class="col-auto col-sm-12 p-0" style="max-width: 40px; margin: auto;" >
+      <fa-icon *ngIf="!(userReply|async)?.picture" icon="user-circle" style="font-size: 50px;" ></fa-icon>
+      <img *ngIf="(userReply|async)?.picture" src="{{ (userReply | async)?.picture }}" class="rounded-circle img-fluid" >
+    </a> 
+
+    <!-- User name -->
+    <a [routerLink]="[ '/profile', reply?.createdById]" class="col col-sm-12 p-sm-0 d-flex" style="justify-content: center;">
+      <strong>
+        {{ (userReply|async)?.name }}
+        <fa-icon *ngIf="reply?.teacher" size="xs" style="color: var(--colors-nied4);" icon="graduation-cap"></fa-icon>
+      </strong>
+    </a>
+  </div> 
+
+    
+  <div class="mt-2 reply" id="content-and-info">  
+    <!-- Content -->
+    <div class="content-reply">
+      <pre [ngClass]="{'reply-text': !expanded, 'reply-expand': expanded}" #replyElement>{{ replyText }}</pre>
+      <button *ngIf="!expanded" class="btn p-0 w-100 btn-primary" (click)="expanded = true"><strong>
+          {{ translationText?.readMore }}
+        </strong>
+      </button>
+    </div>
+    
+    <!-- Post date -->
+    <div class="row justify-content-between" id="aditional-info-reply">    
+      <div class="col-auto mt-1 pr-0" id="reply-date"> 
+        <small>
+          {{ date.toLocaleDateString()}}
+        </small>
+      </div>    
+      <!-- Menu -->
+      <div *ngIf="canDelete$ | async" class="col-auto ml-0" id="menu-reply" style="padding: 0px">      
+        <div ngbDropdown placement="bottom-right" class="d-inline-block">
+          <button class="btn dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle >
+            <fa-icon icon="ellipsis-v" aria-hidden="true" style="color: var(--colors-nied7)"></fa-icon>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item" (click)="confirm.open()">
+              {{ translationText?.delete }}
+              <app-confirm-delete #confirm (ok)="deleteReply($any($event))"></app-confirm-delete>
+            </button>
+          </div>
+        </div>
+      </div>                
+    </div> 
+  </div> 
+</div>
+

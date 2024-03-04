@@ -1,0 +1,6 @@
+<ng-container *ngIf="canGetAllEvaluations$ | async; else elseTemplate">
+  <app-grades-course></app-grades-course>
+</ng-container>
+<ng-template #elseTemplate>
+  <app-grades-personal></app-grades-personal>
+</ng-template>

@@ -1,0 +1,63 @@
+<!-- Main component -->
+<div class="submission-box">
+
+  <!-- Title -->
+  <div class="row no-gutters title">
+    <span class="col">Período de submissão</span>
+  </div>
+  <div class="row no-gutters align-items-center">
+    <div class="col-auto date-list">
+      <!-- From -->
+      <div class="row no-gutters" (click)="calButton.click()">
+        <span *ngIf="!value.start || value.start.equals(publication)" class="col date auto">De: Ao publicar</span>
+        <span *ngIf="value.start && !value.start.equals(publication)" class="col date selected">
+          De: {{value.start?.day | number:'2.0-0'}}/{{value.start?.month | number:'2.0-0'}}/{{value.start?.year}}
+        </span>
+      </div>
+
+      <!-- To -->
+      <div class="row no-gutters" (click)="calButton.click()">
+        <span *ngIf="!value.end" class="col date">Até: Adicionar data final</span>
+        <span *ngIf="!!value.end" class="col date selected">
+          Até: {{value.end?.day | number:'2.0-0'}}/{{value.end?.month | number:'2.0-0'}}/{{value.end?.year}}
+        </span>
+      </div>
+    </div>
+
+    <!-- Button with Calendar Icon -->
+    <div class="col-auto icon-box">
+      <button type="button" class="btn p-0" [ngbPopover]="popContent" [autoClose]="'outside'" #popover="ngbPopover"
+        [placement]="['bottom', 'top',  'auto']" container="body" #calButton>
+
+        <!-- Calendar icon -->
+        <fa-icon class="align-middle color-nied7" [icon]="['far','calendar-alt']" size="lg"></fa-icon>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<!-- Template of a custom datepicker -->
+<ng-template #popContent>
+  <ngb-datepicker #dp class="remove-padding"
+    (dateSelect)="onDateSelection($any($event)); (closeOnSelection && value.end)?popover.close():null;"
+    [displayMonths]="1" [startDate]="value.start" [dayTemplate]="t" [firstDayOfWeek]="7" [navigation]="'arrows'"
+    outsideDays="hidden">
+  </ngb-datepicker>
+</ng-template>
+
+<!-- Template of a custom day -->
+<ng-template #t let-date let-focused="focused">
+  <span class="custom-day disable-select" style="display:inline-block" placement="top"
+    ngbTooltip="{{isToday(date)?'Hoje':(isPublication(date)?'Publicação':'')}}"
+    [class.focused]="focused && !isInvalid(date)" [class.custom-today]="isToday(date)" [class.custom-end]="isEnd(date)"
+    [class.custom-start]="isStart(date)" [class.custom-invalid]="isInvalid(date)"
+    [class.custom-selectable]="isSelectable(date)" [class.custom-publication]="isPublication(date)"
+    [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date) " (mouseenter)="hoveredDate = date"
+    (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+    <div *ngIf="isToday(date)" style="color: red;z-index:3;position:relative; left:0; bottom:13px;">
+      o
+    </div>
+  </span>
+</ng-template>

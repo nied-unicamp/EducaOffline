@@ -1,0 +1,72 @@
+<div class="gradesTable">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" class="activity-name-col">{{ translationText?.activitiesList }}</th>
+        <th scope="col" class="grades-col">{{ translationText?.scoreStudent }}</th>
+        <th scope="col" class="grades-col">{{ translationText?.scoreCourse }}</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="(activities$ | async) as activities">
+      <tr *ngFor="let activity of activities, index as i">
+        <ng-container *ngIf="(getItem$(activity) | async) as myItem">
+          <!-- Activity Title -->
+          <td [class.td]="myItem.evaluated" [class.td-not-evaluated]="!myItem.evaluated">
+            <a [routerLink]="['../activities', activity.id]" title="{{ activity?.title }}">
+              {{ activity?.title }}
+            </a>
+
+          </td>
+
+          <!-- Student Score -->
+          <td [class.td]="myItem.evaluated" [class.td-not-evaluated]="!myItem.evaluated" style="text-align: center;">
+
+            <!-- Status or Score -->
+            <div style="position: relative;"> 
+              {{getStatusText(activity, myItem.item)}}
+
+              <!-- Comment Icon -->
+              <button *ngIf="getGradesReleased(activity) && myItem.item.evaluation?.comment" (click)="commentModal.open()" class="hideButton" style="padding-right: 0; position: absolute; top: 12px">
+                <fa-icon icon="comment" class="commentIcon" style="top: 0;"></fa-icon>
+              </button>
+            </div>
+
+
+            <!-- Modal for viewing evaluations -->
+            <app-modal-form #commentModal [screenSize]="'md'" [title]="activity.title">
+              <div class="container">
+                <div class="row justify-content-left">
+                  <div class="col-auto">
+                    <p><strong>{{ translationText?.score }}</strong> <span *ngIf="myItem.item"> {{
+                        myItem.item?.evaluation?.score }} </span>
+                      <span *ngIf="!myItem.item"> {{ translationText?.notEvaluated }} </span>
+                    </p>
+                    <p><strong> {{ translationText?.comment }}</strong></p>
+                    <p>{{ myItem.item?.evaluation?.comment }}</p>
+                  </div>
+                </div>
+              </div>
+            </app-modal-form>
+          </td>
+        </ng-container>
+
+        <!-- Class Grade Average -->
+        <td>
+          <p style="text-align: center;">
+            <ng-container *ngIf="(getAverage$(activity) | async) as myValue; else notGraded">
+              {{ getGradesReleased(activity) ? myValue.average.toFixed(1) : translationText?.notesNotReleased }}
+            </ng-container>
+            <ng-template #notGraded>
+              {{ translationText?.notGraded }}
+            </ng-template>
+          </p>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!(activities$ |async)?.length">
+      <tr>
+        <td colspan="100">{{ translationText?.activitiesNull }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

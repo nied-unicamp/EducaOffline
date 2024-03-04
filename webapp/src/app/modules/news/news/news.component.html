@@ -1,0 +1,41 @@
+<div class="col-auto">
+  <h5 class="d-flex justify-content-center font-weight-bold">News</h5>
+</div>
+
+<div *ngFor="let news of courseId? courseNotifications : allNotifications" gbDropdownItem>
+  <a [routerLink]="[ chooseLink(news) ]">
+
+    <div class="dropdown-divider"></div>
+
+    <div class="row py-2 px-3">
+
+      <!-- Ícone da notificação -->
+      <div class="col-auto m-auto icon">
+        <fa-icon *ngIf="!isGradesIcon(news)" [icon]="chooseIcon(news.type)"
+          [transform]="(news.type[0]==='A')? 'right-2' : ''"
+          style="color: var(--colors-nied7); font-size: calc(24px + .5vw);">
+        </fa-icon>
+
+        <fa-layers *ngIf="isGradesIcon(news)" [fixedWidth]="true" style="color: var(--colors-nied7);">
+          <fa-icon [icon]="['far', 'clipboard']" transform="right-2" style="font-size: calc(24px + .5vw);"></fa-icon>
+          <fa-layers-text content="A" class="nota" transform="shrink-6; right-3"></fa-layers-text>
+        </fa-layers>
+      </div>
+
+      <!-- Texto da notificação -->
+      <p class="col m-auto notificationText">
+        {{chooseText(news)}}
+        <strong *ngIf="news.type==='ACTIVITY_GRADE_RELEASED'">{{ news.itemText1 }} -
+        </strong>
+        <strong>{{ courseId ? courseName : news.course.name}}.</strong>
+      </p>
+
+      <!-- Notificação disparada há X tempo -->
+      <p class="col-auto m-auto">
+        {{ chooseTime(news.lastModifiedDate) }}
+      </p>
+
+    </div>
+
+  </a>
+</div>

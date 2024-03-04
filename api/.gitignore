@@ -1,0 +1,42 @@
+# Uploaded files location
+uploads/
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# IDE's
+.idea
+*.iml
+
+# Others
+/bin/
+target/
+.classpath
+.project
+.settings/
+src/main/resources/META-INF/
+src/main/resources/core_back_end.iml
+web/WEB-INF/META-INF/
+uploads/
+.database
+.factorypath

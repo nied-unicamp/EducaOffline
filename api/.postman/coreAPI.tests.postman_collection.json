@@ -1,0 +1,1134 @@
+{
+	"info": {
+		"_postman_id": "99de86d7-8ec6-47cc-b026-b6b19af79cf6",
+		"name": "Tests for Core API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Initial Courses and users",
+			"item": [
+				{
+					"name": "Login Admin Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "45de9f06-60d6-4fb8-a0d5-6185fc1b4939",
+								"exec": [
+									"pm.test(\"Save token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if(jsonData.access_token){",
+									"        pm.environment.set(\"token\", jsonData.access_token);",
+									"    }",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userEmail\": \"{{login_admin_email}}\",\n\t\"password\": \"{{login_admin_password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course 01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98e9dbb2-848c-43aa-ad1a-7407f8ad284e",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"courseId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MC102\",\n\t\"subscriptionBegin\": \"2018-12-12T00:00:00.000Z\",\n\t\"subscriptionEnd\": \"2018-12-12T00:00:00.000Z\",\n\t\"startDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"endDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"info\": \"Algoritmos e programação de computadores\",\n\t\"noMaxStudents\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3c884c2-a49c-4d3e-8605-1a70ac88de6d",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"userId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"aboutMe\": \"Olá!\",\n  \"birthDate\": \"1995-10-25T10:15:00.000Z\",\n  \"email\": \"teste01@gmail.com\",\n  \"name\": \"Pessoa 01\",\n  \"password\": \"test_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user as teacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleId\": 3,\n  \"userId\": {{userId}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User02",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3c884c2-a49c-4d3e-8605-1a70ac88de6d",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"userId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"aboutMe\": \"Olá!\",\n  \"birthDate\": \"1995-10-25T10:15:00.000Z\",\n  \"email\": \"teste02@gmail.com\",\n  \"name\": \"Pessoa 02\",\n  \"password\": \"test_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user as student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleId\": 2,\n  \"userId\": {{userId}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User03",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3c884c2-a49c-4d3e-8605-1a70ac88de6d",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"userId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"aboutMe\": \"Olá!\",\n  \"birthDate\": \"1995-10-25T10:15:00.000Z\",\n  \"email\": \"teste03@gmail.com\",\n  \"name\": \"Pessoa 03\",\n  \"password\": \"test_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user as student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleId\": 2,\n  \"userId\": {{userId}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course 02",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98e9dbb2-848c-43aa-ad1a-7407f8ad284e",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"courseId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MC102\",\n\t\"subscriptionBegin\": \"2018-12-12T00:00:00.000Z\",\n\t\"subscriptionEnd\": \"2018-12-12T00:00:00.000Z\",\n\t\"startDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"endDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"info\": \"Algoritmos e programação de computadores\",\n\t\"noMaxStudents\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User04",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3c884c2-a49c-4d3e-8605-1a70ac88de6d",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"userId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"aboutMe\": \"Olá!\",\n  \"birthDate\": \"1995-10-25T10:15:00.000Z\",\n  \"email\": \"teste04@gmail.com\",\n  \"name\": \"Pessoa 04\",\n  \"password\": \"test_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user as teacher",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleId\": 3,\n  \"userId\": {{userId}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User05",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3c884c2-a49c-4d3e-8605-1a70ac88de6d",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"userId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"aboutMe\": \"Olá!\",\n  \"birthDate\": \"1995-10-25T10:15:00.000Z\",\n  \"email\": \"teste05@gmail.com\",\n  \"name\": \"Pessoa 05\",\n  \"password\": \"test_password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user as student",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleId\": 2,\n  \"userId\": {{userId}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Post Basics",
+			"item": [
+				{
+					"name": "Login Admin Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8eebaab6-b53d-4a98-bc66-d0f66e609757",
+								"exec": [
+									"pm.test(\"Save token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if(jsonData.access_token){",
+									"        pm.environment.set(\"token\", jsonData.access_token);",
+									"    }",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userEmail\": \"{{login_admin_email}}\",\n\t\"password\": \"{{login_admin_password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8ff4599-0463-4146-babe-7a63442929df",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"courseId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MC102\",\n\t\"subscriptionBegin\": \"2018-12-12T00:00:00.000Z\",\n\t\"subscriptionEnd\": \"2018-12-12T00:00:00.000Z\",\n\t\"startDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"endDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"info\": \"Algoritmos e programação de computadores\",\n\t\"noMaxStudents\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post (too big)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ec4509d-4090-47ef-823d-9c68aa5ec589",
+								"exec": [
+									"pm.test(\"Expected an error\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.greaterThan(399);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"{{text_999}}1332141234\",\n\t\"isFixed\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ec4509d-4090-47ef-823d-9c68aa5ec589",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"postId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Teste!!!!!!!!!!!\\nOi\\nTeste!!\",\n\t\"isFixed\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pin Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/pin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"posts",
+								"{{postId}}",
+								"pin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3d65b5e5-25fd-49c5-a417-3b1df323262e",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"commentId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\":\"Comentário super esperto =D\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"posts",
+								"{{postId}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment of Comment Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "51f4b411-c26d-415a-95f1-d68b521e336b",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"commentId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\":\"Comment2\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}/comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"posts",
+								"{{postId}}",
+								"comments",
+								"{{commentId}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e48f40ae-0c92-4546-b556-58c86fdd67d2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "362d6725-81af-4a55-9442-9938cd8a8250",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Activity creates a Post",
+			"item": [
+				{
+					"name": "Login Admin Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8eebaab6-b53d-4a98-bc66-d0f66e609757",
+								"exec": [
+									"pm.test(\"Save token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if(jsonData.access_token){",
+									"        pm.environment.set(\"token\", jsonData.access_token);",
+									"    }",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userEmail\": \"{{login_admin_email}}\",\n\t\"password\": \"{{login_admin_password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8ff4599-0463-4146-babe-7a63442929df",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"courseId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MC102\",\n\t\"subscriptionBegin\": \"2018-12-12T00:00:00.000Z\",\n\t\"subscriptionEnd\": \"2018-12-12T00:00:00.000Z\",\n\t\"startDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"endDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"info\": \"Algoritmos e programação de computadores\",\n\t\"noMaxStudents\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Activity Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "843ee7a9-6784-4cac-a6c5-b8862b5e9b88",
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"activityId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Atividade 1\",\n    \"description\": \"Descricao da ativdade 1\",\n    \"submissionBegin\": \"2020-09-12T00:00:00.000Z\",\n    \"submissionEnd\": \"2020-09-13T00:00:00.000Z\",\n    \"publishDate\": \"2020-09-01T00:00:00.000Z\",\n    \"hasGrade\": true,\n    \"criteria\": \"Critério de avaliação\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/activities",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Posts (Check ActivityId)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8d6e35de-edcc-4d33-8460-529036919732",
+								"exec": [
+									"pm.test(\"Has Actiivity Id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    const expectedActivity = pm.globals.get(\"activityId\")",
+									"",
+									"    pm.expect(jsonData.length).to.be.equal(1);",
+									"    pm.expect(jsonData[0].activityId).to.be.equal(expectedActivity);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/posts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e48f40ae-0c92-4546-b556-58c86fdd67d2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "362d6725-81af-4a55-9442-9938cd8a8250",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessToken",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0ba3810a-7ab4-484f-9879-e40f8fbe04bc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9f05ee0c-c916-4b57-aea7-b1e323f4c26a",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"No error internal server error\", function () {",
+					"    pm.expect(pm.response.code).to.be.lessThan(500);",
+					"});"
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

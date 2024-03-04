@@ -1,0 +1,169 @@
+p,
+pre {
+    margin: 0;
+}
+
+#user-info {
+    display: inline-block;
+    width: 100%;      
+    margin-left: 0%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    align-items: center;
+}
+
+a {
+    color: #1e282c;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.buttons > button {
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-right: 5px;
+}
+
+.content-post {
+    min-height: 144px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.25); 
+}
+
+.content-activity {
+    padding: 10px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.25); 
+}
+
+.menu > .col-auto {
+    margin: 0px 0px 0px 15px;
+    padding: 0;
+    float: left;
+    height: 100%;
+}
+
+h5 {
+    color: var(--colors-nied7);
+    font-weight: bold;
+}
+
+a {
+    color: var(--colors-nied7);
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.post-text {
+    max-height: 124px;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.post-expand {
+    max-height: none;
+    word-break: break-word;
+}
+
+#iconBan {
+    padding: 0px 17px 15px 17px;
+}
+
+#iconClipboard {
+    padding: 0px 28px 15px 0px;
+}
+
+#iconAverage {
+    padding: 0px 0px 15px 0px;
+}
+
+.icon {
+    font-size: 125px;
+    color: var(--colors-nied7);
+}
+
+#aditional-info {
+    vertical-align: bottom;
+    margin-top: -4px;
+}
+
+#icons {
+    display: flex;
+    padding: 0px;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap !important;
+}
+
+#icons > button > fa-icon{
+    display: inline-block;
+    font-size: 20px;
+}
+
+#icons >  div > div > button > fa-icon {
+    font-size: 19px;
+}
+
+.post-container {
+    width: 100%;
+
+}
+
+@media screen and (max-width: 576px) {
+    
+    .createdBy > div {
+        max-width: 60px !important;
+        margin: 0px !important;
+    }
+}
+
+
+@media screen and (min-width: 576px) and (max-width: 991px) {
+    #user-info {
+        display: inline-block;
+        width: 25%;
+    }
+
+    .content-post {
+        display: inline-block;
+        width: 74%;
+        min-height: 144px;     
+        margin-top: 12px; 
+        margin-right: -2%;
+        margin-left: 0%;
+    }
+    
+    .post-container {
+        display: inline-block;
+    }
+
+    #aditional-info {
+        display: flex;
+        width: 102%;
+        float: right;
+        margin-top: -10px;
+    }
+    #activity-icon {
+        float: center;
+        margin-left: 40%;
+    }
+    
+    .content-activity {
+        margin-bottom: 5px;
+    }
+    a {
+        padding: 0px;
+    } 
+}
+
+@media screen and (max-width: 1000px) {
+    .icon {
+        font-size: 40px;
+        padding: 0;
+    }
+}

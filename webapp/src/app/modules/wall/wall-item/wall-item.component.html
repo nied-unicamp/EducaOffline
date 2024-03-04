@@ -1,0 +1,24 @@
+<div class="container-fluid item" [ngClass]="{'isSpecialPost': isSpecialPost()}">
+
+  <!-- --------------- Post -------------- -->
+  <div class="row">
+    <app-wall-post class="col" [wallPost]="post"></app-wall-post>
+  </div>
+
+  <div class="ml-sm-5">
+
+    <!----------------- Comments --------------->
+
+    <ng-container *ngFor="let comment of comments$ | async; trackBy: trackComment">
+      <app-wall-comment class="row" [post]="post" [comment]="comment" [reply]="reply" *ngIf="comment">        
+    </app-wall-comment>
+    </ng-container> 
+    
+  </div>
+
+  <!--------------- Create comment -------------->
+  <div class="row">
+    <app-wall-comment-create class="col" [post]="post"></app-wall-comment-create>
+  </div>
+
+</div>

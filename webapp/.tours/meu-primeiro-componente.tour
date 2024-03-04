@@ -1,0 +1,24 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "02 - Meu primeiro componente",
+  "steps": [
+    {
+      "title": "Introdução",
+      "description": "Para gerar o nosso primeiro componente faça:\n\n`ng generate component modules/NOME-DO-MODULO/NOME_DO_COMPONENTE`\n\n![Image](./.tours/imagens/modulos.png)\n\n\nAqui usaremos um componente que já existe: `app-login`"
+    },
+    {
+      "title": "Como vejo meu componente?",
+      "description": "# Como vejo meu componente?\n\nTemos que analizar cada caso:\n\n## O componente fica em uma página separada\n\n\nSe o componente ficar uma página dedicada a ele, deve se criar uma rota no arquivo do módulo. \n\nAssim, quando a rota for ativada, novo componente será mostrado.\n\n\n## O componente é inserido em outro componente\n\nO componente que vai abrigá-lo está no mesmo módulo?\n\nSe sim, é só adicionar o novo componente no html do componente pai.\n\nCaso contrário, se o componente for de outro módulo, devemos exportar o componente e adicionar o módulo nos imports no módulo onde será importado"
+    },
+    {
+      "title": "Desenvolvendo",
+      "description": "Rode o sistema com `ng serve` e, assim que você fizer alguma mudança no código, a página será atualizada."
+    },
+    {
+      "file": "src/app/modules/login/login/login.component.html",
+      "description": "Edite algo no HTML para que a mudança seja visível =D",
+      "line": 1
+    }
+  ],
+  "ref": "main"
+}

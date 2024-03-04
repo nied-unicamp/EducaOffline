@@ -1,0 +1,49 @@
+<header class="row justify-content-between">
+
+  <!-- Title -->
+  <a routerLink="/" class="col">
+    <div class="row">
+      <!-- Logo -->
+      <img class="col-auto logo" src="assets/img/icon_ava_offline.png" alt="Back to home">
+      <!-- Title Text -->
+      <div class="col title">
+        {{title$ | async}}
+      </div>
+    </div>
+  </a>
+
+  <!-- Right side buttons -->
+  <div class="col-auto p-0">
+    <!-- News -->
+    <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block">
+      <button class="btn m-0 px-2 px-sm-3" id="dropdownBasic1" ngbDropdownToggle>
+        <fa-icon icon="bell"></fa-icon>
+      </button>
+
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <app-news></app-news>
+      </div>
+    </div>
+
+    <!-- Profile -->
+    <a routerLink="/profile" class="btn m-0" style="max-width: 32px; max-height: 32px;">
+      <!-- Se tiver foto de perfil -->
+      <ng-container *ngIf="photoUrl$ | async as photoUrl; else elseTemplate">
+        <img src="{{ photoUrl }}" class="rounded-circle img-fluid">
+      </ng-container>
+
+
+      <!-- Se não tiver foto de perfil -->
+      <ng-template #elseTemplate>
+        <fa-icon icon="user-circle"></fa-icon>
+      </ng-template>
+
+
+    </a>
+
+    <!-- Logout button -->
+    <button class="btn m-0 px-2 px-sm-3" (click)="logout()" title="Exit">
+      <fa-icon icon="sign-out-alt"></fa-icon>
+    </button>
+  </div>
+</header>

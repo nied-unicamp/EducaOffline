@@ -1,0 +1,46 @@
+<div [routerLink]="['/profile',user?.id]" class="container-fluid mt-3 card-shadow" style="cursor: pointer;">
+
+  <div class="row max-size">
+
+    <!-- Profile picture -->
+    <div class="col-auto p-0 m-2" style="max-width: 100px; height: 100px;">
+      <!-- Picture -->
+      <img *ngIf="user?.picture" src="{{ photoUrl }}" alt="Foto de perfil do usuário" class="rounded-circle img-fluid">
+
+      <!-- Default icon -->
+      <fa-icon *ngIf="!user?.picture" icon="user-circle" style="font-size: 100px;"></fa-icon>
+    </div>
+
+    <div class="col">
+
+      <!-- Name -->
+      <div class="row">
+        <p class="col font-weight-bold" style="line-height: 20px;">
+          {{ user?.name }}<fa-icon *ngIf="showCap" size="xs" style="color: var(--colors-nied4);" icon="graduation-cap">
+          </fa-icon>
+        </p>
+      </div>
+
+      <!-- E-mail -->
+      <div class="row" style="word-break: break-all;">
+        <p class="col email">
+          {{ user?.email }}
+        </p>
+      </div>
+
+      <!-- TODO: Last access date -->
+      <div *ngIf="true" class="row mr-2" style="position: absolute; bottom: 0px;">
+        <p class="col-auto last-access">
+          {{ translationText?.lastAccess }} <strong>20.dec.2020</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Roles badge -->
+    <!-- <div class="role-badge" [ngClass]="{'teacher': showCap }"> -->
+    <div class="role-badge {{ roleBadge }}">
+            <p class="role-text">
+        {{roleName}}
+      </p>
+    </div>
+</div>

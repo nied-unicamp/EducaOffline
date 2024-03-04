@@ -1,0 +1,49 @@
+<!-- Se estiver editando o perfil, abre o componente editando -->
+<app-profile-personal-data-edit *ngIf="editing" [profile]="profile" (cancel)="editing=!editing">
+</app-profile-personal-data-edit>
+
+<!-- Se não estiver editando, apresenta as informações do perfil -->
+<div *ngIf="!editing" class="container-fluid">
+  <div class="row">
+    <div class="col-lg text-center">
+      <div style="max-width: 250px; margin: auto;">
+        <!-- Se não tiver foto de perfil -->
+        <fa-icon *ngIf="!profile?.picture" icon="user-circle" style="font-size: 15vw;"></fa-icon>
+
+        <!-- Se tiver foto de perfil -->
+        <img *ngIf="profile?.picture" src="{{ urlPhoto }}" class="rounded-circle img-fluid" />
+      </div>
+      <p class="title font-weight-bold">{{ profile?.name }}</p>
+
+      <p class="email mb-2">
+        <a href="mailto:{{ profile?.email }}">
+          {{ profile?.email }}
+          <fa-icon icon="external-link-alt" style="font-size: 16px;"></fa-icon>
+        </a>
+      </p>
+
+    </div>
+
+    <div *ngIf="profile?.aboutMe" class="col-lg-9 description painel-fundo text-justify">
+      <div>
+        <p>{{ profile?.aboutMe }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="canEdit" class="row justify-content-between mt-2">
+    <button class="col-auto btn btn-primary mb-1" (click)="editPasswd.open()">{{ translationText?.editPassword
+      }}</button>
+
+    <app-modal-form #editPasswd title="{{ translationText?.editPassword }}">
+      <app-profile-password-edit [profile]=profile (closeForm)="editPasswd.close()"></app-profile-password-edit>
+    </app-modal-form>
+    <!-- Button to change language-->
+    <div class="col-auto mb-1">
+      <app-botao-translate [userEditingLang]="true" (editUser)="editProfile($event)"></app-botao-translate>
+      <button class="col-auto btn btn-primary ml-2" (click)="editing=!editing">{{ translationText?.edit }}</button>
+    </div>
+    
+  </div>
+
+</div>

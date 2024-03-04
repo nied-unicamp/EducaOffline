@@ -1,0 +1,41 @@
+p {
+    letter-spacing: 0.09em;
+    margin: 0;
+}
+
+.copy {
+    max-width: 33px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+}
+
+.key {
+    max-width: 271px;
+    min-width: 190px;
+    line-height: 30px;
+    border: 1px solid var(--colors-nied7);
+}
+
+.replace, .replace button {
+    letter-spacing: 0.09em;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.replace button:hover, .modal-footer button:hover {
+    background: var(--colors-nied7);
+    color: white;
+}
+
+.replace button, button.closer {
+    display: flex;
+    align-items: center;
+    border-color: var(--colors-nied7);
+    color: var(--colors-nied7);
+}
+
+.modal-footer {
+    margin-left: -16px;
+    margin-right: -16px;
+}

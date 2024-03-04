@@ -1,0 +1,27 @@
+{
+  "cSpell.words": [
+    "Dmaven",
+    "SSHHOST",
+    "SSHUSER",
+    "codelyzer",
+    "devtools",
+    "e",
+    "fontawesome",
+    "fortawesome",
+    "jasminewd",
+    "localforage",
+    "mkdir",
+    "ngforage",
+    "ngrx",
+    "ngsw",
+    "pree",
+    "pree e",
+    "prefetch",
+    "proteo",
+    "serializability",
+    "sshpass",
+    "tslib",
+    "xvzf"
+  ],
+  "java.compile.nullAnalysis.mode": "automatic"
+}

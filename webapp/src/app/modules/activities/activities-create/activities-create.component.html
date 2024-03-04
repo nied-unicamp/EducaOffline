@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div class="col p-0">
+      <form [formGroup]="form">
+
+        <!-- Title -->
+        <div class="form-item">
+          <label for="title">Title *</label>
+          <br>
+          <input type="text" class="form-control" id="title" required formControlName="title"
+            placeholder="{{ translationText?.titlePH}}">
+        </div>
+
+        <!-- Description -->
+        <div class="form-item">
+          <label for="description">Description *</label>
+          <br>
+          <textarea class="form-control" formControlName="description" rows="5"
+            placeholder="{{ translationText?.descriptionPH}}"></textarea>
+        </div>
+
+
+        <!-- Upload File Component -->
+        <div class="form-item">
+          <app-file-edit-upload formControlName="files"></app-file-edit-upload>
+        </div>
+
+        <!-- 'Will be evaluated?' checkbox -->
+        <div class="form-item">
+          <input class="taskCheck checkbox" formControlName="hasGrade" type="checkbox" id="hasGrade">
+          <label for="hasGrade">{{ translationText?.hasGrade }}</label>
+        </div>
+
+
+        <!-- Evaluation criteria -->
+        <div class="form-item">
+          <label for="criteria">Critérios de Avaliação</label>
+          <br>
+          <textarea formControlName="criteria" class="form-control" rows="3"
+            placeholder="{{ translationText?.evaluationCriteriaPH}}">
+      </textarea>
+        </div>
+
+        <div class="container-fluid" style="padding: 0; margin: 0;">
+          <div class="row justify-content-between">
+
+            <!-- Publication Date -->
+            <div class="col-auto mb-1">
+              <app-activities-publication-date formControlName="publishDate"></app-activities-publication-date>
+            </div>
+
+            <!-- Submission Date -->
+            <div class="col-auto mb-1">
+              <app-activities-submission-date [publication]="form.value.publishDate" formControlName="submissionPeriod">
+              </app-activities-submission-date>
+            </div>
+
+
+            <!-- Submit -->
+            <div class="col-auto mb-1">
+              <div class="btn-group-vertical submit" role="group" aria-label="Button group with nested dropdown">
+                <!-- Cancel -->
+                <button class="btn btn-outline-primary cancelBtn" (click)="cancel()">{{ translationText?.cancel}}</button>
+                <button class="btn btn-primary btn-lg submitBtn" (click)="onSubmit()" [disabled]="!form.valid">
+                  <!-- Button text -->
+                  <ng-container *ngIf="isEditing; else notEditing">
+                    {{ translationText?.saveEdit }}
+                  </ng-container>
+                  <ng-template #notEditing>
+                    {{ translationText?.submit}}
+                  </ng-template>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

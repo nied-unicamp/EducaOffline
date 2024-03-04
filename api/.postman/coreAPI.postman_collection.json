@@ -1,0 +1,5291 @@
+{
+	"info": {
+		"_postman_id": "a1fd0c78-4ff7-4492-a7e6-5978b3fea228",
+		"name": "Core API Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28197859"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Save token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if(jsonData.access_token){",
+									"        pm.environment.set(\"token\", jsonData.access_token);",
+									"    }",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userEmail\": \"{{login_admin_email}}\",\n\t\"password\": \"{{login_admin_password}}\",\n    \"language\": \"{{language}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Save token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if(jsonData.access_token){",
+									"        pm.environment.set(\"token\", jsonData.access_token);",
+									"    }",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userEmail\": \"{{login_email}}\",\n\t\"password\": \"{{login_password}}\",\n    \"language\": \"{{language}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Teste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Save token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if(jsonData.access_token){",
+									"        pm.environment.set(\"token\", jsonData.access_token);",
+									"    }",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userEmail\": \"teste03@gmail.com\",\n\t\"password\": \"{{login_password}}\",\n    \"language\": \"{{language}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OAUTH",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "n1e@dhlems",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "my-trusted-client",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/oauth/token?grant_type=password&username=admin_mail&password=password",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							],
+							"query": [
+								{
+									"key": "grant_type",
+									"value": "password"
+								},
+								{
+									"key": "username",
+									"value": "admin_mail"
+								},
+								{
+									"key": "password",
+									"value": "password"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "Register Status",
+					"item": [
+						{
+							"name": "List pending registrations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/register/pending",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register",
+										"pending"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List pending password reset",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/register/pendingPassword",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"register",
+										"pendingPassword"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "oauth2",
+						"oauth2": [
+							{
+								"key": "accessToken",
+								"value": "{{token}}",
+								"type": "string"
+							},
+							{
+								"key": "addTokenTo",
+								"value": "header",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{login_email}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register/forgotPassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register",
+								"forgotPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{login_email}}\",\n\t\"password\": \"{{login_password}}\",\n\t\"hash\": \"{{forgot_password_hash}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register/redefinePassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register",
+								"redefinePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Init",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{login_email}}\",\n\t\"name\": \"{{registration_name}}\",\n\t\"password\": \"{{login_password}}\",\n    \"language\": \"{{language}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register/start",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Finish",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{login_email}}\",\n\t\"hash\": \"{{registration_hash}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register/finish",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Course (ok)",
+			"item": [
+				{
+					"name": "Listing",
+					"item": [
+						{
+							"name": "List Ended",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/ended",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"ended"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List By Key",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/key/{{courseKey}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"key",
+										"{{courseKey}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Open",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/open",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"open"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Active",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/active",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"active"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Key",
+					"item": [
+						{
+							"name": "Get course key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save key\", function () {",
+											"    if (pm.response.code < 400){",
+											"        pm.globals.set(\"courseKey\", pm.response.json().key);",
+											"    }",
+											"",
+											"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/key",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"key"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh course key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save key\", function () {",
+											"    if (pm.response.code < 400){",
+											"        pm.globals.set(\"courseKey\", pm.response.json().key);",
+											"    }",
+											"",
+											"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/key",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"key"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set course key",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save key\", function () {",
+											"    if (pm.response.code < 400){",
+											"        pm.globals.set(\"courseKey\", pm.response.json().key);",
+											"    }",
+											"",
+											"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/key/{{newKey}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"key",
+										"{{newKey}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "List Courses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Course",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 7,\n    \"name\": \"Inglês I+1\",\n    \"info\": \"Inglês I para iniciantes\",\n    \"startDate\": \"2018-12-12T00:00:00.000+0000\",\n    \"endDate\": \"2018-12-12T00:00:00.000+0000\",\n    \"subscriptionBegin\": \"2018-12-12T00:00:00.000+0000\",\n    \"subscriptionEnd\": \"2018-12-12T00:00:00.000+0000\",\n    \"noMaxStudents\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Save Id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if(jsonData.id){\r",
+									"        pm.globals.set(\"courseId\", jsonData.id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"MC202\",\n\t\"subscriptionBegin\": \"2018-12-12T00:00:00.000Z\",\n\t\"subscriptionEnd\": \"2018-12-12T00:00:00.000Z\",\n\t\"startDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"endDate\": \"2018-12-12T00:00:00.000Z\",\n\t\"info\": \"Estrutura de Dados\",\n\t\"noMaxStudents\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "List Users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User by ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"password\": \"test_password\",\n  \"passwordConfirmation\": \"test_password\",\n  \"name\": \"Sidinei\",\n  \"email\": \"profquimica@gmail.com\",\n  \"aboutMe\": \"Professor de química\",\n  \"birthDate\": \"1995-10-25T10:15:00.000Z\",\n  \"language\": \"PT_BR\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/users/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"aboutMe\": \"Oi teste!!\",\n  \"name\": \"Carlos Vieira\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Turn User into Admin",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/toAdmin",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"toAdmin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "List Admins",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/admins/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin by Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/admins/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save Id\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    if(jsonData.id){\r",
+											"        pm.globals.set(\"userId\", jsonData.id);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"aboutMe\": \"Olá!\",\n  \"birthDate\": \"1995-10-25T10:15:00.000Z\",\n  \"email\": \"aaaadmin@gmail.com\",\n  \"name\": \"Carlos\",\n  \"password\": \"test_password\",\n  \"passwordConfirmation\": \"test_password\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/admins",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Admin",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"aboutMe\": \"Oi teste!\",\n  \"name\": \"ADMIN\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Admin",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/admins/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admins",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Pictures",
+					"item": [
+						{
+							"name": "Upload picture",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/home/carlosavieira/Downloads/10331502061.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/picture",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Download files",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/picture",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete files",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/picture",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"picture"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Password",
+					"item": [
+						{
+							"name": "Update User Password",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"oldPassword\": \"password\",\n  \"newPassword\": \"test_password\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update My User Password",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"oldPassword\": \"password\",\n  \"newPassword\": \"test_password\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/me/password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"me",
+										"password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "My Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participation (ok)",
+			"item": [
+				{
+					"name": "Listing",
+					"item": [
+						{
+							"name": "For a course: List all Users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "For a course: List Users by Role",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/roles/{{roleId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"roles",
+										"{{roleId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "For an user: List Courses",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/courses",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"courses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "For an user: List Roles and Courses",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/roles",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "For an user: List Active Courses",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/courses/active",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"courses",
+										"active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "For an user: List Inactive Courses",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/courses/inactive",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"courses",
+										"inactive"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "For an user: List Courses by role",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/users/{{userId}}/roles/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										"roles",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add user with role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleId\": {{roleId}},\n  \"userId\": {{userId}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enter by key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/enter/{{courseKey}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"enter",
+								"{{courseKey}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get role",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/users/{{userId}}/courses/{{courseId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}",
+								"courses",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove user from course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{courseId}}/users/{{userId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"courses",
+								"{{courseId}}",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification (ok)",
+			"item": [
+				{
+					"name": "List All Notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notifications",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Notifications For Course",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/notifications/courses/{{courseId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications",
+								"courses",
+								"{{courseId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Tools",
+			"item": [
+				{
+					"name": "Activities (ok)",
+					"item": [
+						{
+							"name": "Evaluations",
+							"item": [
+								{
+									"name": "For me",
+									"item": [
+										{
+											"name": "Get my evaluation",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/evaluation",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"evaluation"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "For others",
+									"item": [
+										{
+											"name": "Get Evaluation",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/items/{{userId}}/evaluation",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"items",
+														"{{userId}}",
+														"evaluation"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Evaluation",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Save Id\", function () {\r",
+															"    var jsonData = pm.response.json();\r",
+															"    if(jsonData.id){\r",
+															"        pm.globals.set(\"evaluationId\", jsonData.id);\r",
+															"    }\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"comment\": \"Fez nada, ganhou zero! =/\",\n\t\"score\": 0\n}"
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/items/{{userId}}/evaluation",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"items",
+														"{{userId}}",
+														"evaluation"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Submit answer",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"name": "Content-Type",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n\t\"answer\": \"A reposta é X!\"\n}"
+														},
+														"url": {
+															"raw": "{{base_url}}/courses/1/activities/1/submissions",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"courses",
+																"1",
+																"activities",
+																"1",
+																"submissions"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, no-store, max-age=0, must-revalidate",
+															"name": "Cache-Control",
+															"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json;charset=UTF-8",
+															"name": "Content-Type",
+															"description": "The mime type of this content"
+														},
+														{
+															"key": "Date",
+															"value": "Thu, 16 Aug 2018 17:05:00 GMT",
+															"name": "Date",
+															"description": "The date and time that the message was sent"
+														},
+														{
+															"key": "Expires",
+															"value": "0",
+															"name": "Expires",
+															"description": "Gives the date/time after which the response is considered stale"
+														},
+														{
+															"key": "Pragma",
+															"value": "no-cache",
+															"name": "Pragma",
+															"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+														},
+														{
+															"key": "Transfer-Encoding",
+															"value": "chunked",
+															"name": "Transfer-Encoding",
+															"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+														},
+														{
+															"key": "X-Content-Type-Options",
+															"value": "nosniff",
+															"name": "X-Content-Type-Options",
+															"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+														},
+														{
+															"key": "X-XSS-Protection",
+															"value": "1; mode=block",
+															"name": "X-XSS-Protection",
+															"description": "Cross-site scripting (XSS) filter"
+														}
+													],
+													"cookie": [],
+													"body": "{\"answer\":\"A reposta é X!\",\"createdBy\":{\"id\":1,\"name\":\"niedAdmin\",\"email\":\"admin_mail\",\"isAdmin\":true,\"aboutMe\":\"About me :)\"},\"createdDate\":1534439100914,\"course\":{\"id\":1,\"name\":\"MC202\",\"key\":\"seilah1\",\"professor\":\"teste\",\"subscriptionBegin\":-23889686400000,\"subscriptionEnd\":-23605689600000,\"startDate\":-23889686400000,\"endDate\":-23889686400000,\"info\":\"course.courseInfo\",\"noMaxStudents\":100},\"filesFolder\":\"1/activities/1/submissions/null\"}"
+												}
+											]
+										},
+										{
+											"name": "Edit Evaluation",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"comment\": \"Correto, porém alguns erros foram encontrados.\\nMais atenção da próxima vez!\\n=D\",\n\t\"score\": 9.2\n}"
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/items/{{userId}}/evaluation",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"items",
+														"{{userId}}",
+														"evaluation"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Submit answer",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"name": "Content-Type",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n\t\"answer\": \"A reposta é X!\"\n}"
+														},
+														"url": {
+															"raw": "{{base_url}}/courses/1/activities/1/submissions",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"courses",
+																"1",
+																"activities",
+																"1",
+																"submissions"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, no-store, max-age=0, must-revalidate",
+															"name": "Cache-Control",
+															"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json;charset=UTF-8",
+															"name": "Content-Type",
+															"description": "The mime type of this content"
+														},
+														{
+															"key": "Date",
+															"value": "Thu, 16 Aug 2018 17:05:00 GMT",
+															"name": "Date",
+															"description": "The date and time that the message was sent"
+														},
+														{
+															"key": "Expires",
+															"value": "0",
+															"name": "Expires",
+															"description": "Gives the date/time after which the response is considered stale"
+														},
+														{
+															"key": "Pragma",
+															"value": "no-cache",
+															"name": "Pragma",
+															"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+														},
+														{
+															"key": "Transfer-Encoding",
+															"value": "chunked",
+															"name": "Transfer-Encoding",
+															"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+														},
+														{
+															"key": "X-Content-Type-Options",
+															"value": "nosniff",
+															"name": "X-Content-Type-Options",
+															"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+														},
+														{
+															"key": "X-XSS-Protection",
+															"value": "1; mode=block",
+															"name": "X-XSS-Protection",
+															"description": "Cross-site scripting (XSS) filter"
+														}
+													],
+													"cookie": [],
+													"body": "{\"answer\":\"A reposta é X!\",\"createdBy\":{\"id\":1,\"name\":\"niedAdmin\",\"email\":\"admin_mail\",\"isAdmin\":true,\"aboutMe\":\"About me :)\"},\"createdDate\":1534439100914,\"course\":{\"id\":1,\"name\":\"MC202\",\"key\":\"seilah1\",\"professor\":\"teste\",\"subscriptionBegin\":-23889686400000,\"subscriptionEnd\":-23605689600000,\"startDate\":-23889686400000,\"endDate\":-23889686400000,\"info\":\"course.courseInfo\",\"noMaxStudents\":100},\"filesFolder\":\"1/activities/1/submissions/null\"}"
+												}
+											]
+										},
+										{
+											"name": "Delete Evaluation",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/items/{{userId}}/evaluation",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"items",
+														"{{userId}}",
+														"evaluation"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Files",
+							"item": [
+								{
+									"name": "List files",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/files",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"files"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Download file",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/files/{{file}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"files",
+												"{{file}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Upload files",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "files",
+													"type": "file",
+													"src": []
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/files",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"files"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete a file",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/files/{{file}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"files",
+												"{{file}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete files",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/files",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"files"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Submissions (ok)",
+							"item": [
+								{
+									"name": "As a TEACHER",
+									"item": [
+										{
+											"name": "Files",
+											"item": [
+												{
+													"name": "List files",
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/items/{{userId}}/submission/files",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"courses",
+																"{{courseId}}",
+																"activities",
+																"{{activityId}}",
+																"items",
+																"{{userId}}",
+																"submission",
+																"files"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Download files",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "formdata",
+															"formdata": []
+														},
+														"url": {
+															"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/items/{{userId}}/submission/files/{{file}}",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"courses",
+																"{{courseId}}",
+																"activities",
+																"{{activityId}}",
+																"items",
+																"{{userId}}",
+																"submission",
+																"files",
+																"{{file}}"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"type": "text/javascript",
+														"exec": [
+															""
+														]
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"type": "text/javascript",
+														"exec": [
+															""
+														]
+													}
+												}
+											]
+										},
+										{
+											"name": "Get submission for userId",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/items/{{userId}}/submission",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"items",
+														"{{userId}}",
+														"submission"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "My Files",
+									"item": [
+										{
+											"name": "List files",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission/files",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"submission",
+														"files"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Upload files",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "files",
+															"type": "file",
+															"src": []
+														}
+													]
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission/files",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"submission",
+														"files"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete a file",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission/files/{{file}}",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"submission",
+														"files",
+														"{{file}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Download files",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission/files/{{file}}",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"submission",
+														"files",
+														"{{file}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete files",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission/files",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"activities",
+														"{{activityId}}",
+														"submission",
+														"files"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Create my submission",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Save Id\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    if(jsonData.id){\r",
+													"        pm.globals.set(\"submissionId\", jsonData.id);\r",
+													"    }\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"answer\": \"A reposta é B!\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"submission"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get my submission",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"submission"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete submission",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"submission"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Edit my submission",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"answer\": \"A reposta é X3js2!\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}/submission",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"activities",
+												"{{activityId}}",
+												"submission"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Submit answer",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"name": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"answer\": \"A reposta é X!\"\n}"
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/1/activities/1/submissions",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"1",
+														"activities",
+														"1",
+														"submissions"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, no-store, max-age=0, must-revalidate",
+													"name": "Cache-Control",
+													"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json;charset=UTF-8",
+													"name": "Content-Type",
+													"description": "The mime type of this content"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 16 Aug 2018 17:05:00 GMT",
+													"name": "Date",
+													"description": "The date and time that the message was sent"
+												},
+												{
+													"key": "Expires",
+													"value": "0",
+													"name": "Expires",
+													"description": "Gives the date/time after which the response is considered stale"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache",
+													"name": "Pragma",
+													"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked",
+													"name": "Transfer-Encoding",
+													"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+												},
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff",
+													"name": "X-Content-Type-Options",
+													"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "1; mode=block",
+													"name": "X-XSS-Protection",
+													"description": "Cross-site scripting (XSS) filter"
+												}
+											],
+											"cookie": [],
+											"body": "{\"answer\":\"A reposta é X!\",\"createdBy\":{\"id\":1,\"name\":\"niedAdmin\",\"email\":\"admin_mail\",\"isAdmin\":true,\"aboutMe\":\"About me :)\"},\"createdDate\":1534439100914,\"course\":{\"id\":1,\"name\":\"MC202\",\"key\":\"seilah1\",\"professor\":\"teste\",\"subscriptionBegin\":-23889686400000,\"subscriptionEnd\":-23605689600000,\"startDate\":-23889686400000,\"endDate\":-23889686400000,\"info\":\"course.courseInfo\",\"noMaxStudents\":100},\"filesFolder\":\"1/activities/1/submissions/null\"}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "List Activities",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/activities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"activities"
+									]
+								},
+								"description": "List course activities."
+							},
+							"response": []
+						},
+						{
+							"name": "List Activities By Grade",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/activities/byGrade",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"activities",
+										"byGrade"
+									]
+								},
+								"description": "List course graded activities."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Activity",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"activities",
+										"{{activityId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Activity",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save Id\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    if(jsonData.id){\r",
+											"        pm.globals.set(\"activityId\", jsonData.id);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\": \"Atividade DAORA\",\n    \"description\": \"Descricao da ativdade 2\",\n    \"submissionBegin\": \"2020-09-12T00:00:00.000Z\",\n    \"submissionEnd\": \"2020-09-13T00:00:00.000Z\",\n    \"publishDate\": \"2020-07-01T00:00:00.000Z\",\n    \"hasGrade\": false,\n    \"criteria\": \"Critério de avaliação\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/activities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"activities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Activity",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"hasGrade\": true,\n    \"criteria\": \"HAHAHAHAHA\",\n    \"title\": \"Atividade 4\",\n    \"description\": \"vale nota mesmoooo\",\n    \"submissionBegin\": \"2020-07-08T03:00:00.000+0000\",\n    \"submissionEnd\": \"2020-12-09T02:59:59.000+0000\",\n    \"publishDate\": \"2020-07-08T03:00:00.000+0000\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"activities",
+										"{{activityId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Activity",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/activities/{{activityId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"activities",
+										"{{activityId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Material",
+					"item": [
+						{
+							"name": "Files",
+							"item": [
+								{
+									"name": "List files",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}/files",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"{{materialId}}",
+												"files"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Download files",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}/files/{{file}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"{{materialId}}",
+												"files",
+												"{{file}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete a file",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}/files/{{file}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"{{materialId}}",
+												"files",
+												"{{file}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete files",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}/files",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"{{materialId}}",
+												"files"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Upload files",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "files",
+													"type": "file",
+													"src": "/C:/Users/Carlos/Downloads/PowerToysSetup-0.16.0-x64.msi"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}/files",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"{{materialId}}",
+												"files"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Folder",
+							"item": [
+								{
+									"name": "List Material Folders",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/folders/",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"folders",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Download Material Folder",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/folders/{{materialFolderId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"folders",
+												"{{materialFolderId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Material Folder",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Save Id\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    if(jsonData.id){\r",
+													"        pm.globals.set(\"materialFolderId\", jsonData.id);\r",
+													"    }\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "files",
+												"value": "",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"title\":\"Nome da Pasta1\",\n\t\"description\":\"Descrição da Pasta2\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/folders/",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"folders",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Edit Material Folder",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"title\":\"Links\",\n\t\"description\":\"Sites úteis para a exploração da internet\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/folders/{{materialFolderId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"folders",
+												"{{materialFolderId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Material Folder",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/folders/{{materialFolderId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"folders",
+												"{{materialFolderId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Materials in Folder",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/folders/{{materialFolderId}}/materials",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"folders",
+												"{{materialFolderId}}",
+												"materials"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Move Material to Folder",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "files",
+												"value": "",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"title\":\"Nome da Pasta2\",\n\t\"description\":\"Descrição da Pasta2\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}/folder/{{materialFolderId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"{{materialId}}",
+												"folder",
+												"{{materialFolderId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Remove Material from Folder",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}/folder",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials",
+												"{{materialId}}",
+												"folder"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Link",
+							"item": [
+								{
+									"name": "Create Link",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Save Id\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    if(jsonData.id){\r",
+													"        pm.globals.set(\"materialId\", jsonData.id);\r",
+													"    }\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "files",
+												"value": "",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"title\":\"Google\",\n\t\"description\":\"Pesquise na web\",\n\t\"link\": \"https://www.google.com/\"\n}"
+										},
+										"url": {
+											"raw": "api.microlink.io/courses/{{courseId}}/materials",
+											"host": [
+												"api",
+												"microlink",
+												"io"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"materials"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get link metadata",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://api.microlink.io/?url=https://twitter.com/futurism/status/882987478541533189",
+											"protocol": "https",
+											"host": [
+												"api",
+												"microlink",
+												"io"
+											],
+											"path": [
+												""
+											],
+											"query": [
+												{
+													"key": "url",
+													"value": "https://twitter.com/futurism/status/882987478541533189"
+												},
+												{
+													"key": "video",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "palette",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "audio",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List Materials",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/materials",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"materials"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Material",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"materials",
+										"{{materialId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Material",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"materials",
+										"{{materialId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create File",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save Id\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    if(jsonData.id){\r",
+											"        pm.globals.set(\"materialId\", jsonData.id);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "files",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"tituçp\",\"description\":\"sssssss\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/materials",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"materials"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save Id\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    if(jsonData.id){\r",
+											"        pm.globals.set(\"materialId\", jsonData.id);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "files",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\":\"Google\",\n\t\"description\":\"Realize buscas na internet\",\n\t\"link\":\"https://www.google.com\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/materials",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"materials"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Files",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "files",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/Carlos/Downloads/Maarten van Steen,  Andrew S. Tanenbaum - Distributed Systems-CreateSpace IPP (2017).pdf"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/materials/files",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"materials",
+										"files"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Material",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"title\": \"Atividade 2 - Atualizada\",\n\t\"description\": \"Descricao da ativdade 3 - Atualiazda\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/materials/{{materialId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"materials",
+										"{{materialId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Grades",
+					"item": [
+						{
+							"name": "By UserId",
+							"item": [
+								{
+									"name": "List grades of a user",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/users/{{userId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"users",
+												"{{userId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List grades overview of a user",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/users/{{userId}}/overview",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"users",
+												"{{userId}}",
+												"overview"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get grade of a user in an activity",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/users/{{userId}}/activities/{{activityId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"users",
+												"{{userId}}",
+												"activities",
+												"{{activityId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List the final grade of someone",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/users/{{userId}}/result",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"users",
+												"{{userId}}",
+												"result"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Config",
+							"item": [
+								{
+									"name": "Get grades config",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/config",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"config"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Release course grades",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/activities/{{activityId}}/release",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"activities",
+												"{{activityId}}",
+												"release"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Set course grade weights",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"defaultWeight\": 2.5,\r\n  \"weights\": [\r\n    {\r\n      \"activityId\": 1,\r\n      \"weight\": 5\r\n    },\r\n    {\r\n      \"activityId\": 2,\r\n      \"weight\": 0\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/config",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"config"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Set weight average",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/config/useAverage",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"config",
+												"useAverage"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "By Activity",
+							"item": [
+								{
+									"name": "Release activity grades",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/activities/{{activityId}}/release",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"activities",
+												"{{activityId}}",
+												"release"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Activities summary",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/activities/summary",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"activities",
+												"summary"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Activity Averages",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/activities/average",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"activities",
+												"average"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Activity Average",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/activities/{{activityId}}/average",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"activities",
+												"{{activityId}}",
+												"average"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "All grades for an activity",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/activities/{{activityId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"activities",
+												"{{activityId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "My Grades",
+							"item": [
+								{
+									"name": "List my grades",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get my grade in an activity",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/{{activityId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"{{activityId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get my final grade",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/grades/result",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"grades",
+												"result"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List the final grades",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/grades/results",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"grades",
+										"results"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get grades overview",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/grades/overview",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"grades",
+										"overview"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Groups",
+					"item": [
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "Add user to Group",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/groups/{{groupId}}/users/{{userId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"groups",
+												"{{groupId}}",
+												"users",
+												"{{userId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Remove user from Group",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/groups/{{groupId}}/users/{{userId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"groups",
+												"{{groupId}}",
+												"users",
+												"{{userId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Enter group",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/groups/{{groupId}}/enter",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"groups",
+												"{{groupId}}",
+												"enter"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List Groups",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/groups",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Group",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/groups/{{groupId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"groups",
+										"{{groupId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save Id\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    if(jsonData.id){\r",
+											"        pm.globals.set(\"groupId\", jsonData.id);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/groups",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Group",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/groups/{{groupId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"groups",
+										"{{groupId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Wall",
+					"item": [
+						{
+							"name": "Comments",
+							"item": [
+								{
+									"name": "Like/favorite",
+									"item": [
+										{
+											"name": "Like Comment",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}/like",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"posts",
+														"{{postId}}",
+														"comments",
+														"{{commentId}}",
+														"like"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get likes on Comment",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}/likes",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"posts",
+														"{{postId}}",
+														"comments",
+														"{{commentId}}",
+														"likes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Dislike Comment",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}/dislike",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"courses",
+														"{{courseId}}",
+														"posts",
+														"{{postId}}",
+														"comments",
+														"{{commentId}}",
+														"dislike"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "List Comments",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Comments of a Comment",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}/comments",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"comments",
+												"{{commentId}}",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Comment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Save Id\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    if(jsonData.id){\r",
+													"        pm.globals.set(\"commentId\", jsonData.id);\r",
+													"    }\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"text\":\"Comentário super esperto =D\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Comment of Comment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Save Id\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    if(jsonData.id){\r",
+													"        pm.globals.set(\"commentId\", jsonData.id);\r",
+													"    }\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"text\":\"Comment2\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}/comments",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"comments",
+												"{{commentId}}",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Comment",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"comments",
+												"{{commentId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Comment",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"text\":\"Comment 100% Atualizado\"\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/comments/{{commentId}}",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"comments",
+												"{{commentId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Like/favorite",
+							"item": [
+								{
+									"name": "Like Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/like",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"like"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get likes on Post",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/likes",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"likes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get favorited Posts",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/favorites",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"favorites"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Favorite Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/favorite",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"favorite"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Unfavorite Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/unfavorite",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"unfavorite"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Dislike Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/dislike",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"courses",
+												"{{courseId}}",
+												"posts",
+												"{{postId}}",
+												"dislike"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List Posts",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/posts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Post",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"posts",
+										"{{postId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save Id\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    if(jsonData.id){\r",
+											"        pm.globals.set(\"postId\", jsonData.id);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\": \"Teste!!!!!!!!!!!\\nOi\\nTeste!!\",\n\t\"isFixed\": false\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/posts",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create With Activity",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save Id\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    if(jsonData.id){\r",
+											"        pm.globals.set(\"postId\", jsonData.id);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/posts/act/{{activityId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"posts",
+										"act",
+										"{{activityId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unpin Post",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}/unpin",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"posts",
+										"{{postId}}",
+										"unpin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Post",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\": \"Post test 100% ATUAL 2019 jan\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"posts",
+										"{{postId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Post",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/courses/{{courseId}}/posts/{{postId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"courses",
+										"{{courseId}}",
+										"posts",
+										"{{postId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "To be solved:\n\nPin/unpin not working\n\nComment cascade delete not working",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "Update role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"create_course\", \"delete_course\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/roles/update/{{roleId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles",
+								"update",
+								"{{roleId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Role by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roles/{{roleId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles",
+								"{{roleId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Role by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roles/names/{{roleName}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles",
+								"names",
+								"{{roleName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"edit_user\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/roles/remove/{{roleId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles",
+								"remove",
+								"{{roleId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"edit_course\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/roles/add/{{roleId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles",
+								"add",
+								"{{roleId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permissions",
+			"item": [
+				{
+					"name": "List Permissions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/permissions/list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/permissions/findByID/{{permissionsID}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"findByID",
+								"{{permissionsID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/permissions/findByName/{{permissionName}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"findByName",
+								"{{permissionName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Permissions",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"create_permission\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/permissions/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Permission",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"create_permission\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/permissions/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Upload Speed Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/test/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"test",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Speed Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/test/download",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"test",
+								"download"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessToken",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

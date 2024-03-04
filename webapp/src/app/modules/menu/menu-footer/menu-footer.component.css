@@ -1,0 +1,28 @@
+/* fa-icon {
+  margin: auto;
+} */
+
+:host {
+  width: 100vw;
+}
+
+.menu-item * {
+  color: white;
+  line-height: var(--menu-height-bottom);
+  font-size: 30px;
+  background-color: var(--colors-nied7);
+}
+
+.row {
+  height: var(--menu-height-bottom);
+}
+
+.active *, .menu-item:hover * {
+  color: var(--colors-nied7);
+  background-color: var(--colors-nied1);
+}
+
+.nota {
+  font-weight: bold;
+  vertical-align: top;
+}

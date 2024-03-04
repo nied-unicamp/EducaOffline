@@ -1,0 +1,22 @@
+.painel-curso {
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.30); 
+    text-align: center;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Box com bg na 7a. cor da Paleta Nied */
+.box-color-7 {
+    background-color: var(--colors-nied7);
+    padding: 8px 15px 15px 15px;
+    margin: 15px 0;
+}
+
+.box-color-7 > h2 {
+    color: white;
+    text-align: center;
+    font-size: 21px;
+}

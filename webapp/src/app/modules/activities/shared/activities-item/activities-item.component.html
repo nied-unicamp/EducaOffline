@@ -1,0 +1,180 @@
+<div class="container p-0" [class.disabled]="wasDeleted | async">
+
+  <div class="row no-gutters">
+    <div (mouseenter)="toggle(true)" (mouseleave)="toggle(false)" class="col item" draggable="true">
+
+      <div class="col inner">
+        <div class="row no-gutters">
+          <h4 class="col activity-title">
+            <a title="{{(currentActivity$ | async).title}}" routerLink="{{(currentActivity$ | async).id}}" [class.disabledLink]="wasDeleted | async">
+              {{(currentActivity$ | async).title}}
+            </a>
+          </h4>
+          <div class="col-auto">
+            <!-- Edit or delete activity -->
+            <div *ngIf="(canEdit$ |async ) || (canDelete$ |async)" ngbDropdown class="d-inline-block align-text-top"
+              style="margin: -5px;">
+              <!-- Synchronization Icons  -->
+              <app-icon-sincronizacao-necessaria *ngIf="((isOffline$ | async) && (wasCreatedOffline)) || (wasDeleted | async); else Online"></app-icon-sincronizacao-necessaria>
+              <ng-template #Online>
+                <app-icon-download-disponivel *ngIf="!(course.offlineSync?.enable); else Downloaded"></app-icon-download-disponivel>
+                <ng-template #Downloaded>
+                  <app-icon-disponivel-offline></app-icon-disponivel-offline>
+                </ng-template>
+              </ng-template>
+              
+              <button class="btn" id="dropdownBasic1" ngbDropdownToggle [disabled]="wasDeleted | async">
+                <fa-icon icon="ellipsis-v" aria-hidden="true"></fa-icon>
+              </button>
+              <!-- Dropdown -->
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+
+                <!-- Button to edit -->
+                <button ngbDropdownItem routerLink="{{activity?.id}}/edit" [disabled]="!canBeEdited">{{
+                  translationText?.edit }}
+                </button>
+                <!-- Message when cannot be edited -->
+                <span *ngIf="!canBeEdited" class="alert alert-info disabled-reason"
+                  [style.width]="translationText.messageEditDisabled.length > 20 ? '300px' : ''" >
+                  {{ translationText?.messageEditDisabled }}
+                </span>
+
+                <!-- Button to delete -->
+                <button ngbDropdownItem (click)="confirm.open()" *ngIf="canBeDeleted">
+                  {{ translationText?.delete }}
+                  <app-confirm-delete #confirm (ok)="delete($event)" [toDelete]="true"></app-confirm-delete>
+                </button>
+
+                <!-- Button to cancel -->
+                <button ngbDropdownItem (click)="confirm.open()" *ngIf="canBeCanceled">
+                  {{ translationText?.cancel }}
+                  <app-confirm-delete #confirm (ok)="cancel($event)" [toDelete]="false"></app-confirm-delete>
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col">
+            <p class="block-text text-justify">{{(currentActivity$ | async).description}}</p>
+
+          </div>
+        </div>
+
+
+        <!-- For Evaluation? -->
+        <div class=" justify-content-flex-end files notes">
+          <p class="col-5 font-weight-bold text-center">
+            <ng-container *ngIf="activity?.gradeWeight > 0; else notForEvaluation">
+              <p>
+                {{ translationText?.forEvaluation }}
+              </p>
+            </ng-container>
+            <ng-template #notForEvaluation>
+              {{ translationText?.notEvaluation }}
+            </ng-template>
+          </p>
+        </div>
+
+        <!-- Files and publish date -->
+        <div class="row no-gutters justify-content-between files">
+          <div class="col-auto file">
+            <fa-icon icon="paperclip" size="sm" style="padding-right: 5px;"></fa-icon>
+            <ng-container *ngIf="(files$ | async) > 0; else noFiles">
+              {{ files$ | async }} {{ translationText?.hasAttachments }}
+            </ng-container>
+            <ng-template #noFiles>
+              {{ translationText?.noAttachments }}
+            </ng-template>
+          </div>
+          <p class="col-5 font-weight-bold text-center">{{ translationText?.publicationIn }}
+            {{ activity?.publishDate?.toLocaleDateString("PT-BR") }}
+          </p>
+        </div>
+      </div>
+
+
+
+
+      <!-- Status bar -->
+      <div *ngIf="(status$ |async) as status" class="row no-gutters status" (touchstart)="toggle()">
+        <div [@openClose]="isOpen ? 'open' : 'closed'" class="row no-gutters">
+          <div class="col status-closed"></div>
+          <div class="col-auto status-arrow"></div>
+        </div>
+
+        <div [@shownHidden]="isOpen? 'hidden' : 'shown'" class="row text-closed">
+          <p>
+            {{ status.textClosed }}
+          </p>
+        </div>
+
+        <!-- When the bar is open -->
+        <div *ngIf="isOpen" class="row status-open">
+
+          <div class="row">
+            <p class="col p-0">{{ status.text }}</p>
+            <div class="col-auto p-0 size-icons">
+
+              <!-- List of icons: -->
+              <div *ngFor="let icon of status.icons, let i = index">
+                <ng-container [ngSwitch]="icon[1].toString()">
+
+                  <!-- Grades Icon -->
+                  <div *ngSwitchCase="'grades'" style="padding-right: 25px;">
+                    <fa-layers [fixedWidth]="true" style="padding-right: 5px;">
+                      <fa-icon [icon]="['far', 'clipboard']"></fa-icon>
+                      <fa-layers-text content="A" style="font-weight: 900;" transform="shrink-6 down-1 right-3">
+                      </fa-layers-text>
+                    </fa-layers>
+                  </div>
+
+                  <!-- Icon when the student has no submission -->
+                  <div *ngSwitchCase="'times'">
+                    <fa-icon [icon]="icon" style="font-size: 15px; color: var(--colors-red-error)">
+                    </fa-icon>
+                  </div>
+
+                  <!-- Dot Icon -->
+                  <div *ngSwitchCase="'circle'">
+                    <fa-icon [icon]="icon"></fa-icon>
+                  </div>
+
+                  <!-- Most Icons -->
+                  <div *ngSwitchDefault>
+                    <fa-icon [icon]="icon" style="font-size: 28px; padding-right: 5px;">
+                    </fa-icon>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Status Icon to display when the bar is closed -->
+        <div *ngIf="!isOpen" class="col-auto m-auto status-icon">
+          <ng-container *ngIf="getCurrentIconPosition(status) + 1 as pos">
+
+            <ng-container *ngIf="pos === 5; else elseTemplate">
+
+              <!-- Grades Icon -->
+              <fa-layers [fixedWidth]="true" style="padding-right: 30px;">
+                <fa-icon [icon]="['far', 'clipboard']"></fa-icon>
+                <fa-layers-text content="A" style="font-weight: 900;" transform="shrink-6 down-1">
+                </fa-layers-text>
+              </fa-layers>
+            </ng-container>
+
+            <!-- Most Icons -->
+            <ng-template #elseTemplate>
+              <fa-icon [icon]="status.icons[pos-1]" style="font-size: 27px;"></fa-icon>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

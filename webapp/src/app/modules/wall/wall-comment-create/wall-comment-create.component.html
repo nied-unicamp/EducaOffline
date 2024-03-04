@@ -1,0 +1,39 @@
+<form class="row" [formGroup]="commentForm" (ngSubmit)="onSubmit()" >
+  <!-- User info -->
+  <div *ngIf="user$ |async as user" class="col-sm-3 col-md-2" id="user-info">
+    <div class="row text-center px-sm-2 createdBy">
+      <!-- User photo -->
+      <a [routerLink]="[ '/profile', user?.id ]" class="col-auto col-sm-12 p-0" style="max-width: 50px; margin: auto;">
+        <fa-icon *ngIf="!user?.picture" icon="user-circle" style="font-size: 50px;"></fa-icon>
+        <img *ngIf="user?.picture" src="{{ profilePictureLink$ | async}}" class="rounded-circle img-fluid">
+      </a>
+
+      <!-- User name -->
+      <a [routerLink]="[ '/profile', user?.id ]" class="col col-sm-12 p-sm-0 d-flex"
+        style="justify-content: center;"><strong>
+          {{ user?.name }}<fa-icon *ngIf="teacher$ | async" size="xs" style="color: var(--colors-nied4);"
+            icon="graduation-cap">
+          </fa-icon>
+        </strong></a>
+    </div>
+  </div>
+
+  <!-- Post text -->
+  <div class="col-sm p-sm-0 my-auto inputText"  id="comment-text-box">
+    <textarea #txtInput rows="2" data-min-rows="2" (input)="resize(txtInput)" class="form-control" 
+      formControlName="text" [class.is-invalid]="commentForm.controls['text'].errors?.maxlength"
+      placeholder="{{ translationText?.typeYourComment }}">
+    </textarea>
+    <small *ngIf="commentForm.controls['text'].errors?.maxlength" class="form-text invalid">
+      {{ translationText?.error }}
+    </small>
+  </div>
+
+  <!-- Publish -->
+  <!--    -->
+  <div class="sub-comment-text-box a">
+    <button class="btn btn-primary" type="submit" [disabled]="!commentForm.valid">
+      {{ translationText?.comment }}
+    </button>
+  </div> 
+</form>

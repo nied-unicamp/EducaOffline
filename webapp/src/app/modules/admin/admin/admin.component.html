@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <!-- Header -->
+  <app-menu-header></app-menu-header>
+
+  <!-- Main content -->
+  <div class="row mHeight">
+    <!-- Left menu -->
+    <app-menu class="col-auto left-menu p-0"></app-menu>
+
+    <!-- Content -->
+    <div class="col my-scroll">
+
+      <!-- Router Outlet -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- Footer menu -->
+  <div class="row bottom-menu">
+    <app-menu-footer></app-menu-footer>
+  </div>
+</div>

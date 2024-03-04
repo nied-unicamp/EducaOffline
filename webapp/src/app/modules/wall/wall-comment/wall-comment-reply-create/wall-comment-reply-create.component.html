@@ -1,0 +1,18 @@
+<!-- Abre caixa de texto -->
+<div class="container-reply-create">
+  <div *ngIf="isReplyVisible" class="col-sm p-sm-0 my-auto inputText" id="container-reply-create">
+    <div ngbDropdown placement="bottom-right" class="text">
+      <form [formGroup]="commentForm">
+        
+        <textarea  #txtInput rows="2" data-min-rows="2" (input)="resize(txtInput)" class="form-control" id="text-box" style="width: 100%;"
+        formControlName="text" [class.is-invalid]="commentForm.controls['text'].errors?.maxlength"
+        placeholder="{{ translationText?.typeYourReply }}" ></textarea>       
+        <div class="sub-textarea">       
+          <button class="btn btn-primary" type="submit" [disabled]="!commentForm.valid" (click)="onSubmit()" (click)="submitReply()" id="submit-button">{{ translationText?.submit }}</button>  
+        </div>  
+      </form>
+    </div>       
+  </div>
+</div>
+<script src="wall-comment.component.ts"></script>
+

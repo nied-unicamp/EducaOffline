@@ -1,0 +1,111 @@
+<!--header-->
+<div class="header" align="left">
+  <h3>
+    {{ translationText.title }}
+  </h3>
+</div>
+<hr>
+<div class="container-fluid well custom-container">
+  <!--Form section hides when the form is submitted-->
+  <div [hidden]="submitted">
+    <form [formGroup]="form" *ngIf="active" (ngSubmit)="onSubmit()">
+
+      <!--Name input-->
+      <div class="form-group">
+        <label for="name">{{translationText?.name}}</label>
+        <input type="text" id="name" class="form-control" formControlName="courseName" required
+          placeholder="{{translationText?.namePH}}">
+
+        <!--Show errors in the name input, if there's any-->
+        <div *ngIf="formErrors.courseName" class="alert alert-danger">
+          {{ formErrors.courseName }}
+        </div>
+      </div>
+
+      <!--Info input-->
+      <div class="form-group">
+        <label for="info">{{translationText?.info}}</label>
+        <input type="text" id="info" class="form-control" formControlName="info" required info
+          placeholder="{{translationText?.infoPH}}">
+
+        <!--Show errors on the info input, if there's any-->
+        <div *ngIf="formErrors.info" class="alert alert-danger">
+          {{ formErrors.info }}
+        </div>
+      </div>
+
+      <!--subsBegin date input-->
+      <div class="form-group">
+        <label for="subscriptionBegin">{{translationText?.subsBegin}}</label>
+        <input type="date" id="subscriptionBegin" class="form-control" formControlName="subscriptionBegin" required>
+
+        <!--Show errors on the subsBegin Date input, if there's any-->
+        <div *ngIf="formErrors.subscriptionBegin" class="alert alert-danger">
+          {{ formErrors.subscriptionBegin }}
+        </div>
+      </div>
+
+      <!--subsEnd date input-->
+      <div class="form-group">
+        <label for="subscriptionEnd">{{translationText?.subsEnd}}</label>
+        <input type="date" id="subscriptionEnd" class="form-control" formControlName="subscriptionEnd" required>
+
+        <!--Show errors on the subsEnd Date input, if there's any-->
+        <div *ngIf="formErrors.subscriptionEnd" class="alert alert-danger">
+          {{ formErrors.subscriptionEnd }}
+        </div>
+      </div>
+
+      <!--Begin date input-->
+      <div class="form-group">
+        <label for="startDate">{{translationText?.courseBegin}}</label>
+        <input type="date" id="startDate" class="form-control" formControlName="startDate" required>
+
+        <!--Show errors on the begin Date input, if there's any-->
+        <div *ngIf="formErrors.startDate" class="alert alert-danger">
+          {{ formErrors.startDate }}
+        </div>
+      </div>
+
+      <!--End date input-->
+      <div class="form-group">
+        <label for="endDate">{{translationText?.courseEnd}}</label>
+        <input type="date" id="endDate" class="form-control" formControlName="endDate" required>
+
+        <!--Show errors on the end Date input, if there's any-->
+        <div *ngIf="formErrors.endDate" class="alert alert-danger">
+          {{ formErrors.endDate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="noMaxStudents">{{translationText.numberStudents}}</label>
+        <input type="text" id="noMaxStudents" class="form-control" formControlName="noMaxStudents" required>
+
+        <!--Show errors on the end Date input, if there's any-->
+        <div *ngIf="formErrors.noMaxStudents" class="alert alert-danger">
+          {{ formErrors.noMaxStudents }}
+        </div>
+      </div>
+
+      <!--teacher email-->
+      <div class="form-group">
+        <label for="noMaxStudents">{{translationText.teacherEmail}}</label>
+        <input type="email" id="teacherEmail" class="form-control" formControlName="teacherEmail" required>
+
+        <!--Show errors on the end Date input, if there's any-->
+        <div *ngIf="formErrors.teacherEmail" class="alert alert-danger">
+          {{ formErrors.teacherEmail }}
+        </div>
+      </div>
+
+      <!--Submit buttom-->
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{translationText?.submit}}
+      </button>
+      <button type="button" class="btn btn-primary" routerLink="/admin/courses">{{translationText?.goBack}}
+      </button>
+    </form>
+  </div>
+</div>
+&nbsp;
+<app-course-register-response (tryAgain)="attState($event)" [response]="response" *ngIf="submitted"></app-course-register-response>

@@ -1,0 +1,118 @@
+<!--header-->
+<div class="container-fluid well custom-container">
+  <!--Form section hides when the form is submitted-->
+  <div [hidden]="submitted">
+    <form [formGroup]="form" *ngIf="active" (ngSubmit)="onSubmit()">
+
+      <!--Name input-->
+      <div class="form-group">
+        <label for="name">{{translationText?.name}}</label>
+        <input type="text" id="name" class="form-control" formControlName="courseName" 
+          placeholder="{{translationText?.namePH}}">
+
+        <!--Show errors in the name input, if there's any-->
+        <div *ngIf="formErrors.name" class="alert alert-danger">
+          {{ formErrors.name }}
+        </div>
+      </div>
+
+      <!--Info input-->
+      <div class="form-group">
+        <label for="info">{{translationText?.info}}</label>
+        <input type="text" id="info" class="form-control" formControlName="info" info
+          placeholder="{{translationText?.infoPH}}">
+
+        <!--Show errors on the info input, if there's any-->
+        <div *ngIf="formErrors.info" class="alert alert-danger">
+          {{ formErrors.info }}
+        </div>
+      </div>
+
+      <!--subsBegin date input-->
+      <div class="form-group">
+        <label for="subscriptionBegin">{{translationText?.subsBegin}}</label>
+        <input type="date" id="subscriptionBegin" class="form-control" formControlName="subscriptionBegin">
+
+        <!--Show errors on the subsBegin Date input, if there's any-->
+        <div *ngIf="formErrors.subscriptionBegin" class="alert alert-danger">
+          {{ formErrors.subscriptionBegin }}
+        </div>
+      </div>
+
+      <!--subsEnd date input-->
+      <div class="form-group">
+        <label for="subscriptionEnd">{{translationText?.subsEnd}}</label>
+        <input type="date" id="subscriptionEnd" class="form-control" formControlName="subscriptionEnd" >
+
+        <!--Show errors on the subsEnd Date input, if there's any-->
+        <div *ngIf="formErrors.subscriptionEnd" class="alert alert-danger">
+          {{ formErrors.subscriptionEnd }}
+        </div>
+      </div>
+
+      <!--Begin date input-->
+      <div class="form-group">
+        <label for="startDate">{{translationText?.courseBegin}}</label>
+        <input type="date" id="startDate" class="form-control" formControlName="startDate" >
+
+        <!--Show errors on the begin Date input, if there's any-->
+        <div *ngIf="formErrors.startDate" class="alert alert-danger">
+          {{ formErrors.startDate }}
+        </div>
+      </div>
+
+      <!--End date input-->
+      <div class="form-group">
+        <label for="endDate">{{translationText?.courseEnd}}</label>
+        <input type="date" id="endDate" class="form-control" formControlName="endDate" >
+
+        <!--Show errors on the end Date input, if there's any-->
+        <div *ngIf="formErrors.endDate" class="alert alert-danger">
+          {{ formErrors.endDate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="noMaxStudents">{{translationText.numberStudents}}</label>
+        <input type="text" id="noMaxStudents" class="form-control" formControlName="noMaxStudents" >
+
+        <!--Show errors on the end Date input, if there's any-->
+        <div *ngIf="formErrors.noMaxStudents" class="alert alert-danger">
+          {{ formErrors.noMaxStudents }}
+        </div>
+      </div>
+          
+      <!--Submit buttom-->
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{translationText?.submit}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="fechar()">{{translationText?.goBack}}
+      </button>
+    </form>
+  </div>
+</div>
+
+<div [hidden]="!submitted" class="container-fluid well custom-container responseArea">
+  <!--Form section hides when the form is submitted-->
+  <div *ngIf="response">
+    <h1 class="title texnct-success">
+      {{ translationText.updateSucess }}
+    </h1>
+  </div>
+
+  <div *ngIf="!response">
+    <h1 class="title text-danger">
+      {{ translationText.updateError }}
+    </h1>
+    <div>
+      <p>
+        Erro: {{ this.error?.message }}
+      </p>
+      <br>
+      <hr>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="tryAgain()" style="cursor:pointer">
+      {{ translationText.tryAgain }}
+    </button>
+  </div>
+</div>
+  

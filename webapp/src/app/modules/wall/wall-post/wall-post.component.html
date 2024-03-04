@@ -1,0 +1,137 @@
+<!----------------------- User post -->
+<div class="row no-gutters post-content">
+  <!-- User info -->
+  <div *ngIf="!isActivity && !canceledActivity && !gradeReleased && !averageUpdate" class="col-lg">
+    <!-- User photo -->
+    <div class="row text-center mb-1 createdBy" id="user-info">
+      <a [routerLink]="[ '/profile', wallPost?.createdBy?.id ]" class="col-auto col-sm-auto p-0"
+        style="max-width: 130px; margin: auto;">
+        <fa-icon *ngIf="!wallPost?.createdBy?.picture" icon="user-circle" style="font-size: 130px;"></fa-icon>
+        <img *ngIf="wallPost?.createdBy?.picture" src="{{ profilePictureLink | async }}"
+          class="rounded-circle img-fluid">
+      </a>
+
+      <!-- User name -->
+      <a [routerLink]="[ '/profile', wallPost.createdBy?.id ]" class="col col-sm-12 d-flex"
+        style="cursor: pointer; justify-content: center; align-items: center;"><strong>
+          {{ wallPost?.createdBy?.name }}<fa-icon *ngIf="wallPost?.teacher" size="xs"
+            style="color: var(--colors-nied4);" icon="graduation-cap"></fa-icon>
+        </strong></a>
+    </div>
+  </div>
+
+  <!-- Activity info -->
+  <div *ngIf="isActivity && !canceledActivity">
+    <a [routerLink]="[ '/courses', courseId, 'activities', wallPost?.activityId ]" class="col-lg text-center mb-1">
+      <!-- Activity icon -->
+      <fa-icon icon="tasks" class="icon"></fa-icon>
+    </a>
+  </div>
+  
+  <!-- Activity Canceled Icon -->
+  <div *ngIf="canceledActivity" id="iconBan">
+    <fa-icon icon="ban" class="icon"></fa-icon>
+  </div>
+
+  <!-- Grades released Icon -->
+  <div *ngIf="gradeReleased" id="iconClipboard">
+    <a [routerLink]="[ '../grades' ]" class="col-lg text-center mb-1">
+      <fa-icon icon="clipboard-check" class="icon"></fa-icon>
+    </a>
+  </div>
+
+  <!-- Average Update Icon -->
+  <div *ngIf="averageUpdate" id="iconAverage">
+    <a [routerLink]="[ '../grades' ]" class="col-lg text-center mb-1">
+      <fa-icon icon="exclamation-triangle" class="icon"></fa-icon>
+    </a>
+  </div>
+
+  <div class="col-12 col-lg-9 ml-lg-3">
+
+    <!-- New activity message -->
+    <h5 *ngIf="isActivity || canceledActivity || gradeReleased" class="text-center">
+      <a *ngIf="gradeReleased"
+        [routerLink]="[ '/courses', courseId, 'activities', wallPost?.activityId ]">
+        {{ translationText?.gradesReleased }}
+      </a>
+      <a *ngIf="isActivity"
+        [routerLink]="[ '/courses', courseId, 'activities', wallPost?.activityId ]">
+        {{ translationText?.newActivity }}
+      </a>
+      <div *ngIf="canceledActivity">
+        {{ translationText?.canceledActivity }}
+      </div>
+    </h5>
+
+    <!-- Average update message -->
+    <h5 *ngIf="averageUpdate" class="text-center">
+      <a [routerLink]="[ '../grades' ]">
+        {{ translationText?.averageUpdate }}
+      </a>
+    </h5>
+
+    <!-- Post content -->
+    <div *ngIf="!isActivity && !canceledActivity && !gradeReleased && !averageUpdate" class="content-post">
+      <pre [ngClass]="{'post-text': !expanded, 'post-expand': expanded}" #postElement>{{ wallPost.text }}</pre>
+      <button *ngIf="!expanded" class="btn p-0 w-100" (click)="expanded = true"><strong>
+          {{ translationText?.readMore }}
+        </strong></button>
+    </div>
+
+    <!-- Activity Post content -->
+    <div *ngIf="isActivity || canceledActivity || gradeReleased" class="content-activity">
+      <pre *ngIf="gradeReleased">{{ wallPost?.text.slice(gradeReleasedMarker.length) }}</pre>
+      <pre *ngIf="isActivity">{{ activityPostText | async }}</pre>
+      <div *ngIf="canceledActivity">{{ wallPost?.text.slice(canceledMarker.length) }}</div>
+    </div>
+
+    <!-- Average update content -->
+    <div *ngIf="averageUpdate" class="content-activity">
+      <pre>{{ translationText?.averageUpdateExplain }}</pre>
+    </div>
+
+    <!-- Post date -->
+    <div class="row justify-content-between" id="aditional-info">
+      <div class="col-auto mt-1 pr-0" >
+        <small>
+          {{ wallPost?.createdDate.toLocaleString() }}
+        </small>
+      </div>
+
+      <!-- Icons -->
+      <div class="col-auto menu mt-1" id="icons">
+        <!-- Fixed -->
+        <div *ngIf="wallPost?.isFixed" class="col-auto d-flex" style="align-items: center;">
+          <fa-icon icon="thumbtack" style="color: var(--colors-nied7)"></fa-icon>
+        </div>
+
+        <!-- Like button -->
+        <button class="col-auto btn" (click)="likeToggle()" style="color: var(--colors-nied7)">
+          <fa-icon [icon]="[wallPost?.liked?'fas':'far','thumbs-up']"></fa-icon>
+
+          {{ wallPost?.likeCounter }}
+        </button>
+        
+        <!-- Menu -->
+        <div *ngIf="(canDelete | async) || (canPin | async)" class="col-auto ml-0">
+          <div ngbDropdown placement="bottom-right" class="d-inline-block">
+            <button class="btn dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+              <fa-icon icon="ellipsis-v" aria-hidden="true" style="color: var(--colors-nied7)"></fa-icon>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *ngIf="canPin |async" class="dropdown-item" (click)="pinToggle()">
+                {{ wallPost.isFixed? translationText?.unpin : translationText?.pin }}
+              </button>
+              <button *ngIf="canDelete |async" class="dropdown-item" (click)="confirm.open()">
+                {{ translationText?.delete }}
+                <app-confirm-delete #confirm (ok)="deletePost($event)"></app-confirm-delete>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

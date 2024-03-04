@@ -1,0 +1,18 @@
+<div class="container-fluid p-0">
+  <div *ngFor="let lista of cursos, let i = index">
+    <div *ngIf="lista.length !== 0" class="box-color-7">
+      <h2 *ngIf="i === 0">{{ translationText?.enrolledAsATeacher }}</h2>
+      <h2 *ngIf="i === 1">{{ translationText?.enrolledAsAStudent }}</h2>
+
+      <div style="background-color: white; padding: 7px 7px 0 7px">
+        <div class="row">
+          <div *ngFor="let item of lista" class="col-sm-4 mb-2">
+            <div [routerLink]="['/courses',item?.id]" class="painel-curso" style="min-height: 45px;">
+              {{ item?.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

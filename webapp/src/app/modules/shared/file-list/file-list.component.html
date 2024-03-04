@@ -1,0 +1,19 @@
+<div class="list">
+  <div class="container-fluid">
+
+
+    <!-- Files section -->
+    <div class="row justify-content-center">
+
+      <!--Files to be shown-->
+      <div *ngFor="let file of files; index as i; trackBy: trackFile;" class="files">
+        <app-file-item [file]="file" (remove)="removeFile(i)" [editable]="editable"></app-file-item>
+      </div>
+
+      <!-- Text to be shown when there is no file -->
+      <div *ngIf="!files?.length">
+        <p *ngIf="!editable">{{ translationText?.noFile}}</p>
+      </div>
+    </div>
+  </div>
+</div>

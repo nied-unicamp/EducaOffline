@@ -1,0 +1,58 @@
+.login-box {
+  width: 500px;
+  margin: 7% auto;
+}
+
+.login-logo {
+  font-size: 35px;
+  text-align: center;
+  font-weight: 300;
+}
+
+label {
+  margin: 0;
+}
+
+fa-icon {
+  font-size: 24px;
+}
+
+.input-group,
+.password > input {
+  max-width: 440px;
+}
+
+.input-group-append > *,
+.password > button {
+  width: 38px;
+  height: 38px;
+}
+
+input.form-control {
+  box-shadow: unset !important;
+}
+
+.btn-lock-password {
+  border: unset !important;
+}
+
+.btn-lock-password:focus {
+  outline: none !important;
+}
+
+.register {
+  margin-top: 1rem
+}
+
+.translate {
+  margin-top: 1.5rem;
+}
+/*
+.form-control#password {
+  border-right: 1px solid var(--colors-nied7) !important;
+}
+
+.input-group-append > button {
+  border: 1px solid var(--colors-nied7) !important;
+}
+*/

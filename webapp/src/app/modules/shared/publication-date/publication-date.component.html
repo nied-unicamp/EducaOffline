@@ -1,0 +1,26 @@
+<!-- Component title -->
+<p><b>{{ translationText?.title}}:</b></p>
+
+<form [formGroup]="form" (blur)="onBlur()">
+  <label>
+    <input type="radio" value="draft" formControlName="type">
+    <span>{{ translationText?.saveDraft }}</span>
+  </label>
+  <br>
+  <label>
+    <input type="radio" value="now" formControlName="type">
+    <span>{{ translationText?.publishNow}}</span>
+  </label>
+  <br>
+  <label>
+    <input type="radio" value="schedule" formControlName="type">
+    <span>{{ translationText?.chooseDate}}</span>
+  </label>
+
+  <br>
+
+  <!-- Date selection -->
+  <div *ngIf="form.value.type === 'schedule'">
+    <app-date-time formControlName="date"></app-date-time>
+  </div>
+</form>

@@ -1,0 +1,35 @@
+<form [formGroup]="wallCreateForm" (ngSubmit)="onSubmit()">
+  <div class="container-fluid">
+
+    <div class="row py-2">
+      <div class="col-12 col-sm my-2">
+        <!-- Post text -->
+        <textarea #txtInput rows="5" data-min-rows="3" (input)="resize(txtInput)" class="form-control"
+          formControlName="text"
+          [class.is-invalid]="wallCreateForm.controls['text'].errors?.maxlength && (wallCreateForm.controls['text'].touched || wallCreateForm.controls['text'].dirty)"
+          placeholder="{{ translationText?.typeYourPost }}" (keyup)="textSetNumberChars($event)"
+          (click)="textSetNumberChars($event)">
+        </textarea>
+
+        
+      </div>
+      <div class="sub-textarea">
+        <!-- Help message -->
+        <small id="textHelpBlock" class="form-text text-muted"
+        [ngClass]="{'invalid': wallCreateForm.controls['text'].errors?.maxlength}">
+        {{ translationText?.textHelp1 }}
+
+          <span *ngIf="textNumCharsTyped > 0">{{ translationText?.textHelp2 }}
+            <span class="translationText-{{ textNumCharsTypedColor }}"
+              role="alert">{{ textNumCharsTyped }}</span>.</span>
+        </small>
+        <!-- Publish button -->
+        <div class="col-auto  pl-sm-0"  id="publish">
+          <button class="btn btn-primary" type="submit" [disabled]="!wallCreateForm.valid">
+            {{ translationText?.publish }}
+          </button>
+        </div>
+    </div>
+    </div>
+  </div>
+</form>

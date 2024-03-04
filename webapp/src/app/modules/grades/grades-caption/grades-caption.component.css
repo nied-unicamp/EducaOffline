@@ -1,0 +1,67 @@
+.evaluated-box {
+  background-color: black;
+  width: 1.1em;
+  height: 0.45em;
+  position: relative;
+  margin: 0;
+  top: 0.85rem;
+  left: 0.5rem;
+}
+
+.evaluated-text {
+  font-size: 12px;
+  position: relative;
+  left: 1.75rem;
+}
+
+.not-evaluated-box {
+  background-color: #1478bd;
+  width: 1.1em;
+  height: 0.45em;
+  position: relative;
+  margin: 0;
+  top: 0.85rem;
+  left: 0.5rem;
+}
+
+.not-evaluated-text {
+  color: #1478bd;
+  font-size: 12px;
+  position: relative;
+  left: 1.75rem;
+}
+
+.container_legenda {
+  position: relative;
+  box-align: Left;
+  width: 100%;
+  border: 1px solid #cacaca;
+  padding: 0px;
+  padding-left: 20px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+.col-sm {
+  min-width: 150px;
+  max-width: 220px;
+  margin: 0;
+  padding: 0;
+}
+
+.commentIcon {
+  color: #0e4f7c;
+  transition-duration: 0.2s;
+  position: relative;
+  top: -1rem;
+  vertical-align: 0;
+  font-size: 20px;
+}
+
+.commentIcon:hover {
+  color: #0e4f7c;
+}
+
+p {
+  margin-bottom: 0;
+}

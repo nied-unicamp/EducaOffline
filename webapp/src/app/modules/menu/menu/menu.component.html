@@ -1,0 +1,31 @@
+<ul>
+
+  <!-- Menu item -->
+  <li class="item-menu p-0" *ngFor="let item of items | async" routerLinkActive="active">
+
+    <!-- Link -->
+    <a routerLink="{{item.link}}">
+
+      <!-- Icon placeholder -->
+      <div style="padding: 7px;">
+
+        <!-- Common icons -->
+        <div *ngIf="item.icon_type.toString() !=='custom'">
+          <fa-icon [icon]="[item.icon_type, item.icon]" [fixedWidth]="true"></fa-icon> {{item.text}}
+        </div>
+
+        <!-- Custom icons -->
+        <div *ngIf="item.icon_type.toString()==='custom'">
+
+          <!-- Grades Icon -->
+          <div *ngIf="item.icon.toString()==='grades'">
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="['far', 'clipboard']"></fa-icon>
+              <fa-layers-text content="A" class="nota" transform="shrink-6"></fa-layers-text>
+            </fa-layers> {{item.text}}
+          </div>
+        </div>
+      </div>
+    </a>
+  </li>
+</ul>

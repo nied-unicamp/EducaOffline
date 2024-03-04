@@ -1,0 +1,24 @@
+<p class="mb-3">{{ translationText?.shareKey }}</p>
+
+<div class="row m-0">
+    <button type="button" class="btn btn-primary rounded-0 col-auto copy" ngbTooltip="Copiado!" triggers="click:blur"
+        (click)="copyKey(key)">
+        <fa-icon [icon]="['far', 'copy']" transform="up-1.5 right-0.5"></fa-icon>
+    </button>
+    <p class="col key">{{ key }}</p>
+</div>
+
+<div class="replace mt-3 mb-2">
+    <button type="button" class="btn-icon btn btn-outline-primary rounded-0 mb-3" (click)="refreshKey()">
+        <fa-icon icon="sync" size="sm"></fa-icon>
+        {{ translationText?.generateKey }}
+    </button>
+
+    <div class="alert alert-warning m-0 text-center" role="alert">
+        {{ translationText?.warning }}
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary closer rounded-0" (click)="closeForm.emit()">{{ translationText?.close }}</button>
+</div>

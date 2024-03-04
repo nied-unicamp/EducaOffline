@@ -1,0 +1,25 @@
+<!-- Modal content -->
+<ng-template #content let-modal>
+
+
+  <!-- Modal header -->
+  <div class="modal-header">
+
+    <!-- Modal title -->
+    <h4 class="modal-title">{{title}}</h4>
+
+    <!-- Close button -->
+    <button type="button" class="close" aria-label="Close" #closeButton (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  <!-- Modal body -->
+  <div class="modal-body">
+    <div class="content-wrapper">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+</ng-template>

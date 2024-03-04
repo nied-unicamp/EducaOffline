@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  app:
+    # Uncomment the next line to use a non-root user for all processes. You can also
+    # simply use the "remoteUser" property in devcontainer.json if you just want
+    # VS Code and its sub-processes (terminals, tasks, debugging) to execute as the user
+    # On Linux, you may need to update the USER_UID and USER_GID in .devcontainer/Dockerfile
+    # to match your user if not 1000. See https://aka.ms/vscode-remote/containers/non-root for details.
+    # user: vscode
+
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ~/.gitconfig:/root/.gitconfig
+      - ../..:/workspace:cached
+    ports:
+      - "${API_PORT_HOST}:${API_PORT_CONTAINER}"
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    ports:
+      - "${DATABASE_PORT_HOST}:${DATABASE_PORT_CONTAINER}"
+    volumes:
+      - ../.database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+    hostname: db

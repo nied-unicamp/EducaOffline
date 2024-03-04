@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+  <label for="key">{{ translationText?.addKey }}</label>
+
+  <div class="input-group mt-2">
+    <input type="text" class="form-key" id="key" formControlName="key" maxlength="6">
+
+    <div class="input-group-append">
+      <!-- Loading key -->
+      <div *ngIf="isProcessing || (form.value.key.length > 0 && form.value.key.length !== 6)"
+        class="input-group-text rounded-0" id="btnGroupAddon" style="background: #B8BBB8;">
+        <fa-icon icon="spinner" transform="left-3.7" [pulse]="true"></fa-icon>
+      </div>
+
+      <!-- Valid key -->
+      <div *ngIf="course" class="input-group-text rounded-0" id="btnGroupAddon" style="background: #169823;">
+        <fa-icon icon="check" transform="left-3.7"></fa-icon>
+      </div>
+
+      <!-- Invalid key -->
+      <div *ngIf="courseError" class="input-group-text rounded-0" id="btnGroupAddon"
+        style="background: var(--colors-red-error);">
+        <fa-icon icon="times" size="lg" transform="left-2.4"></fa-icon>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Course information for valid key -->
+  <div *ngIf="course" class="mt-1">
+    {{ translationText?.logIn }} <strong>{{ course.name }}</strong>.
+  </div>
+
+  <!-- Error message for invalid key -->
+  <div *ngIf="courseError" class="mt-1">
+    {{ translationText?.accessKey }} <strong>{{ translationText?.invalid }}</strong>.
+  </div>
+
+  <div class="modal-footer mt-3">
+    <button type="button" class="btn btn-outline-primary closer rounded-0" (click)="closeForm.emit();">{{ translationText?.cancel }}</button>
+    <button class="btn btn-primary rounded-0" [disabled]="!course" type="submit">{{ translationText?.confirm }}</button>
+  </div>
+
+</form>

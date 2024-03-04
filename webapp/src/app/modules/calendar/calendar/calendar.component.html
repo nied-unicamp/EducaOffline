@@ -1,0 +1,122 @@
+<div class="container-fluid" style="min-width: 250px; padding: 0;">
+  <!-- Calendar Header -->
+  <div class="row justify-content-between cal-header">
+
+    <!-- Navigation buttons -->
+    <div class="col-auto">
+      <div class="btn-group">
+        <button class="cal-prev btn btn-primary" (click)="calendar.previousView()">
+          <fa-icon icon="arrow-left" style="font-size: 20px;" aria-hidden="true"></fa-icon>
+        </button>
+        <button class="cal-option btn btn-secondary" (click)="viewToday()">{{ translationText?.today }}</button>
+        <button class="cal-next btn btn-primary" (click)="calendar.nextView()">
+          <fa-icon icon="arrow-right" style="font-size: 20px;" aria-hidden="true"></fa-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Current month and year -->
+    <div class="col-auto">
+      <div class="btn-group">
+        <button class="btn btn-primary" disabled>
+          {{ translationText?.months[calendar.getMonth()] }}
+        </button>
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-primary " id="dropdownBasic1" ngbDropdownToggle>
+            {{ calendar.getYear() }}
+          </button>
+
+          <!-- Year dropdown -->
+          <div ngbDropdownMenu class="dropdown-menu autoWidth" autoClose aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item" (click)="changeYear(calendar.getYear()-2)">{{calendar.getYear()-2}}</button>
+            <button class="dropdown-item" (click)="changeYear(calendar.getYear()-1)">{{calendar.getYear()-1}}</button>
+            <button class="dropdown-item" (click)="changeYear(calendar.getYear())">{{calendar.getYear()}}</button>
+            <button class="dropdown-item" (click)="changeYear(calendar.getYear()+1)">{{calendar.getYear()+1}}</button>
+            <button class="dropdown-item" (click)="changeYear(calendar.getYear()+2)">{{calendar.getYear()+2}}</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Calendar mode selection -->
+    <div class="col-auto">
+      <div class="btn-group">
+        <button class="cal-option btn btn-primary" [ngClass]="{ 'active': calendar.getMode() === 'month' }"
+          (click)="calendar.setMode('month')"> {{ translationText?.month }} </button>
+        <button class="cal-option btn btn-primary" [ngClass]="{ 'active': calendar.getMode() === 'week' }"
+          (click)="calendar.setMode('week')"> {{ translationText?.week }} </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day identifiers -->
+  <div class="row cal-body">
+    <div *ngFor="let i of [0,1,2,3,4,5,6]" class="col weekNames">
+      {{translationText?.days[i]}}
+    </div>
+  </div>
+
+  <!-- Calendar body -->
+  <div *ngFor="let dateRow of getDates()">
+    <div class="row cal-body">
+
+      <!-- Single date -->
+      <div *ngFor="let date of dateRow" [ngClass]="cssDayString(date)" (click)="dayClicked(date)">
+
+        <div class="dayNumber">
+          {{ date.getDate() }}
+        </div>
+
+        <!-- Event counter -->
+        <div [ngStyle]="{'visibility': (getEvents(date).length > 0)?'visible':'hidden'}" class="ballContainer">
+          {{ getEvents(date).length }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Events list -->
+  <div class="row cal-body justify-content-center" *ngIf="!isCollapsed">
+    <div class="container-fluid cal-body justify-content-center">
+
+      <!-- Header -->
+      <div class="row cal-body justify-content-start">
+
+        <!-- Close button -->
+        <button type="button" class="close" aria-label="Close" (click)="isCollapsed=true;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <!-- Title -->
+        <div class="col">
+          <h5> {{translationText?.eventsTitle}} {{calendar.getDisplayedDate().toLocaleDateString()}}</h5>
+        </div>
+      </div>
+      <div class="row cal-body justify-content-center eventsList">
+        <div class="col">
+          <!-- Event list -->
+          <ul>
+            <!-- Event item -->
+            <a *ngFor="let event of getEvents(calendar.getDisplayedDate())" [routerLink]="event.generateLink()">
+
+              <!-- Event text -->
+              <li *ngIf="event.startsToday(calendar.getDisplayedDate())">
+                {{event.getStartDate() | date:'HH:mm'}} - {{event.getDescription()}}
+              </li>
+              <li *ngIf="event.endsToday(calendar.getDisplayedDate())">
+                {{event.getStartDate() | date:'HH:mm' }} - {{translationText?.ends}}
+                {{event.getDescription()}}
+              </li>
+            </a>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Calendar footer -->
+  <div class="row cal-end">
+  </div>
+</div>

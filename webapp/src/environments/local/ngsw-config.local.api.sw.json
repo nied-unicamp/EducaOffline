@@ -1,0 +1,53 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/index.html",
+          "/*.css",
+          "/*.js",
+          "/manifest.webmanifest"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**"
+        ]
+      }
+    },
+    {
+      "name": "user-pictures",
+      "installMode": "lazy",
+      "resources": {
+        "urls": [
+          "http://127.0.0.1:8082/v1/users/**/picture"
+        ]
+      },
+      "cacheQueryOptions": {
+        "ignoreSearch": true
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "http://127.0.0.1:8082/v1/users/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "30d",
+        "timeout": "1m",
+        "strategy": "freshness"
+      }
+    }
+  ]
+}

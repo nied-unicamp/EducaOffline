@@ -1,0 +1,64 @@
+<!-- Dropdown -->
+<div ngbDropdown>
+  <!-- Three dots -->
+  <button class="btn" id="{{dropdownId}}" ngbDropdownToggle [disabled]="disabled">
+    <fa-icon icon="ellipsis-v" aria-hidden="true"></fa-icon>
+  </button>
+
+  <!-- Menu -->
+  <div ngbDropdownMenu [attr.aria-labelledby]="dropdownId">
+    <div class="menu-container">
+      <button ngbDropdownItem *ngFor="let option of customOptions" (click)="option.cb()">
+        <fa-icon [icon]="option.icon" class="icon"></fa-icon>
+        <span class="text">{{ option.title }}</span>
+      </button>
+
+      <button ngbDropdownItem *ngIf="hasDownload == 'true'" (click)="downloadEmitter.emit()" #downBtn>
+        <fa-icon icon="download" class="icon"></fa-icon>
+        <span class="text">{{ optionsText.download }}</span>
+      </button>
+    
+      <button ngbDropdownItem *ngIf="hasEdit == 'true'" (click)="modalEdit.open(); openEmit()">
+        <fa-icon icon="pen-square" class="icon"></fa-icon>
+        <span class="text">{{ optionsText.edit }}</span>
+      </button>
+    
+      <button ngbDropdownItem *ngIf="hasMove == 'true'" (click)="modalMove.open(); openEmit()" #moveBtn>
+        <fa-icon icon="folder-open" class="icon"></fa-icon>
+        <span class="text">{{ optionsText.move }}</span>
+      </button>
+    
+      <button ngbDropdownItem *ngIf="hasDelete == 'true'" (click)="confirmDelete.open()" #delBtn [disabled]="disableDeleteButton">
+        <fa-icon icon="times" class="icon"></fa-icon>
+        <span class="text">{{ optionsText.delete }}</span>
+      </button>
+
+      <span *ngIf="type == 'folder' && hasDelete == 'true' && disableDeleteButton"
+            class="alert alert-info disabled-reason"
+            style="width: 200px">
+        {{ translationText.folderHasItems }}
+      </span>
+    
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EDIT -->
+<app-modal-form #modalEdit title="{{ optionsText.edit }}">
+
+  <ng-container *ngIf="!modalEdit.closed">
+    <ng-content select=".edit"></ng-content>
+  </ng-container>
+
+</app-modal-form>
+
+<!-- MODAL MOVE -->
+<app-modal-form #modalMove title="{{ optionsText.move }}">
+
+  <ng-container *ngIf="!modalMove.closed">
+    <ng-content select=".move"></ng-content>
+  </ng-container>
+
+</app-modal-form>
+
+<app-confirm-delete #confirmDelete (ok)="$event?deleteEmit():null"></app-confirm-delete>

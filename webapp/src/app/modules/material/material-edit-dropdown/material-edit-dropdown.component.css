@@ -1,0 +1,27 @@
+button:not(.disabled) fa-icon {
+  color: var(--colors-nied7);
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.menu-container button {
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  margin-left: 10px;
+}
+
+.icon {
+  width: 20px;
+}
+
+.disabled-reason {
+  display: block;
+  margin-bottom: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+}

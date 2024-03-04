@@ -1,0 +1,101 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "01 - Comece aqui",
+  "steps": [
+    {
+      "title": "Introdução",
+      "description": "O frontend consiste no código que vai ser executado na máquina do usuário. É a parte mais visível e importante na interação com o sistema.\n\nAgora mostraremos os principais scripts usados e as dependências do projeto."
+    },
+    {
+      "file": "package.json",
+      "description": "Aqui temos todos os scripts que criamos para o nosso projeto.\n\nNormalmente executamos nosso projeto com: \n\n```bash\nng serve\n```\n\nPorém, caso estejamos rodando a api localmente, devemos rodar o frontend com:\n\n```bash\nng serve -c local\n```\n",
+      "line": 4,
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 3
+        },
+        "end": {
+          "line": 18,
+          "character": 4
+        }
+      }
+    },
+    {
+      "file": "package.json",
+      "description": "Agora, passamos pelas dependências do projeto",
+      "line": 20
+    },
+    {
+      "file": "package.json",
+      "description": "Além das dependências padrões do angular, usamos a `@angular/service-worker`.\n\nÉ a base a ser usada no funcionamento da aplicação offline.",
+      "line": 21,
+      "selection": {
+        "start": {
+          "line": 21,
+          "character": 5
+        },
+        "end": {
+          "line": 30,
+          "character": 42
+        }
+      }
+    },
+    {
+      "file": "package.json",
+      "description": "FontAwesome contém vários ícones gratuitos que podem ser usados na nossa aplicação.\n\n - [Lista de ícones (selecionar somente os gratuitos)](https://fontawesome.com/v5.15/icons?d=gallery&p=7&m=free)\n - [Como usar os ícones com o Angular](https://www.npmjs.com/package/@fortawesome/angular-fontawesome)",
+      "line": 31,
+      "selection": {
+        "start": {
+          "line": 31,
+          "character": 1
+        },
+        "end": {
+          "line": 34,
+          "character": 52
+        }
+      }
+    },
+    {
+      "file": "package.json",
+      "description": "Bootstrap e ng-bootstrap funcionam como ajuda no desenvolvimento de interfaces.\n\nO ng-bootstrap pega as partes interativas do bootstrap e as transforma em componentes Angular.",
+      "line": 35
+    },
+    {
+      "file": "package.json",
+      "description": "O NGRX é o coração da parte offline da aplicação.\n\nEle tem ferramentas para organizar todo o fluxo de dados na aplicação e facilita a nossa implementação do funcionamento offline. ",
+      "line": 36,
+      "selection": {
+        "start": {
+          "line": 36,
+          "character": 5
+        },
+        "end": {
+          "line": 41,
+          "character": 39
+        }
+      }
+    },
+    {
+      "file": "package.json",
+      "description": "deep-equal é uma utilidade de comparação para os objetos javascript. No nosso caso, é usado mais nos NGRX Selectors",
+      "line": 44
+    },
+    {
+      "file": "package.json",
+      "description": "localforage e ng-forage são utilizados para ajudar a fazer a interface com o indexedDB.\n\nUsamos isso para salvar localmente todos os dados do usuário autenticado: o token de login, listagem de atividades, arquivos de curso e etc.",
+      "line": 45
+    },
+    {
+      "file": "package.json",
+      "description": "logrocket ajuda na detecção de erros que acontecem depois do desenvolvimento, com um replay instantaneo das ações tomadas, da rede e do console.",
+      "line": 46
+    },
+    {
+      "file": "package.json",
+      "description": "ngx-image-cropper ajuda ao cortar uma imagem de perfil.",
+      "line": 48
+    }
+  ],
+  "ref": "main"
+}

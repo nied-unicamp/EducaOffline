@@ -1,0 +1,22 @@
+<!-- Table caption -->
+<div class='container_legenda'>
+  <div class="row">
+    <!-- Evaluated -->
+    <div class="col-sm" style="margin: 4px 0 12px 0;">
+      <div class="evaluated-box"></div>
+      <p class="evaluated-text" style="top: 0.1rem;">{{ translationText?.evaluatedActivities }}</p>
+    </div>
+
+    <!-- Not Evaluated -->
+    <div class="col-sm" style="margin: 4px 0 12px 0;">
+      <div class="not-evaluated-box"></div>
+      <p class="not-evaluated-text" style="top: 0.1rem;">{{ translationText?.notEvaluatedActivities }}</p>
+    </div>
+
+    <!-- There is an evaluation comment -->
+    <div class="col-sm" *ngIf="complete">
+      <fa-icon icon="comment" class="commentIcon" style="left: 0.3rem; top: 0.60rem;"></fa-icon>
+      <p class="evaluated-text" style="top: -0.82rem;">{{ translationText?.hasComment }}</p>
+    </div>
+  </div>
+</div>

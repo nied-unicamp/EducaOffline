@@ -1,0 +1,111 @@
+<div class="login-box col p-0">
+  <div class="login-logo">
+    <img _ngcontent-igc-c3="" class="col-auto" src="assets/img/icon_ava_offline.png">
+    <br>
+    <span>AVA Offline</span>
+  </div>
+
+  <div class="login-box-body">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="registerOK" class="col-auto">
+        <div class="alert alert-success">
+          {{ translationText?.registerOK }}
+        </div>
+      </div>
+
+      <!-- Login input -->
+      <div class="col-auto mb-1">
+        <label>{{ translationText?.email }}</label>
+        <div class="input-group">
+          <input #emailInput type="email" id="userEmail" class="form-control" [class.is-invalid]="!emailIsFocused &&
+          loginForm.controls['userEmail'].errors &&
+          (loginForm.controls['userEmail'].touched || loginForm.controls['userEmail'].dirty)
+          " (keyup)="emailIsFocused=true" (blur)="emailIsFocused=false" formControlName="userEmail"
+            placeholder="{{ translationText?.emailPH }}" autocomplete="username">
+
+          <div class="input-group-append">
+            <div *ngIf="emailIsFocused" class="input-group-text" style="background: #B8BBB8;">
+              <fa-icon icon="spinner" transform="left-3.7" [pulse]="true" style="color: white;"></fa-icon>
+            </div>
+
+            <div
+              *ngIf="loginForm.controls['userEmail'].valid && (!emailIsFocused || !loginForm.controls['userEmail'].touched) || emailInput.disabled"
+              class="input-group-text" id="btnGroupAddon" style="background: #169823;">
+              <fa-icon icon="check" transform="left-3.7" style="color: white;"></fa-icon>
+            </div>
+
+            <div
+              *ngIf="loginForm.controls['userEmail'].touched && !loginForm.controls['userEmail'].valid && !emailIsFocused"
+              class="input-group-text" id="btnGroupAddon" style="background: var(--colors-red-error);">
+              <fa-icon icon="times" size="lg" transform="left-2.4" style="color: white;"></fa-icon>
+            </div>
+          </div>
+        </div>
+
+        <small
+          *ngIf="loginForm.controls['userEmail'].touched && !loginForm.controls['userEmail'].valid && !emailIsFocused"
+          class="d-block invalid-feedback">
+          {{ translationText?.validationMessages.email }}
+        </small>
+      </div>
+
+      <div class="col-auto mb-2">
+        <label>{{ translationText?.password }}</label>
+        <div class="row pl-3 pr-3 pr-sm-0 password">
+          <input [type]="show ? 'text' : 'password'" id="password" class="col col-sm-auto form-control"
+            [class.is-invalid]="
+          loginForm.controls['password'].errors &&
+          (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)
+          " formControlName="password" placeholder="{{ translationText?.passwordPH }}" autocomplete="current-password">
+
+          <button class="col-auto btn-icon btn-secondary btn-lock-password" type="button" (click)="showPassword()"
+            [ngbTooltip]="show ? 'Ocultar senha' : 'Mostrar senha'">
+            <fa-icon [icon]="show ? 'eye-slash' : 'eye'" transform="left-2."></fa-icon>
+          </button>
+        </div>
+
+        <small *ngIf="loginForm.controls['password'].errors &&
+        (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)"
+          class="d-block invalid-feedback">
+          {{ translationText?.validationMessages.password }}
+        </small>
+      </div>
+
+      <div *ngIf="errorMessage!==''" class="col-auto">
+        <div class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <!--
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" value="">
+          <label class="form-check-label" for="defaultCheck1">
+            Continuar conectado
+          </label>
+        </div>
+        !-->
+
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button class="btn btn-primary btn-block btn-flat" type="submit" [disabled]="!loginForm.valid">{{
+            translationText?.login }}</button>
+          <a routerLink="/forgotPassword">{{ translationText?.forgotPassword }}</a>
+        </div>
+      </div>
+    </form>
+    
+    <div class="row justify-content-center register">
+      <div class="col-auto">
+        <p class="m-0">{{ translationText?.notRegistered }}</p>
+        <button routerLink="/register" class="btn btn-secondary btn-block btn-flat">{{ translationText?.register
+          }}</button>
+      </div>
+    </div>
+    <!-- Button to change language-->
+    <div class="row justify-content-center translate">
+      <app-botao-translate></app-botao-translate>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.no-border {
+    border: none;
+    outline: none; /* Isso remove o contorno quando o botão é focado */
+    box-shadow: none; /* Isso remove qualquer sombra se estiver presente */
+    font-size: 95%;
+}
+
+.dropdown-menu-left {
+    text-align: center;
+    margin-left: 18px;
+    font-size: 90%;
+    width: 120px;
+}
+
+.itemBtn {
+    padding: 3px 0px;
+}

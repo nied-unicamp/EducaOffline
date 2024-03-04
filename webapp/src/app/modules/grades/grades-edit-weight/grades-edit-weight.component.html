@@ -1,0 +1,76 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="container weight-box">
+
+    <ng-container *ngIf="!onlyView">
+      <!-- Toggle for arithmetic average -->
+      <div class="center">
+        <input type="checkbox" id="sameWeight" formControlName="useArithmeticMean">
+        <label for="sameWeight">{{ translationText?.sameWeight }}</label>
+      </div>
+  
+      <!-- Big alert =D -->
+      <div class="alert alert-warning alert-changes" role="alert">
+        {{ translationText?.weightWarning1 }}
+        <strong>
+          {{ translationText?.weightWarning2 }}
+        </strong>
+        {{ translationText?.weightWarning3 }}
+      </div>
+    </ng-container>
+
+    <p *ngIf="onlyView" class="text-justify m-0">
+      {{ editWeights ? translationText.weightedAvarageExplanation : translationText.arithmeticAvarageExplanation }}
+    </p>
+
+    <!-- The real form -->
+    <table *ngIf="editWeights" class="table table-striped table-changes">
+      <thead>
+        <tr>
+          <th>{{ translationText?.activities }}</th>
+          <th>{{ translationText?.gradeWeight }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Activities names and controls -->
+        <ng-container formArrayName="weights">
+          <tr *ngFor="let weightItem of formWeightArray; let i = index" [formGroupName]="i">
+            <td class="table-titles">
+              {{ this.lastConfig.gradedActivities[i]?.title }}
+            </td>
+            <td class="table-weight">
+              <input type="number" min="0" class="input-size" formControlName="weight" [readOnly]="onlyView">
+            </td>
+          </tr>
+        </ng-container>
+        <!-- Default weight -->
+        <tr *ngIf="!onlyView">
+          <td class='table-titles td-not-evaluated'>{{ translationText?.defaultWeight }}</td>
+          <td class="table-weight">
+            <input type="number" class="input-size" formControlName="defaultWeight">
+          </td>
+        </tr>
+        <!-- Sum of weights -->
+        <tr>
+          <td class="sumback "> {{ translationText?.totalWeight }}</td>
+          <td class="sumback " class="text-center"> {{ weightSum }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div *ngIf="!onlyView" class="left">
+        <input type="checkbox" id="pubUpdate" formControlName="publishOnWall">
+        <label for="pubUpdate">{{ translationText?.pubUpdate }}</label>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons" [style.marginLeft]="(onlyView ? 'auto' : '0px')">
+        <button class="btn btn-secondary" type="button" (click)="sent.emit()" [class.mt-2]="onlyView">{{ translationText?.btnClose }}</button>
+        <button class="btn btn-primary" type="submit" aria-hidden="true" [disabled]="!form.valid" *ngIf="!onlyView">
+          {{ translationText?.btnSave }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

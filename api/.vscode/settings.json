@@ -1,0 +1,35 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "cSpell.language": "en,pt,pt_BR",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.organizeImports": true,
+    },
+    "cSpell.words": [
+        "Autowired",
+        "Configurer",
+        "Dmaven",
+        "SSHHOST",
+        "SSHUSER",
+        "Servlet",
+        "embeddable",
+        "endregion",
+        "insertable",
+        "mkdir",
+        "proteo",
+        "sshpass",
+        "tika",
+        "upsert"
+    ]
+}

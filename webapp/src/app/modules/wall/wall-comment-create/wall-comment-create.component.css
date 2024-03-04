@@ -1,0 +1,51 @@
+p {
+    margin: 0;
+}
+
+a {
+    color: #1e282c;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#user-info {
+    width: 25%;
+}
+
+#comment-text-box {
+    width: 75%;
+}
+
+.sub-comment-text-box {
+    width: 100%;
+}
+
+.sub-comment-text-box > button {
+    float: right;
+    padding: 2px;
+    font-size: 12px;
+    margin-right: 5%;
+}
+
+textarea {
+    max-height: 105px;
+    min-height: 30px;
+}
+
+
+.invalid {
+    color: var(--colors-red-error);
+}
+
+.is-invalid {
+    background-position: top calc(.375em + .1875rem) right 25px !important;
+}
+
+@media screen and (min-width: 576px) {
+    .sub-comment-text-box > button{
+        margin-right: 0%;
+        margin-top: -1px;        
+    }
+} 

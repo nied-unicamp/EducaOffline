@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "3 - Próximos passos",
+  "steps": [
+    {
+      "title": "E agora?",
+      "description": "Agora você pode abrir no seu editor as pastas `api` e `webapp` para conferir os próximos passos no frontend e no backend"
+    }
+  ],
+  "ref": "main"
+}

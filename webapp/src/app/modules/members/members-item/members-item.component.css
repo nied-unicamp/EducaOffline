@@ -1,0 +1,52 @@
+* {
+  letter-spacing: 0.09em;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.card-shadow {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.email {
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--colors-nied7);
+}
+
+.last-access {
+  line-height: 14px;
+  font-size: 12px;
+  color: var(--colors-nied7);
+}
+
+.max-size,
+.max-size > * {
+  height: 115px;
+}
+
+.role-badge {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  background-color: var(--colors-nied1);
+  width: 28px;
+}
+
+.teacher.role-badge {
+  background-color: var(--colors-nied4);
+}
+
+.isme.role-badge {
+  background-color: var(--colors-nied4);
+}
+
+.role-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  line-height: 1em;
+  text-align: center;
+}

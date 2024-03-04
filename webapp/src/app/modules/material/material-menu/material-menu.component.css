@@ -1,0 +1,41 @@
+.menu {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.menu>* {
+  margin-left: 0;
+}
+
+.root-folder-button {
+  display: flex;
+  aspect-ratio: 1/1;
+  justify-content: center;
+  align-items: center;
+}
+
+.root-folder-button * {
+  margin-right: 0;
+  margin-left: 3px;
+}
+
+.back-menu-container {
+  margin-bottom: 25px;
+}
+
+.folder-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  margin-left: 15px;
+}
+
+.folder-description {
+  margin-left: 53px;
+  margin-top: 5px;
+  word-wrap: break-word;
+  hyphens: auto;
+}

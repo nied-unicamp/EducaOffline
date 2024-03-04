@@ -1,0 +1,25 @@
+<!-- TODO: Remove this ngIf when adding filter/sorting -->
+<div *ngIf="canCreate$ | async" class="container-fluid">
+  <div class="row justify-content-between">
+
+    <!-- Button to Create Activity -->
+    <button *ngIf="canCreate$ | async" class="col-auto btn btn-icon btn-primary mb-2"
+      routerLink="/courses/{{courseId$|async}}/activities/create"
+      style="display: flex; align-items: center; cursor: pointer">
+
+      <!-- Image -->
+      <fa-icon class="mr-1" icon="plus"></fa-icon>
+      {{ translationText?.create }}
+    </button>
+
+    <!-- New folder component -->
+    <!-- <app-create-folder [path]='folderPath' (sent)='update()' [size]='size' class="col-auto px-1"></app-create-folder> -->
+
+    <!-- Sort component -->
+    <!-- <app-activities-sort [in]='filtered' (out)='setOut($event)' [size]='size' class="col-auto px-1"></app-activities-sort> -->
+
+    <!-- Filter component -->
+    <!-- <app-activities-filter class="col-auto px-1">
+    </app-activities-filter> -->
+  </div>
+</div>

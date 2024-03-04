@@ -1,0 +1,87 @@
+<div class="login-page">
+  <div class="login-box col p-0">
+    <div class="login-logo">
+      <img _ngcontent-igc-c3="" class="col-auto" src="assets/img/icon_ava_offline.png">
+      <br>
+      <span>AVA Offline</span>
+    </div>
+
+    <div class="login-box-body">
+      <h5 class="mb-2 justify-content-center d-flex">
+        {{ translationText?.register }}
+      </h5>
+
+      <div *ngIf="registerOK" class="alert alert-success">
+        {{ translationText?.registerOK }}
+      </div>
+
+      <form *ngIf="!registerOK" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <label>{{ translationText?.name }}</label>
+        <input type="text" id="name" class="form-control mb-2" [class.is-invalid]="registerForm.controls['name'].errors &&
+        (registerForm.controls['name'].touched || registerForm.controls['name'].dirty)" formControlName="name"
+          placeholder="{{ translationText?.namePH }}">
+        <small *ngIf="registerForm.controls['name'].errors && registerForm.controls['name'].touched"
+          class="invalid-feedback">
+          {{ translationText?.validationMessages.name }}
+        </small>
+
+        <label>{{ translationText?.email }}</label>
+        <input type="email" id="email" class="form-control mb-2" [class.is-invalid]="registerForm.controls['email'].errors &&
+          (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)" formControlName="email"
+          placeholder="{{ translationText?.emailPH }}" autocomplete="username">
+        <small
+          *ngIf="registerForm.controls['email'].errors && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)"
+          class="invalid-feedback">
+          {{ translationText?.validationMessages.email }}
+        </small>
+
+        <label>{{ translationText?.password }}</label>
+        <input type="password" id="password" class="form-control mb-2" [class.is-invalid]="registerForm.controls['password'].errors &&
+        (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)"
+          formControlName="password" placeholder="{{ translationText?.passwordPH }}" autocomplete="new-password">
+        <small
+          *ngIf="registerForm.controls['password'].errors && (registerForm.controls['password'].touched || registerForm.controls['password'].dirty)"
+          class="invalid-feedback">
+          {{ translationText?.validationMessages.password }}
+        </small>
+
+        <label>{{ translationText?.repeat_password }}</label>
+        <input type="password" id="repeat_password" class="form-control mb-2"
+          [class.is-valid]="registerForm.value.repeat_password.length!==0 && !registerForm.errors?.passwordsDontMatch && (registerForm.controls['repeat_password'].touched || registerForm.controls['repeat_password'].dirty)"
+          [class.is-invalid]="registerForm.errors?.passwordsDontMatch && (registerForm.controls['repeat_password'].touched || registerForm.controls['repeat_password'].dirty)"
+          formControlName="repeat_password" placeholder="{{ translationText?.repeat_passwordPH }}" autocomplete="new-password">
+        <small *ngIf="!registerForm.errors?.passwordsDontMatch" class="valid-feedback">
+          {{ translationText?.validationMessages.repeat_passwordOK }}
+        </small>
+        <small
+          *ngIf="registerForm.errors?.passwordsDontMatch && (registerForm.controls['repeat_password'].touched || registerForm.controls['repeat_password'].dirty)"
+          class="invalid-feedback">
+          {{ translationText?.validationMessages.repeat_password }}
+        </small>
+
+        <span>
+          {{ translationText?.message }}
+        </span>
+
+        <div class="row justify-content-center mt-2">
+          <div class="col-auto">
+            <button class="btn btn-primary btn-block btn-flat" type="submit" [disabled]=!registerForm.valid>{{
+              translationText?.conclude }}</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="row justify-content-center mt-5">
+        <div class="col-auto">
+          <p class="m-0">{{ translationText?.alreadyRegistered }}</p>
+          <button routerLink="/login" class="btn btn-secondary btn-block btn-flat">{{ translationText?.accessAccount
+            }}</button>
+        </div>
+      </div>
+    </div>
+    <!-- Button to change language-->
+    <div class="row justify-content-center">
+      <app-botao-translate></app-botao-translate>
+    </div>
+  </div>
+</div>

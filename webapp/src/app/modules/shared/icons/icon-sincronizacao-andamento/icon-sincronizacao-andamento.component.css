@@ -1,0 +1,30 @@
+/* Atualizar */
+
+.cloud-container {
+  position: relative;
+  width: 25px;
+  height: 100%;
+  min-height: 17.5px;
+}
+
+.arrows, .cloud {
+  position: absolute;
+}
+
+.arrows {
+  left: 8.3px;
+  top: 1px;
+}
+
+@keyframes rotatingArrows {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.arrows {
+  animation: rotatingArrows 2s infinite;
+}

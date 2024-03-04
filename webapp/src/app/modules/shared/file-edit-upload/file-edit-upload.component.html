@@ -1,0 +1,62 @@
+<div *ngIf="(value$ |async) as value" class="rectangle shadow2">
+  <div (dragover)="allowDrop($event)" (dragenter)="allowDrop($event)">
+
+    <!-- List of files -->
+
+    <div class="">
+      <div class="container-fluid">
+
+        <!-- Title and commands -->
+        <div class="row justify-content-between">
+
+          <!-- Custom file input -->
+          <input id="file-upload" type="file" #fileIn multiple (change)="addFiles($any($event.target)?.files, value)" />
+
+          <!-- File input label -->
+          <label class="btn-icon btn btn-primary" for="file-upload" (click)="fileIn.value=''">
+            <fa-icon icon="paperclip"></fa-icon>
+            <span>{{ translationText?.addFile}}</span>
+          </label>
+
+          <!-- Undo -->
+          <button *ngIf="isEditing && modified" class="btn-icon btn btn-warning" (click)="resetChanges(value)">
+            <fa-icon icon="undo" aria-hidden="true"></fa-icon>
+            <span>{{ translationText?.undo}}</span>
+          </button>
+        </div>
+
+        <!-- Files section -->
+        <div class="row justify-content-start">
+
+          <!--Files to be shown-->
+          <div class="items col" *ngFor="let file of (filesToDisplay$ |async); index as i">
+            <app-file-item [file]="file" (remove)="removeFile(file, value)" [editable]="true"></app-file-item>
+          </div>
+        </div>
+
+        <!-- Text to be shown when there are no files -->
+        <div *ngIf="!(filesToDisplay$ |async)?.length" class="row justify-content-center">
+
+          <div class="col-auto m-4">
+            <p>{{ translationText?.noFileSelected}}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Area to Drag and Drop files -->
+  <div *ngIf="isDragging" class="dropArea" (dragover)="allowDrop($event)" (drop)="drop($event, value)"
+    (mouseleave)="endDrop($any($event))" (dragleave)="endDrop($event)">
+    <div class="dashed align-content-center">
+
+      <!-- Icon and message to drop the files -->
+      <fa-icon icon="upload" class="large" aria-hidden="true"></fa-icon>
+      <div>
+        {{ translationText?.dropFiles}}
+      </div>
+    </div>
+  </div>
+</div>

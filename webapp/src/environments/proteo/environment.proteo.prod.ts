@@ -1,0 +1,5 @@
+export const environment = {
+  production: true,
+  apiUrl: 'https://proteo.nied.unicamp.br/prod/api/v1/',
+  offline: false,
+};

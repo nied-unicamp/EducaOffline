@@ -1,0 +1,156 @@
+.teCommomBorder {
+  border: solid 2px #ccdbea;
+  border-radius: 12px;
+}
+
+/* .container-fluid {
+  border: solid 2px #ccdbea;
+  border-radius: 12px;
+} */
+
+.cal-header{
+  width: 100%;
+  height: auto;
+  margin-left: 0;
+  margin-right: 0;
+  /* background-color: #edf3ff; */
+  padding: 0;
+  border-radius: 12px 12px 0px 0px;
+  border: 12px solid #fff;
+}
+
+.cal-body{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.date {
+ padding: 0 0 0 0;
+ background-color: #fff;
+ border: 1px solid #ddd;
+ /*background-color: yellow;*/
+}
+
+
+.today {
+  background-color:#0275d8;
+  font-size: xx-large;
+  color: #fff;
+}
+
+.cal-end{
+  height: 20px;
+  border-radius: 0px 0px 12px 12px;
+  /* background-color: #edf3ff; */
+  margin: 0;
+}
+
+.autoWidth{
+  width: auto;
+}
+
+.selected {
+  background-color: #00264c;
+  color: #fff;
+}
+
+.weekend {
+  font-size: xx-small;
+  color: #999;
+}
+
+.otherMonth {
+  font-size: xx-small;
+  color: #999;
+}
+
+.weekNames{
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  color: #00264c;
+  padding: 0;
+}
+
+
+
+.eventsContainer{
+  padding: 0 0 0 0;
+  border-left: thin solid;
+  border-right: thin solid;
+}
+
+.eventsList{
+  padding: 0;
+}
+
+.dayNumber {
+  font-size: x-large;
+  /*max-width: 150px;*/
+  padding: 0 0;
+  text-align: center;
+
+  height: 55px;
+  line-height: 55px;
+}
+
+.ballContainer{
+  bottom: 0px;
+  right: 0px;
+  position: absolute;
+
+  float: right;
+  /*background-color: #b94a48;*/
+  background-color: #00264c;
+  min-width: 10px;
+  padding: 3px 7px;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+
+  text-align: center;
+  white-space: nowrap;
+
+  border-radius: 50%;
+}
+
+.numberCircle {
+    
+
+    padding: 0 0 0 0;
+
+    background: orange;
+    border: 2px solid orangered;
+    color: white;
+    text-align: center;
+
+    position: relative;
+    top: 0%;
+    left: 80%;
+}
+
+.circle-text {
+    width:50%;
+}
+.circle-text:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height:0;
+    padding-bottom: 100%;
+    background: #00264c; 
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+}
+.circle-text div {
+    float:left;
+    width:100%;
+    padding-top:50%;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:white;
+}

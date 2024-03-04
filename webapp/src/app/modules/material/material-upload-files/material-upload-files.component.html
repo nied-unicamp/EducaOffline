@@ -1,0 +1,10 @@
+<!-- Custom file input -->
+<input id="file-upload" type="file" #fileIn multiple (change)="addFiles($any($event.target)?.files)" />
+
+<!-- File input label -->
+<label for="file-upload" class="custom-file-upload btn btn-primary btn-icon" (click)="fileIn.value=''">
+  <fa-icon icon="paperclip"></fa-icon>
+  <span>
+    <ng-content></ng-content>
+  </span>
+</label>

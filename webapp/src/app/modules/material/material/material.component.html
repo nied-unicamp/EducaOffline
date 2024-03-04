@@ -1,0 +1,41 @@
+<!-- Menu -->
+
+<ng-container *ngIf="{ canUpload: canUpload$ | async, folder: folder$ | async } as data">
+  <app-material-menu [canUpload]="data.canUpload" [folder]="data.folder"></app-material-menu>
+</ng-container>
+
+<!-- List -->
+<div class="container-fluid">
+
+  <!-- Folders -->
+  <div class="row folders" *ngIf="(folderId$ | async) == -1 && (folders$ | async).length > 0">
+    <!-- List of Folders -->
+    <div style="padding: 5px" class="col-sm-12 col-md-6 col-xl-4"
+      *ngFor="let folder of folders$ | async; trackBy: trackFolder">
+
+      <app-material-folder [folder]="folder" [canDelete]="canDelete$ | async"></app-material-folder>
+
+    </div>
+  </div>
+
+  <!-- Materials -->
+  <div class="row">
+    <!-- List of Materials -->
+    <div style="padding: 5px" class="col-sm-12 col-md-6 col-xl-4"
+      *ngFor="let mat of (materials$ | async) | filterByFolderId: (folderId$ | async); trackBy: trackMaterial">
+
+      <ng-container *ngIf="(mat?.files?.length) > 0; else elseTemplate">
+
+        <!-- File Material -->
+        <app-material-item [material]="mat" [folders]="(notDeletedFolders$ | async)" [canDelete]="canDelete$ | async"></app-material-item>
+
+      </ng-container>
+
+      <ng-template #elseTemplate>
+
+        <!-- Link Material -->
+        <app-material-link [material]="mat" [folders]="(notDeletedFolders$ | async)" [canDelete]="canDelete$ | async"> </app-material-link>
+      </ng-template>
+    </div>
+  </div>
+</div>

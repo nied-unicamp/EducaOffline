@@ -1,0 +1,50 @@
+<!-- Menu right aligned -->
+
+<!-- 
+  A ISSUE #130, tratou da remoções dos botões adicionar, editar e deletar administradores (icon="plus", icon="edit" e icon="trash"). 
+Sendo que apenas o icon="plus" tinha uma ação associada a ele.
+  Para restaurar a versão anterior, verificar a ação do botão plus em uma das issues anteriores a #130.  
+Ação do botão plus deve ser desabilitada na API
+-->
+
+<div class="col" align="right">
+  <h3>
+    {{ translationText?.administrators }}
+    <button class="btn btn-primary btn-sm" disabled style="background-color:silver; border-color: silver;">
+      <fa-icon icon="plus"></fa-icon>
+    </button>
+  </h3>
+
+</div>
+
+<!-- Submission Table -->
+<table class="table table-striped">
+
+  <!-- Table header -->
+  <thead>
+    <tr>
+      <th scope="col">{{translationText?.name}}</th>
+      <th scope="col-xs">{{translationText?.edit}}</th>
+      <th scope="col-xs">{{translationText?.erase}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of admins">
+
+      <!-- Name -->
+      <td class="col">{{item.name}}</td>
+
+      <!-- Status -->
+      <td class="col-xs">
+        <button class="btn btn-primary btn-sm" disabled style="background-color:silver; border-color: silver;">
+          <fa-icon icon="edit"></fa-icon>
+        </button>
+      </td>
+      <td class="col-xs">
+        <button class="btn btn-primary btn-sm" disabled style="background-color:silver; border-color: silver;">
+          <fa-icon icon="trash"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

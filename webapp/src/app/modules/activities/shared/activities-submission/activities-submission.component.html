@@ -1,0 +1,71 @@
+<div>
+  <h2> {{translationText?.submission}}</h2>
+
+  <!-- Prior Submission-->
+  <ng-container *ngIf="activityStatus < states.SubmissionStarted">
+    <p>
+      {{ translationText?.submissionPreMessageA}}{{ activity?.submissionBegin.toLocaleString() }}
+      {{translationText?.submissionPreMessageB}}{{ activity?.submissionEnd.toLocaleString()}}
+      {{translationText?.submissionPreMessageC}}
+    </p>
+  </ng-container>
+
+  <!-- Under Submission -->
+  <ng-container *ngIf="activityStatus===states.SubmissionStarted">
+
+    <!-- No submission yet-->
+    <div *ngIf="!(submission$ | async)?.id">
+      <app-activities-submission-create [submission]="(submission$ | async)" [(editing)]="isEditing">
+      </app-activities-submission-create>
+      <p class='warning'>{{ translationText?.submissionMessage}} ({{ activity?.submissionEnd.toLocaleString()}})</p>
+    </div>
+
+    <!--Edit submission-->
+    <div *ngIf="isEditing">
+      <app-activities-submission-create [submission]="(submission$ | async)" [(editing)]="isEditing" (cancel)="cancelEdit()" [files]="(submission$ | async)?.files">
+      </app-activities-submission-create>
+    </div>
+
+    <!-- Already submitted-->
+    <div *ngIf="(submission$ | async)?.id && !isEditing">
+      <p class="answer-text">{{ (submission$ | async)?.answer}}</p>
+      <app-file-list class="files" [files]="(submission$ | async)?.files"></app-file-list>
+
+      <div>
+        <button style="float: right;" type="submit" class="btn btn-primary" (click)='isEditing=true'>
+          {{ translationText?.edit}}
+        </button>
+        <p class='warning'>{{ translationText?.submissionMessage}} ({{ activity?.submissionEnd.toLocaleString()}})</p>
+      </div>
+
+    </div>
+  </ng-container>
+
+  <!-- Under Evaluation -->
+  <ng-container *ngIf="activityStatus===states.SubmissionEnded">
+
+    <!-- Submitted-->
+    <div *ngIf="(submission$ | async)?.answer">
+      <p class="answer-text" *ngIf="(submission$ | async)?.answer">{{ (submission$ | async)?.answer}}</p>
+      <app-file-list class="files" [files]="(submission$ | async)?.files"></app-file-list>
+      <p class="warning-center">{{ translationText?.submissionEndedMessage}} {{
+        activity?.submissionEnd.toLocaleString()}}
+      </p>
+    </div>
+
+    <!-- Not submitted-->
+    <div *ngIf="!(submission$ | async)?.answer">
+      <p class="warning-center">{{ translationText?.submissionEndedMessage}} {{
+        activity?.submissionEnd.toLocaleString()}}
+      </p>
+      <p class="waning-submission">{{ translationText?.notSubmitted}}</p>
+    </div>
+  </ng-container>
+
+  <!-- Grade Released-->
+  <ng-container *ngIf="activityStatus===states.GradesReleased">
+    <p class="answer-text">{{ (submission$ | async)?.answer}}</p>
+    <app-file-list class="files" [files]="(submission$ | async)?.files"></app-file-list>
+    <p class="warning-center"> {{translationText?.gradeReleased}} </p>
+  </ng-container>
+</div>

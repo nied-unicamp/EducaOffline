@@ -1,0 +1,83 @@
+<!--Caso tiver sucesso-->
+<div *ngIf="!error">
+    <div class="responseArea">
+        <h1 class="title text-success">
+            {{ translationText.noError.message }}
+        </h1>
+        <div class="infoArea">
+            <p>
+                {{ translationText.noError.courseName }} {{ responseContent.course.name }}
+            </p>
+            <p>
+                {{ translationText.noError.teacherName }} {{ responseContent.user.name }}
+            </p>
+            <p>
+                {{ translationText.teacherEmail }} {{ responseContent.user.email }}
+            </p>
+            <hr>
+        </div>
+        <div>
+            <h2 class="subtitle">
+                {{ translationText.noError.detaliedInformation }}
+            </h2>
+            <pre class="textInfo" cols=50>{{ translationText.noError.startRegister }} {{ responseContent.course.subscriptionBegin }}</pre>
+            <pre class="textInfo" cols=50>{{ translationText.noError.endRegister }} {{ responseContent.course.subscriptionEnd }} </pre>
+            <pre class="textInfo" cols=50>{{ translationText.noError.startCourse }} {{ responseContent.course.startDate }} </pre>
+            <pre class="textInfo" cols=50>{{ translationText.noError.endCourse }} {{ responseContent.course.endDate }} </pre>
+            <pre class="textInfo" cols=50>{{ translationText.noError.maxEstudents }} {{ responseContent.course.noMaxStudents }} </pre>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" routerLink="/admin/courses" style="cursor:pointer">
+        {{ translationText.noError.goBack }}
+    </button>
+    <button type="button" (click)="copyResponseToclipBoard()" class="btn btn-primary" ngbTooltip="translationText.noError.copied" triggers="click:blur" style="cursor:pointer">
+        {{ translationText.noError.copyToclipBoard}}
+    </button>
+</div>
+<!--Caso falhar-->
+<div *ngIf="error">
+    <div class="responseArea">
+        <h1 class="title text-danger">
+            {{ translationText.error.message }}
+        </h1>
+        <div class="infoArea">
+            <p>
+                {{ translationText.error.error }} {{ responseContent.error.errorMessage }}
+            </p>
+            <br>
+            <hr>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="tryAgainClick()" style="cursor:pointer"> <!--routerLink="/admin/courseRegister"-->
+        {{ translationText.error.tryAgain }}
+    </button>
+</div>
+
+<!--
+<div class="container-response" style="margin-left: 15px;">
+    <div *ngIf="!error">
+        <br>
+        <p class="text-danger">{{translationText?.error}}</p>
+        <br>
+        <p>Erro: não foi encontrado o professor</p>
+        <br>
+        <button class="btn btn-primary" routerLink="/admin/courseRegister"
+            style="cursor:pointer">{{translationText?.tryAgain}}</button>
+    </div>
+    <br>
+    <div class="no-error-response" *ngIf="!error">
+        <br>
+        <p class="text-success" >{{translationText?.noError}}</p>
+        <br>
+        <p>Id: {{response.curseId}}</p>
+        <br>
+        <p>Nome do curso: {{response.courseName}}</p>
+        <br>
+        <p>Nome do professor: {{ response.teacher }}</p>
+        <br>
+        <p>Data de incio: {{ response.start }}</p>
+        <br>
+        <button class="btn btn-primary" (click)="copyResponseToclipBoard()" >Copy to clipboard</button>
+    </div>
+</div>
+-->

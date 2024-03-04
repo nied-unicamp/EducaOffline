@@ -1,0 +1,30 @@
+<div [ngSwitch]="syncStatus" [title]="transformString(syncStatus)">
+  <div *ngSwitchCase="'NotPresentLocally'">
+    <app-icon-download-disponivel></app-icon-download-disponivel>
+  </div>
+  <div *ngSwitchCase="'Downloaded'">
+    <app-icon-disponivel-offline></app-icon-disponivel-offline>
+  </div>
+  <div *ngSwitchCase="'Uploaded'">
+    <app-icon-disponivel-offline></app-icon-disponivel-offline>
+  </div>
+  <div *ngSwitchCase="'NeedsToBeDownloaded'">
+    <app-icon-sincronizacao-necessaria></app-icon-sincronizacao-necessaria>
+  </div>
+  <div *ngSwitchCase="'NeedsToBeUploaded'">
+    <app-icon-sincronizacao-necessaria></app-icon-sincronizacao-necessaria>
+  </div>
+  <div *ngSwitchCase="'NeedsToBeDeleted'">
+    <app-icon-sincronizacao-necessaria></app-icon-sincronizacao-necessaria>
+  </div>
+  <div *ngSwitchCase="'IsDownloading'">
+    <app-icon-sincronizacao-andamento></app-icon-sincronizacao-andamento>
+  </div>
+  <div *ngSwitchCase="'IsUploading'">
+    <app-icon-sincronizacao-andamento></app-icon-sincronizacao-andamento>
+  </div>
+  <!-- DownloadError, UploadError, DeleteError -->
+  <div *ngSwitchDefault>
+    <app-icon-erro-sincronizacao></app-icon-erro-sincronizacao>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+.dropdown-toggle::after{
+    display: none;
+}
+.col h3{
+    margin: 2% 0;
+    float: left;
+}
+.edit{
+    margin: 0 5%;
+    cursor: pointer;
+}
+.edit:hover{
+    border-color: #FFD700;
+    background-color:#FFD700;
+    margin: 0 5%;
+    cursor: pointer;
+}
+.delete{
+    margin: 0 5%;
+    cursor: pointer;
+}
+.delete:hover{
+    border-color: #CD0000;
+    background-color:#CD0000;
+    margin: 0 5%;
+    cursor: pointer;
+}

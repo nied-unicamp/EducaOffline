@@ -1,0 +1,51 @@
+<!-- Modal content -->
+<ng-template #content let-modal>
+
+
+  <!-- Modal header -->
+  <div class="modal-header">
+
+    <!-- Modal title -->
+    <h4 class="modal-title">{{translationText.confirmAction}}</h4>
+
+    <!-- Close button -->
+    <button type="button" class="close" aria-label="Close" #closeButton (click)="ok.emit(false);modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  <!-- Modal body -->
+  <div class="modal-body">
+    <div class="content-wrapper">
+      <ng-content></ng-content>
+    </div>
+    <div class="default-body" *ngIf="text else defaultMessages">
+      {{ text }}
+    </div>
+    <ng-template #defaultMessages>
+      <div class="default-body" *ngIf="toDelete else toCancel">
+        {{ translationText.questionDelete }}
+      </div>
+      <ng-template class="default-body" #toCancel>
+        {{ translationText.questionCancel }}
+      </ng-template>
+    </ng-template>
+  </div>
+
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+
+    <!-- Cancel Button -->
+    <button type="button" class="btn btn-success" 
+      (click)="ok.emit(false); modal.dismiss('Cross click')">
+      {{translationText.cancel}}
+    </button>
+
+    <!-- Confirm Button -->
+    <button type="button" class="btn btn-outline-danger" (click)="ok.emit(true);modal.dismiss('Cross click')">
+      {{translationText.confirm}}
+    </button>
+  </div>
+</ng-template>

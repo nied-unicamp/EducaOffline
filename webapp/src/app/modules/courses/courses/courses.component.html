@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <!-- Header -->
+  <app-menu-header></app-menu-header>
+
+  <!-- Main content -->
+  <div class="row mHeight" [ngStyle]="{'height': getHeightStyle(isOffline$ | async)}">
+    <!-- Left menu -->
+    <app-menu class="col-auto left-menu p-0">
+    </app-menu>
+
+    <!-- Content -->
+    <div [ngStyle]="{'height': getHeightStyle(isOffline$ | async)}" class="col my-scroll">
+      <router-outlet class="p-1"></router-outlet>
+    </div>
+  </div>
+
+  <div *ngIf="(isOffline$ | async)" class="offlineAlertContainer">
+    <div class="offlineAlert" [style.background-color]="(hasToSync$ | async) ? '#FF8C00' : '#32BD31'">
+      {{ (hasToSync$ | async) ? offlineNotificationText.offlineSyncWarning : offlineNotificationText.offlineAlert }}
+    </div>
+  </div>
+
+  <!-- Footer menu -->
+  <div class="row bottom-menu">
+    <app-menu-footer></app-menu-footer>
+  </div>
+</div>
+
+<!-- Offline Warning Modal -->
+<app-modal-form #warningModal [title]="offlineWarningText.title">
+  <span>{{offlineWarningText.base}}</span>
+  <div *ngIf="hasToSync$ | async" style="font-weight: bold; margin-top: 15px;">{{offlineWarningText.ifHasToSync}}</div>
+</app-modal-form>

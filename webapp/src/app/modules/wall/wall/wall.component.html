@@ -1,0 +1,11 @@
+<div class="container">
+  <!-- Post on Wall -->
+  <div class="row">
+    <app-wall-create class="col pr-0 pl-0"></app-wall-create>
+  </div>
+
+  <!-- List of posts -->
+  <div class="row" *ngFor="let post of posts | async; trackBy: trackPost">
+    <app-wall-item *ngIf="post" class="col pr-0 pl-0 mt-3" [post]="post" (updated)="fetchPosts()"></app-wall-item>
+  </div>
+</div>

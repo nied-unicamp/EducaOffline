@@ -1,0 +1,36 @@
+<form [formGroup]="formFolder" (ngSubmit)="onSubmit()">
+  
+  <div class="form-group">
+    <!-- Folder -->
+    <div class="form-item">
+      <label for="folder">{{translationText?.folder}}</label>
+  
+      <select class="form-control" formControlName="folder">
+        <option *ngFor="let folder of folderOptions" [value]="folder.id">{{ folder.title }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Modal footer -->
+  <div class="modal-footer row no-gutters justify-content-between pl-0 pr-0 pb-0">
+
+    <!-- left side -->
+    <div class="col-auto">
+      
+    </div>
+
+    <!-- right side -->
+    <div class="col-auto">
+      <!-- Cancel Button -->
+      <button type="button" class="btn btn-secondary" (click)="closeForm.emit()">
+        {{ translationText?.cancel }}
+      </button>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">
+        {{ translationText?.submit }}
+      </button>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,137 @@
+<ng-container *ngIf="(activity$ | async) as activity">
+
+
+
+  <div class="activityArea">
+
+    <!-- Actions for an scheduled activity -->
+    <ng-container *ngIf="(activityStatus$ | async) === states.Scheduled">
+
+      <div class="editOrDelete">
+
+        <!-- Go to edit page -->
+        <button *ngIf="(permissions$ | async).editActivity" class="btn btn-outline-primary button"
+          [routerLink]="'edit'">
+          {{ translationText?.edit }}
+        </button>
+
+        <!-- Delete Activity -->
+        <button *ngIf="(permissions$ | async).deleteActivity" class="btn btn-danger button" (click)="confirm.open()">
+          <app-confirm-delete #confirm (ok)="delete($event)"></app-confirm-delete>
+          {{ translationText?.delete }}
+        </button>
+      </div>
+      <hr>
+    </ng-container>
+
+    <!-- Activity Title -->
+    <h1 class="title">
+      {{ activity?.title }}
+    </h1>
+
+    <!-- Toggle Description Visibility Button -->
+    <div class="hide">
+      <button (click)="toggleVisibility()" class="hideButton" style="position: right; padding-right:10 px">
+        <fa-icon class="commentIcon" style="top: -15px;"
+          [icon]="descriptionIsHidden ? 'angle-double-down' : 'angle-double-up'">
+        </fa-icon>
+      </button>
+    </div>
+
+
+    <!-- Activity Dates -->
+    <div class="infoArea">
+      <div class="dateArea">
+
+        <!-- Publication Date -->
+        <p>
+          {{ translationText?.published }} {{ activity?.publishDate | date: 'dd/MM/yyyy' }}
+        </p>
+
+        <!-- Submission Dates -->
+        <p>
+          {{ translationText?.submission }} {{ activity?.submissionBegin | date: 'dd/MM/yyyy'}}
+          {{ translationText?.to }} {{ activity?.submissionEnd | date: 'dd/MM/yyyy' }}
+        </p>
+      </div>
+
+      <!-- For Evaluation? -->
+      <p *ngIf="(activityStatus$ |async) as status" class="evaluationText">
+        <ng-container *ngIf="activity?.gradeWeight > 0; else notForEvaluation">
+          <p *ngIf="status < states.SubmissionEnded">
+            {{ translationText?.forEvaluation }}
+          </p>
+          <p *ngIf="status === states.SubmissionEnded">
+            {{ translationText?.evaluation}}
+          </p>
+          <p *ngIf="status === states.GradesReleased">
+            {{ translationText?.gradeReleased }} {{ activity?.gradesReleaseDate.toLocaleDateString() }}
+          </p>
+        </ng-container>
+        <ng-template #notForEvaluation>
+          {{ translationText?.notEvaluation }}
+        </ng-template>
+      </p>
+    </div>
+
+
+
+
+    <!-- Body -->
+    <ng-container *ngIf="!descriptionIsHidden">
+
+      <hr>
+      <div id="ActivityBody">
+
+        <!-- Activity description -->
+        <div class="descriptionArea">
+          <h2 class="subtitle">
+            {{ translationText?.description }}
+          </h2>
+          <pre class="textInfo" cols=50>{{ activity?.description }}</pre>
+        </div>
+
+        <!-- List of files -->
+        <app-file-list class="files" [files]="activity.files"></app-file-list>
+      </div>
+
+      <hr>
+
+      <!-- Evaluation criteria -->
+      <div class="criteriaArea">
+        <div *ngIf="activity?.criteria?.length > 0">
+          <h2 class="subtitle">
+            {{ translationText?.criterion }}
+          </h2>
+
+          <!-- Criteria description -->
+          <p class="textInfo">
+            {{ activity?.criteria }}
+          </p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Submission area-->
+  <div class="submissionArea" style="padding: 20px" *ngIf="(permissions$ | async).submit">
+    <app-activities-submission [activity]="activity$ | async" [activityStatus]="activityStatus$| async">
+    </app-activities-submission>
+  </div>
+
+
+  <!-- Evaluation area -->
+  <div class="submissionArea"
+    *ngIf="(permissions$ |async).listSubmissions && (activityStatus$ | async) >= states.SubmissionStarted">
+    <app-activities-list-students [activityStatus]='(activityStatus$ | async)' [activity]="activity"
+      [courseId]="(courseId$ | async)">
+    </app-activities-list-students>
+  </div>
+
+  <div class="backArea">
+      <button style="float: right;" class="btn btn-primary" id="backBtn" (click)="backToTasks()">
+        {{ translationText?.descriptionBack }}
+      </button>
+  </div>
+  
+</ng-container>

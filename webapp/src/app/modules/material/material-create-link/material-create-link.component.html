@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+
+    <!-- Link -->
+    <div class="form-item">
+      <label for="link">{{translationText?.link}}</label>
+      <input type="text" id="link" class="form-control" formControlName="link"
+        placeholder="{{ translationText?.linkPH}}" [readOnly]="!!this.link">
+
+      <!-- Errors -->
+      <div *ngIf="formErrors.link" class="alert alert-danger">
+        {{ formErrors.link }}
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div *ngIf="validLink" class="form-item">
+      <label for="title">{{translationText?.title}}</label>
+      <input type="text" id="title" class="form-control" formControlName="title"
+        placeholder="{{ translationText?.titlePH}}">
+
+      <!-- Errors -->
+      <div *ngIf="formErrors.title" class="alert alert-danger">
+        {{ formErrors.title }}
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Modal footer -->
+  <div class="modal-footer row no-gutters justify-content-between pl-0 pr-0 pb-0">
+
+    <!-- left side -->
+    <div class="col-auto">
+
+    </div>
+    
+    <!-- right side -->
+    <div class="col-auto">
+      <!-- Cancel Button -->
+      <button type="button" class="btn btn-secondary" (click)="closeForm.emit()">
+        {{ translationText?.cancel }}
+      </button>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+        {{ translationText?.submit }}
+      </button>
+    </div>
+
+  </div>
+</form>

@@ -1,0 +1,30 @@
+.dropdown-divider {
+    margin: 0;
+}
+
+.notificationText {
+    /* display: flex; */
+    text-align: center;
+    /* justify-content: center; */
+}
+
+p {
+    margin: 0;
+}
+
+.nota {
+    font-weight: bold;
+    vertical-align: top;
+    font-size: calc(24px + .5vw);
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 623px) {
+    .icon {
+        display: none !important;
+    }
+}

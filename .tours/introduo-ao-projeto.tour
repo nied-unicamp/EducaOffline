@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "1 - Introdução ao projeto",
+  "steps": [
+    {
+      "title": "Boas vindas",
+      "description": "Obrigado por participar do nosso projeto!\n\nA nossa [wiki no GitLab](https://gitlab.com/nied/AVA-Offline/-/wikis/home) possui tudo o que você precisa saber para começar a contribuir com o projeto.\n\nAs informações básicas estão em nosso arquivo README.md"
+    }
+  ],
+  "ref": "main"
+}

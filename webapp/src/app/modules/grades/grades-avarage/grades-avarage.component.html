@@ -1,0 +1,20 @@
+<div class="grades-average">
+  <table table class="table table-striped">
+    <thead>
+      <tr class="average-text">
+        <th scope="col" class="avarage-col">{{ translationText?.currentGrade }}</th>
+        <th scope="col" class="grades-col">{{ finalGradeScore }}</th>
+        <th scope="col" class="grades-col">
+          <button style="margin: 0;" type="button" class="btn btn-primary btnEdit" (click)="mediaModal.open()">
+            <fa-icon icon="calculator" class="calculator m-auto pl-2 pr-1"></fa-icon>
+            <p class="text-button">{{ translationText?.seeDetails }}</p>
+          </button>
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<app-modal-form #mediaModal [screenSize]="'md'" [title]="translationText?.seeDetails" class="no-padding">
+  <app-grades-edit-weight *ngIf="!mediaModal.closed" [onlyView]="true" (sent)="mediaModal.close();"></app-grades-edit-weight>
+</app-modal-form>

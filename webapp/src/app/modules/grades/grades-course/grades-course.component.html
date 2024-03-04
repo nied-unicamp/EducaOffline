@@ -1,0 +1,178 @@
+<app-grades-caption [complete]="false"></app-grades-caption>
+
+<div class="row no-gutters">
+  <div class="col-auto">
+
+    <button (click)="scrollActivity(-1)" class="btn btn-primary scroll-button scroll-button-left">
+      <fa-icon icon="arrow-left"></fa-icon>
+    </button>
+
+    <!-- Students table -->
+    <table class="table table-striped" style="overflow: visible; white-space: nowrap;">
+      <thead style="border-top: 2px solid #cacaca;border-left: 2px solid #cacaca;">
+        <tr class="border-left" [ngStyle]="{'height': headerSize$ | async}">
+          <th scope="col" class="tr-th">{{ translationText?.students }}</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="(finalGrades$ | async) as finalGrades;">
+          <tr *ngFor="let finalGrade of finalGrades; trackBy:userIdFromFinalGrade" class='border-a'>
+            <td *ngIf="finalGrade?.user as user" class="student-name">
+              <!-- Profile picture -->
+              <div class="col-auto p-0 m-0 profile-picture">
+                <!-- Picture -->
+                <img *ngIf="user.picture" [src]="getPhotoUrlById(user.id)" alt="Foto de perfil do usuário" class="rounded-circle img-fluid">
+            
+                <!-- Default icon -->
+                <fa-icon *ngIf="!user.picture" icon="user-circle"></fa-icon>
+              </div>
+              
+              <a title="{{user.name}}" [routerLink]="['/profile', user.id]">
+                {{ user.name }}
+              </a>
+            </td>
+          </tr>
+          <tr class="border-b">
+            <td td class="blank-line-left"><br></td>
+          </tr>
+          <tr class="border-c">
+            <th class="border-d">{{ translationText?.media }}</th>
+          </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+  <ng-container *ngIf="(items$ |async) as items">
+    <div id="grades-table" class="col" #tableContainer>
+      <!-- Activities and Grades Table -->
+
+      <table class="table table-striped" style="text-align: center;">
+        <thead style="border-top: 2px solid #cacaca;">
+          <tr [ngStyle]="{'height': headerSize$ | async}">
+            <ng-container *ngIf="(activities$ | async) as activities;">
+              <th *ngFor="let activity of activities, let i=index" [class.tr-th]="!!activity?.gradesReleaseDate"
+                [class.tr-th-not-evaluated]="!activity?.gradesReleaseDate"
+                [class.tr-th-not-published]="!activity?.publishDate" 
+                class="grade-header">
+
+                <div class="ez-center">
+
+                  <a [routerLink]="['/courses', courseId, 'activities', activity.id]" style="white-space: normal;
+                  line-height: 1.5em;
+                  max-height: 3em;
+                  overflow: hidden;
+                  " title="{{ activity?.title }}">
+                    {{ activity?.title }}
+
+                  </a>
+                </div>
+              </th>
+            </ng-container>
+            <ng-container *ngIf="!(activities$ | async)?.length">
+              <th class="tr-th">{{ translationText?.activitiesNull }}</th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody *ngIf="(activities$ | async) as activities">
+          <tr *ngFor="let finalGrade of (finalGrades$ |async)">
+            <!-- middle cell content -->
+            <ng-container *ngFor="let activity of activities">
+              <ng-container *ngIf="getItem(items, finalGrade?.user?.id, activity?.id) as item; else noItem">
+                <td [class.td]="item?.evaluation" [class.td-not-evaluated]="!item?.evaluation">
+                  {{ getStatusText(activity, item) }}
+                </td>
+              </ng-container>
+              <ng-template #noItem>
+                <td class="td-not-evaluated">
+                  {{ getStatusText(activity) }}
+                </td>
+              </ng-template>
+            </ng-container>
+            <td *ngIf="activities.length == 0" class="td-not-evaluated"> - </td>
+          </tr>
+          <tr class="blank-line-mid">
+            <td class="blank-col-mid" colspan="1000"><br></td>
+          </tr>
+
+          <!-- Class average grades for each activity -->
+          <tr class="mid-bottom">
+            <ng-container *ngIf="(averages$ |async) as averages">
+              <th *ngFor="let activity of activities, let i=index" class="border-bottom">
+                <ng-container *ngIf="!activity.gradeWeight; else graded">
+                  {{ translationText?.notGraded }}
+                </ng-container>
+                <ng-template #graded>
+                  <ng-container *ngIf="submissionPeriodEnded(activity); else notEvaluated">
+                    {{ getAverage(averages, activity.id) }}
+                  </ng-container>
+                  <ng-template #notEvaluated>
+                    -
+                  </ng-template>
+                </ng-template>
+              </th>
+              <th *ngIf="!activities.length" class="border-bottom"> - </th>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+
+  <!-- Right side of the big table => Average -->
+  <div class="col-auto">
+
+    <button (click)="scrollActivity(+1)" class="btn btn-primary scroll-button scroll-button-right">
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+
+    <table class="table table-striped">
+      <thead style="
+        border: 2px solid #cacaca;
+        background-color: var(--colors-nied3);
+      ">
+        <tr #tr>
+          <th style="padding: 5px;">
+            <p style="margin: 0 0 5px 0; text-align: center;">
+              {{ translationText?.scoreStudent }}
+            </p>
+            <button style="margin: 0;" type="button" class="btn btn-primary, btnEdit" (click)="mediaModal.open()">
+              <fa-icon icon="pen" class="fa-pen"></fa-icon>
+              <p class="text-button">{{ translationText?.scoreEdit }}</p>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody style="text-align: center;">
+        <ng-container *ngIf="(finalGrades$| async) as finalGrades; else noFinalGrades2">
+          <tr *ngFor="let finalGrade of finalGrades" class="border-top-right">
+            <td class="border-blank-left">{{ formatGrade(finalGrade?.score) }}</td>
+          </tr>
+          <tr class="border-mid-right">
+            <td class="border-blank-left" style="background-color: white;"><br></td>
+          </tr>
+          <tr class="border-bottom-right">
+            <th class="border-blank-left">{{ formatGrade(finalAverage$ | async) }}</th>
+          </tr>
+        </ng-container>
+        <ng-template #noFinalGrades2>
+          <tr class="border-th-right">
+            <td><br></td>
+          </tr>
+          <tr class="border-mid-right">
+            <td class="border-blank-left"><br></td>
+          </tr>
+          <tr class="border-bottom-right">
+            <th class="border-blank-left">0</th>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Grade weight modal =D  -->
+<app-modal-form #mediaModal [screenSize]="'md'" [title]="translationText?.averageTitle" class="no-padding">
+  <app-grades-edit-weight *ngIf="!mediaModal.closed" [onlyView]="false" (sent)="mediaModal.close();"></app-grades-edit-weight>
+</app-modal-form>

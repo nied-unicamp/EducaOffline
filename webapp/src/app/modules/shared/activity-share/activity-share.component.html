@@ -1,0 +1,10 @@
+<div>
+  <select class="btn" [hidden]="!hasPermission" (change)="onChange($any($event.target)?.value)">
+    <option [value]="translationText?.fullShared"> {{ translationText?.fullShared }} </option>
+    <option [value]="translationText?.sharedWithTrainers"> {{ translationText?.sharedWithTrainers }} </option>
+    <option [value]="translationText?.noShared"> {{ translationText?.noShared }} </option>
+  </select>
+  <button class="btn" [hidden]="hasPermission" readonly> {{ choseSharedUser }}</button><br>
+</div>
+
+<!--<app-activity-share [hasPermission] = "permission" [choseSharedUser] = "userChoose"></app-activity-share><br>-->

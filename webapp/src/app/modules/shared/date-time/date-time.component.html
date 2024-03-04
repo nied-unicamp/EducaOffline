@@ -1,0 +1,12 @@
+<div class="form-inline form-group" [formGroup]="form"
+     style="display:inline-block; vertical-align: middle">
+
+  <!-- Date input -->
+  <input class="form-control col" type="date" formControlName='date'>
+
+  <!-- Time input -->
+  <span class="col-2">{{ translationText?.at }}</span>
+  <input class="form-control col" type="time" formControlName='time'>
+
+</div>
+<br>

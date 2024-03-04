@@ -1,0 +1,69 @@
+<!-- Menu right aligned -->
+<div class="col" align="right">
+  <h3>
+    {{ translationText?.courses }}
+    <button class="btn btn-primary btn-sm" routerLink="/admin/courseRegister">
+      <fa-icon icon="plus"></fa-icon>
+    </button>
+  </h3>
+  <!-- Filter dropdown -->
+
+</div>
+
+<!-- Submission Table -->
+<table class="table table-striped">
+
+  <!-- Table header -->
+  <thead>
+    <tr>
+      <th scope="col">
+        <!--{{translationText?.name}}-->
+      </th>
+      <th scope="col-xs">
+        <!--{{translationText?.action}}-->
+      </th>
+      <th scope="col-xs">
+        <!--{{translationText?.action}}-->
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Rows of submissions -->
+    <tr *ngFor="let item of courses">
+
+      <!-- Name -->
+      <td class="col"><a routerLink="/courses/{{item?.id}}/wall">{{item?.name}}</a></td>
+
+      <!-- Action -->
+      <td class="col-xs">
+        <button class="btn btn-primary btn-sm add" (click)="submit.open()">
+          <fa-icon icon="user-plus"></fa-icon>
+        </button>
+        <app-modal-form #submit [title]="'Add Participant'">
+          <app-members-add [courseId]="item?.id" (closeForm)="submit.close()"></app-members-add>
+        </app-modal-form>
+      </td>
+      <td class="col-xs">
+        <button class="btn btn-primary btn-sm edit" (click)="editModal.open()">
+          <fa-icon icon="edit"></fa-icon>
+        </button>
+        <app-modal-form title="{{translationText.updateCourse}}" #editModal [screenSize]="'xl'" (modalClosed)="courseEdit.resetComponent()">
+          <app-course-edit #courseEdit [existingCourse]="item" (fecharModal)="editModal.dismiss()" (response)="getCourses()"></app-course-edit>
+        </app-modal-form>
+      </td>
+      <td class="col-xs">
+        <button class="btn btn-primary btn-sm delete" (click)="confirmDelete.open()">
+          <fa-icon icon="trash"></fa-icon>
+        </button>
+        <app-confirm-delete #confirmDelete (ok)="deleteCourse($event, item.id)"></app-confirm-delete>
+        <app-modal-form #modalError title="{{translationText.error}}" screenSize="md">
+          <p #errorMessage></p>
+          <button type="submit" class="btn btn-primary"
+              (click)="modalError.close()">
+              {{ translationText.close }}
+          </button>
+        </app-modal-form>
+      </td>
+    </tr>
+  </tbody>
+</table>

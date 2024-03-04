@@ -1,0 +1,313 @@
+<ng-container class="top">
+
+  <div class="row no-gutters">
+    <h2 class="col">{{
+      (activityStatus >= states.SubmissionEnded)
+      ? translationText?.evaluation
+      : translationText?.submissions
+      }}
+    </h2>
+
+    <!-- Button to collapse list -->
+    <!-- Toggle Description Visibility Button -->
+
+    <div class="col-auto">
+      <button class="hideButton" (click)="toggleVisibility()">
+        <fa-icon class="commentIcon" [icon]="collapseList ? 'angle-double-down' : 'angle-double-up'">
+        </fa-icon>
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!collapseList">
+    <!-- Evaluation Period -->
+    <ng-container *ngIf="activityStatus===states.SubmissionEnded">
+      <!-- Button to release grades -->
+      <div class="row no-gutters justify-content-center">
+        <div class="col-auto">
+
+          <button type="submit" class="col-auto btn btn-icon btn-primary mb-2" (click)="confirm.open()"
+            [disabled]="(itemsToEvaluate$ | async)?.length > 0">
+            {{ translationText?.release}}
+            <app-confirm-delete #confirm (ok)="releaseGrades($event)" [toDelete]="false"
+            [text]="translationTextConfirmDelete.questionGradesReleased"></app-confirm-delete>
+          </button>
+        </div>
+      </div>
+
+      <!-- Warn that it gives 0 for users that did not submit -->
+      <!-- <div class="alert alert-warning release-alert" role="alert" style="margin: 10px auto;"
+        *ngIf="(itemsToEvaluate$ | async)?.length > 0 && (submittedButNotEvaluated$ | async)?.length===0">
+        {{ translationText?.releaseWarning }}
+      </div> -->
+    </ng-container>
+
+    <!-- Grades released text -->
+    <ng-container *ngIf="activityStatus===states.GradesReleased">
+      <p class="top">{{ translationText?.released }} {{ activity?.gradesReleaseDate.toLocaleDateString('pt-br') }}</p>
+      <hr style="margin-bottom: 30px;">
+    </ng-container>
+
+
+
+    <!--  Prior submission Period  -->
+    <ng-container *ngIf="activityStatus===states.Published">
+
+      <!-- Submission Period message -->
+      <p>
+        {{ translationText?.submissionPreMessageA}}{{ activity?.submissionBegin.toLocaleString() }}
+        {{translationText?.submissionPreMessageB}}{{ activity?.submissionEnd.toLocaleString()}}
+        {{translationText?.submissionPreMessageC}}
+      </p>
+
+      <!-- Students List -->
+      <div *ngIf="!collapseList">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th style="text-align: left;">{{translationText?.name}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of (allStudents$ | async)">
+              <td style="text-align: left;">
+                <a [routerLink]="['/profile', item?.id]">
+                  {{item?.name}}
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+
+
+    <!--  Under submission Period  -->
+    <ng-container *ngIf="activityStatus===states.SubmissionStarted">
+
+      <!-- Users that submitted -->
+      <ng-container *ngIf="(allItems$ | async) as items">
+        <div class="top">
+          <!-- Submission count -->
+          <p> {{ translationText?.submitted }} {{items?.length}} </p>
+
+          <!-- Separator -->
+          <hr>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="text-align: left;">{{ translationText?.name }}</th>
+                <th style="width: 35%;">{{ translationText?.submissionsDate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="items.length===0">
+                <td colspan="2">
+                  {{ translationText?.submissionsNone }}
+                </td>
+              </tr>
+              <tr *ngFor="let item of items">
+                <td style="text-align: left;">
+                  <a [routerLink]="['/profile', item?.user?.id]">
+                    {{item.user?.name}}
+                  </a>
+                </td>
+                <td>
+                  -
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+
+      <!-- Users that do not submitted -->
+      <ng-container *ngIf="(usersWithoutSubmission$ | async) as items">
+
+        <div class="top">
+
+          <!-- Count -->
+          <p> {{ translationText?.submittedNone }}({{items?.length}})</p>
+
+          <!-- Separator -->
+          <hr>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="text-align: left;">{{ translationText?.name }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="items.length===0">
+                <td colspan="2">
+                  {{ translationText?.submittedAll }}
+                </td>
+              </tr>
+              <tr *ngFor="let item of items">
+                <td style="text-align: left;">
+                  <a [routerLink]="['/profile', item?.id]">
+                    {{item?.name}}
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+
+
+    <!-- Evaluation available, but grades not released yet -->
+    <ng-container *ngIf="activityStatus===states.SubmissionEnded">
+
+      <ng-container *ngIf="(itemsToEvaluate$ | async) as items">
+
+
+        <div class="top">
+
+          <p> {{ translationText?.options.ToEvaluate }}({{items?.length}})</p>
+          <hr>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="text-align: left; ">{{ translationText?.name }}</th>
+                <th style="width: 35%;">{{ translationText?.submission }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="items.length===0">
+                <td colspan="2">
+                  {{ translationText?.submissionsOver }}
+                </td>
+              </tr>
+              <tr *ngFor="let item of items">
+                <td style="text-align: left; align-self: end;">
+                  <a [routerLink]="['/profile', item?.user?.id]">
+                    {{item.user?.name}}
+                  </a>
+                </td>
+                <td>
+                  <button class='evaluate-button btn btn-primary' (click)="evaluateModal.open()">
+                    <ng-container *ngIf="item?.submission?.id; else elseTemplate">
+                      {{translationText?.seeAndEvaluate}}
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      {{ translationText?.evaluate }}
+                      <fa-icon [icon]="'exclamation'" class="exclamation" transform="shrink-5" *ngIf="!item.submission"
+                        title="text.notSubmittedExclamation"></fa-icon>
+                    </ng-template>
+                  </button>
+                  <app-modal-form #evaluateModal [screenSize]="'lg'" [title]="translationText?.evaluateModal">
+                    <app-activities-evaluate #eval [item]="item" (sent)="evaluateModal.close()">
+                    </app-activities-evaluate>
+                  </app-modal-form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- Evaluated submissions list -->
+    <ng-container *ngIf="activityStatus >= states.SubmissionEnded">
+      <ng-container *ngIf="evaluatedItems$ | async as items">
+
+        <div class="top">
+          <!-- Evaluated count -->
+          <p style="margin-bottom: 0;"> {{ translationText?.options.Evaluated }}({{items?.length}})</p>
+
+          <!-- Divider -->
+          <hr style="margin-bottom: -5px;">
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="text-align: left;">{{ translationText?.name }}</th>
+                <th style="width: 35%;">
+                  {{ translationText?.grades }}
+
+                  <!-- Grade icon -->
+                  <fa-layers [fixedWidth]="true">
+                    <fa-icon [icon]="['far', 'clipboard']"></fa-icon>
+                    <fa-layers-text content="A" class="nota" transform="shrink-2"></fa-layers-text>
+                  </fa-layers>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items">
+
+                <!-- User name -->
+                <td style="text-align: left;">
+                  <a [routerLink]="['/profile', item?.user?.id]">
+                    {{item.user?.name}}
+                  </a>
+                </td>
+
+                <!-- Score and edit evaluation -->
+                <td>
+                  <!--Grade-->
+                  <p class="grade">
+                    {{ item.evaluation?.score }}
+                  </p>
+                  <!--View comment-->
+                  <button (click)="commentModal.open()" style="border: none; background-color: transparent;" class="comment-button">
+                    <fa-icon [icon]="[item.evaluation?.comment ? 'fas': 'far', 'comment']" class="commentIcon">
+                    </fa-icon>
+                  </button>
+                  <!--Edit evaluation-->
+                  <button (click)="evaluateModal.open()" class="edit-button">
+                    <fa-icon icon="pen-square" class="edit-icon"></fa-icon>
+                  </button>
+
+                  <!--Edit modal-->
+                  <app-modal-form #evaluateModal [screenSize]="'lg'" [title]="translationText?.evaluateModal">
+                    <app-activities-evaluate #eval [item]="item" (sent)="evaluateModal.close()">
+                    </app-activities-evaluate>
+                  </app-modal-form>
+
+                  <!--Comment modal-->
+                  <app-modal-form #commentModal [screenSize]="'lg'" [title]="translationText?.comment">
+                    <ng-container *ngIf="item?.evaluation.comment else hasNoComment">
+                      {{ item?.evaluation?.comment }}
+                    </ng-container>
+                    <ng-template #hasNoComment>
+                      {{ translationText.hasNotComment }}
+                    </ng-template>
+                    <!-- Close commentModal -->
+                    <div class="modal-footer">
+                      <button class="btn btn-primary" (click)="commentModal.close()">
+                        {{ translationText?.close  }}
+                      </button>
+                    </div>
+                  </app-modal-form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </ng-container>
+
+
+
+    <!-- Table caption -->
+    <div class='caption' *ngIf="activityStatus >= states.SubmissionEnded">
+
+      <!-- With comment -->
+      <p>
+        <fa-icon icon="comment"></fa-icon>
+        {{ translationText?.hasComment }}
+      </p>
+
+      <!-- Without comment -->
+      <p>
+        <fa-icon [icon]="['far', 'comment']"></fa-icon>
+        {{ translationText?.hasNotComment }}
+      </p>
+    </div>
+  </ng-container>
+</ng-container>

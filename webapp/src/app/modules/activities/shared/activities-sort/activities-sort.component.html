@@ -1,0 +1,30 @@
+<!-- Sort dropdown -->
+<div ngbDropdown class="d-inline-block">
+
+
+  <!-- Button that tooggles the dropdown menu -->
+  <button class="btn btn-outline-secondary " id="sortDropdown" ngbDropdownToggle>
+
+    <!-- For small screens -->
+    <div *ngIf="size === 'small'" style="display: flex; justify-content: center; align-items: center;">
+      <fa-icon icon="sort"></fa-icon>
+    </div>
+
+    <!-- For larger screens, show some additional information -->
+    <div *ngIf="size !== 'small'" style="display: flex; justify-content: center; align-items: center;">
+      <fa-icon class="mr-1" icon="sort"></fa-icon>
+      {{ translationText?.sort }}{{size === 'normal'? '' : ': '+ translationText?.options[sortedBy]}}
+    </div>
+
+  </button>
+
+
+  <!-- Dropdown menu -->
+  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="sortDropdown">
+
+    <!-- Sort options -->
+    <button *ngFor="let sort of sortOptions" (click)="defineSort(sort)" class="dropdown-item">
+      {{ translationText?.options[sort]}}
+    </button>
+  </div>
+</div>

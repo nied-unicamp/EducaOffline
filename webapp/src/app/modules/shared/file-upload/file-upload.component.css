@@ -1,0 +1,38 @@
+.rectangle {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 9px;
+}
+
+div.col.items {
+  padding-top: 11px!important;
+  padding-left: 0!important;
+  padding-right: 11px!important;
+}
+
+.dropArea {
+  background: #edefff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #000;
+  z-index: 10;
+  transition: all 300ms ease-out;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+}
+
+.dropArea .dashed {
+  border: 2px dashed #000;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 50px;
+  text-align: center;
+  font: 21pt bold arial;
+  min-height: 100px;
+  height: 100%;
+}

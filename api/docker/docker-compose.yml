@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+    api:
+        build: api/
+        env_file: .env
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:mysql://${DATABASE_URL}:${DATABASE_PORT}/${DATABASE_NAME}?useSSL=false
+            - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+            - SPRING_DATASOURCE_USERNAME=root
+            - SERVER_PORT=${API_PORT_CONTAINER}
+        ports:
+            - ${API_PORT_HOST}:${API_PORT_CONTAINER}
+        restart: on-failure
+        links:
+            - db
+        networks:
+            - backend
+        depends_on:
+            - "db"
+
+    db:
+        build: db/
+        volumes:
+            - ./database:/var/lib/mysql
+        env_file: .env
+        ports:
+            - ${DATABASE_PORT}:${DATABASE_PORT}
+        restart: always
+        environment:
+            - MYSQL_ROOT_HOST=%
+            - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+            - MYSQL_DATABASE=${DATABASE_NAME}
+            - MYSQL_USER=${DATABASE_USER}
+        networks:
+            - backend
+
+networks:
+    backend:
+        driver: bridge

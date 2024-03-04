@@ -1,0 +1,10 @@
+<app-activities-menu></app-activities-menu>
+
+<!-- List the sorted and filtered activities -->
+<div class="row no-gutters">
+  <ng-container *ngFor="let item of activities$ | async; trackBy: trackActivity">
+
+    <!-- Activity card -->
+    <app-activities-item class="col-xs-12 col-md-6 col-lg-4" [item]="item"></app-activities-item>
+  </ng-container>
+</div>

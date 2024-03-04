@@ -1,0 +1,42 @@
+.upload {
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* .custom-file-upload:focus,
+.custom-file-upload:hover {
+    background-color: #0275d8;
+} */
+
+.dropArea {
+  background: #edefff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #000;
+  z-index: 10;
+  transition: all 300ms ease-out;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+}
+
+.dropArea .dashed {
+  border: 2px dashed #000;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 50px;
+  text-align: center;
+  font: 21pt bold arial;
+  min-height: 100px;
+  height: 100%;
+}
+
+label span{
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

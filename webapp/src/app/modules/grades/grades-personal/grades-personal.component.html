@@ -1,0 +1,11 @@
+<app-grades-caption></app-grades-caption>
+
+<h3>{{translationText.gradedActivities}}</h3>
+
+<app-grades-table [activities$]="activitiesWorthNote$"></app-grades-table>
+
+<app-grades-avarage [finalGradeScore]="finalGradeScore$ | async"></app-grades-avarage>
+
+<h3>{{translationText.practiceActivities}}</h3>
+
+<app-grades-table [activities$]="activitiesNotWorthNote$"></app-grades-table>

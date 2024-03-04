@@ -1,0 +1,51 @@
+<div class="container-fluid shadow1 item" [class.disabled]="wasDeleted$ | async">
+
+  <div class="row">
+    <div class="col">
+      <!-- Box -->
+      <a [routerLink]="relativeLinkToFolder()" class="row link-box" [class.disabled-link]="wasDeleted$ | async">
+
+        <!-- Folder icon -->
+        <div class="col-auto img-wrapper" [title]="iconTitle">
+          <fa-icon icon="folder"></fa-icon>
+        </div>
+
+        <!-- Folder info -->
+        <div class="col">
+          <!-- Folder name -->
+          <div class="row align-items-center" style="height: 50px;">
+            <p class="col-auto file-title" [title]="folder.title">
+              {{folder.title}}
+            </p>
+          </div>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="col-auto status-dropdown-container">
+      <div *ngIf="canDelete; then menuCompleto else menuParcial"></div>
+      <!-- todas as opções, para o professor -->
+      <ng-template #menuCompleto>
+        <app-material-edit-dropdown #dropdown (openEvent)="folderEdit.autoGrowTextZone();" (deleteEmitter)="delete()"
+          [id]="folder.id" type="folder" hasEdit="true" hasDownload="true" hasDelete="true" [courseId]="courseId"
+          (downloadEmitter)="download()" [disableDeleteButton]="folderHasItemsNotDeleted$ | async" [disabled]="wasDeleted$ | async">
+
+          <app-material-create-folder #folderEdit class="edit" [folder]="folder" (sent)="dropdown.closeEditModal(true)"
+            (closeForm)="dropdown.closeEditModal(false)">
+          </app-material-create-folder>
+
+        </app-material-edit-dropdown>
+      </ng-template>
+      <!-- apenas botão de download, para o aluno -->
+      <ng-template #menuParcial>
+        <app-material-edit-dropdown #dropdown [id]="folder.id" type="folder" hasDownload="true" 
+        [courseId]="courseId" (downloadEmitter)="download()"></app-material-edit-dropdown>
+      </ng-template>
+      
+      <app-sync-status-icon *ngIf="(syncState$ | async) != null" class="item-status-icon"
+        [syncStatus]="(syncState$ | async)">
+      </app-sync-status-icon>
+    </div>
+  </div>
+</div>

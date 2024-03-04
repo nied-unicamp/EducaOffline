@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row justify-content-center">
+
+    <!-- Student submission -->
+    <div class="col p-0">
+
+      <ng-container *ngIf="item?.submission?.id; else elseTemplate">
+        <strong>{{translationText.answer}}</strong>
+        <br>
+        <pre>{{item.submission?.answer}}</pre>
+        <app-file-list *ngIf="item?.submission?.files" [files]="item?.submission?.files"></app-file-list>
+      </ng-container>
+
+      <ng-template #elseTemplate>
+        {{translationText.noAnswer}}
+      </ng-template>
+    </div>
+
+    <!-- Evaluation form -->
+    <form class="col" [formGroup]="form" (ngSubmit)="onSubmitLocal()">
+      <div class="form-group">
+        <div>
+          <!-- Grade -->
+          <label for="score"> {{ translationText?.scoreLabel }} </label>
+          <input type="text" id="score" class="form-control" formControlName="score"
+            placeholder="{{ translationText?.grade }}">
+        </div>
+      </div>
+
+      <!-- Comments about the Activity -->
+      <div class="form-group">
+        <label for="comment"> {{ translationText?.commentLabel }} </label>
+        <textarea type="text" id="comment" class="form-control input-lg" formControlName="comment"
+          placeholder="{{ translationText?.comment }}"></textarea>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          {{ translationText?.submit }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container-fluid shadow1 item" [class.disabled]="wasDeleted$ | async">
+
+  <div class="row">
+    <div class="col">
+      <!-- Box -->
+      <a [href]="material?.link" target="_blank" class="row link-box" [class.disabled-link]="wasDeleted$ | async">
+
+        <!-- File icon -->
+        <div class="col-auto img-wrapper" [title]="iconTitle">
+          <fa-icon icon="link"></fa-icon>
+        </div>
+
+        <!-- File info -->
+        <div class="col">
+
+          <!-- File name -->
+          <div class="row align-items-center" style="height: 50px;">
+            <p class="col-auto file-title" [title]="material.title">
+              {{material.title}}
+            </p>
+          </div>
+
+          <!-- Date -->
+          <div class="row align-items-end justify-content-center" title="{{dateFull}}">
+            <div class="col-auto">
+              <p class="material-date">{{dateFull.split(',')[0]}}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-auto status-dropdown-container">
+      <ng-container *ngIf="canDelete">
+        <app-material-edit-dropdown #dropdown (openEvent)="materialMove.setFolder();" (deleteEmitter)="delete()"
+          [id]="material.id" type="link" hasMove="true" hasEdit="true" hasDelete="true" [disabled]="wasDeleted$ | async">
+
+          <app-material-create-link class="edit" [link]="material" (sent)="dropdown.closeEditModal(true)"
+            (closeForm)="dropdown.closeEditModal(false)">
+          </app-material-create-link>
+
+          <app-material-move #materialMove class="move" [material]="material" [folders]="folders" (sent)="dropdown.closeMoveModal(true)"
+            (closeForm)="dropdown.closeMoveModal(false)">
+          </app-material-move>
+
+        </app-material-edit-dropdown>
+
+        <app-sync-status-icon *ngIf="(syncState$ | async) != null" class="item-status-icon"
+          [syncStatus]="(syncState$ | async)">
+        </app-sync-status-icon>
+      </ng-container>
+    </div>
+  </div>
+</div>

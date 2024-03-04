@@ -1,0 +1,10 @@
+.list {
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 9px;
+}
+
+.files {
+  margin: 5px;
+}

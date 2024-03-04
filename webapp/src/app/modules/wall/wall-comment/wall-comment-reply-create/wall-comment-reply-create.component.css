@@ -1,0 +1,63 @@
+
+
+a {
+    color: #1e282c;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.container-reply-create {
+    width: 105%;
+}
+
+#container-reply-create {
+    width: 105%;
+}
+
+.text {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;    
+}
+
+
+#submit-button {
+    display: flex;
+    font-size: 12px;
+    float: right !important;
+    margin-left: 81%;
+}
+
+textarea {
+    max-height: 105px;
+    float: rigth !important;
+    width: 100%;
+}
+
+.sub-textarea {
+    width: 100%;
+    display: flex;
+}
+.btn{
+    font-size: 12px;
+    padding: 2px;
+}
+
+
+@media screen and (min-width: 576px)  {
+    .container-reply-create {
+        width: 100%;
+        margin-left: 0%;
+    }
+
+    #container-reply-create {
+        width: 105%;
+    }
+
+    #submit-button {
+        margin-left: auto;
+        margin-right: 0%;
+    }
+}

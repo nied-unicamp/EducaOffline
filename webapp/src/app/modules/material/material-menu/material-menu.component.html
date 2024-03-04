@@ -1,0 +1,62 @@
+<!-- Add files/links/folders -->
+<div class="row no-gutters menu" *ngIf="canUpload">
+
+  <!-- Add files -->
+  <app-material-upload-files [folderId]="folder?.id ?? -1">{{ translationText.MaterialMenuComponent.uploadFile }}</app-material-upload-files>
+
+  <!-- Button to create a link -->
+  <button class="btn btn-primary btn-icon" (click)="contentLink.open()">
+    <fa-icon icon="link"></fa-icon>
+    <span style="vertical-align: text-bottom;">{{ translationText.MaterialMenuComponent.createLink }}</span>
+
+    <!-- Modal -->
+    <app-modal-form #contentLink [title]="translationText.MaterialCreateLinkComponent.modalTitle">
+      <!-- Modal contentLink -->
+      <ng-container *ngIf="!contentLink.closed">
+
+        <app-material-create-link [folderId]="folder?.id ?? -1" (sent)="contentLink.close(true)" (closeForm)="contentLink.close(false)">
+        </app-material-create-link>
+      </ng-container>
+    </app-modal-form>
+  </button>
+
+  <!-- Button to create a folder, only shows it if it's not inside a folder since there aren't folder inside folders -->
+  <button class="btn btn-primary btn-icon" (click)="contentFolder.open()" *ngIf="!folder">
+    <fa-icon icon="folder-plus"></fa-icon>
+    <span style="vertical-align: text-bottom;">{{ translationText.MaterialMenuComponent.createFolder }}</span>
+
+    <!-- Modal -->
+    <app-modal-form #contentFolder [title]="translationText.MaterialCreateFolderComponent.modalTitle">
+      <!-- Modal contentFolder -->
+      <ng-container *ngIf="!contentFolder.closed">
+
+        <app-material-create-folder (sent)="contentFolder.close(true)" (closeForm)="contentFolder.close(false)">
+        </app-material-create-folder>
+      </ng-container>
+    </app-modal-form>
+  </button>
+
+  <!-- Show download folder button if its inside a folder -->
+  <button class="btn btn-primary btn-icon" (click)="downloadFolder()" *ngIf="folder">
+    <fa-icon icon="download" class="icon"></fa-icon>
+    <span style="vertical-align: text-bottom;">{{ translationText.MaterialCreateFolderComponent.folderDownloadButtonTitle }}</span>
+  </button>
+</div>
+
+<div class="back-menu-container" *ngIf="folder">
+  <div class="row no-gutters back-menu">
+    <!-- Button to go back to root folder -->
+    <a class="btn btn-primary btn-icon root-folder-button" routerLink="../../">
+      <fa-icon icon="arrow-left"></fa-icon>
+    </a>
+
+    <span class="folder-title">
+      {{folder.title}}
+    </span>
+
+  </div>
+
+  <div class="folder-description">
+    <p>{{folder.description}}</p>
+  </div>
+</div>

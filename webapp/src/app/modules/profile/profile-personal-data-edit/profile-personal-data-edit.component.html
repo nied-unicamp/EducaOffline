@@ -1,0 +1,103 @@
+<form id="ngForm" [formGroup]="form">
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-lg text-center">
+        <!-- Profile photo -->
+        <div style="max-width: 250px; margin: auto;">
+          <img *ngIf="showCroppedImage && urlPhoto" [src]="croppedImage" class="rounded-circle img-fluid"
+            style="z-index: 0; margin-bottom: 0; position: relative;" />
+          <img *ngIf="urlPhoto && !showCroppedImage" src="{{ urlPhoto }}" class="rounded-circle img-fluid"
+            style="z-index: 0; margin-bottom: 0; position: relative;" />
+
+          <fa-icon *ngIf="!urlPhoto && !showCroppedImage" icon="user-circle" style="font-size: 15vw;">
+          </fa-icon>
+
+          <button type="remove" class="button-as-image" style="position: absolute; margin-left: -20px;"
+            (click)="urlPhoto=null; showCroppedImage=false; fileInput.value=''">
+            <fa-icon icon="window-close" style="color: var(--colors-red-error);"></fa-icon>
+          </button>
+        </div>
+
+        <!-- Input profile photo -->
+        <input type="file" id="file" #fileInput class="form-control-file my-2" accept="image/*"
+          (change)="fileChangeEvent($event); submitPhoto.open()">
+
+        <app-modal-form #submitPhoto [title]="'Recortar imagem'">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+            [resizeToWidth]="255" [roundCropper]="true" format="png" (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+          </image-cropper>
+
+          <div class="modal-footer mt-3">
+            <button type="reset" class="btn btn-secondary"
+              (click)="showCroppedImage=false; urlPhoto=null; fileInput.value=''; submitPhoto.close()">
+              {{ translationTextActions?.cancel }}
+            </button>
+
+            <button type="submit" class="btn btn-primary"
+              (click)="showCroppedImage=true; urlPhoto='temfoto.png'; submitPhoto.close()">
+              {{ translationTextActions?.save }}
+            </button>
+          </div>
+        </app-modal-form>
+
+        <!-- Info name -->
+        <input type="text" id="name" class="form-control mt-2" [class.is-invalid]="
+          form.controls['name'].errors &&
+          (form.controls['name'].touched || form.controls['name'].dirty)
+          " formControlName="name">
+
+        <!-- Errors for input name -->
+        <small *ngIf="form.controls['name'].errors?.maxlength" class="invalid-feedback">
+          {{ translationTextDataEdit?.nameErrorMaxNumChars }}
+        </small>
+        <small *ngIf="form.controls['name'].errors?.required" class="invalid-feedback">
+          {{ translationTextDataEdit?.nameRequired }}
+        </small>
+        <!-- Helps for input name -->
+        <small class="form-text text-muted text-justify">
+          {{ translationTextDataEdit?.nameHelp }}
+        </small>
+      </div>
+
+      <div class="col-lg-9 p-0">
+        <label><strong>{{ translationTextDataEdit?.aboutMe }}</strong></label>
+        <textarea class="form-control" [class.is-invalid]="
+                    form.controls['aboutMe'].errors &&
+                    (form.controls['aboutMe'].touched || form.controls['aboutMe'].dirty)
+                  " formControlName="aboutMe" id="aboutMe" rows="10" aria-describedby="aboutMeHelpBlock"
+          (keyup)="aboutMeSetNumberChars($any($event.target)?.value)"
+          (click)="aboutMeSetNumberChars($any($event.target)?.value)"></textarea>
+
+        <!-- Errors for aboutMe -->
+        <small *ngIf="form.controls['aboutMe'].errors?.maxlength" class="invalid-feedback">
+          {{ translationTextDataEdit?.aboutMeErrorMaxNumChars }}
+        </small>
+        <!-- Helps for aboutMe -->
+        <small id="aboutMeHelpBlock" class="form-text text-muted">
+          {{ translationTextDataEdit?.aboutMeHelp1 }}
+          <span *ngIf="aboutMeNumCharsTyped > 0">{{ translationTextDataEdit?.aboutMeHelp2 }}
+            <span class="text-{{ aboutMeNumCharsTypedColor }}" role="alert">{{ aboutMeNumCharsTyped }}</span>.</span>
+        </small>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col text-right">
+        <!-- Button reset form -->
+        <button type="reset" class="btn btn-secondary" (click)="cancel.emit()">
+          {{ translationTextActions?.cancel }}
+        </button>
+
+        <!-- Button submit form -->
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
+          {{ translationTextActions?.save }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+</form>

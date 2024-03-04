@@ -1,0 +1,157 @@
+.submission-box {
+  max-width: 270px;
+  border: 2.5px var(--colors-nied7) solid;
+  display: inline-block;
+}
+
+.title {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--colors-nied7);
+}
+
+.icon-box {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 12.5px;
+  padding-left: 12.5px;
+  display: inline-block;
+}
+
+.date-list {
+  padding: 5px 0px 5px 16px
+}
+
+.date {
+  color: var(--colors-nied7);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border-bottom: 1px solid var(--colors-nied7);
+}
+
+.date.auto {
+  font-style: italic;
+}
+
+.date.selected {
+  font-weight: bold;
+}
+
+/*********************** Calendar styles ************************/
+
+:host {
+  position: relative;
+}
+
+.custom-today {
+  /*
+  background-color: orange !important;
+  */
+  border: thin solid orange;
+  font-weight: bold;
+}
+
+.custom-publication {
+  /*
+  background-color: orange !important;
+  */
+  border: thin solid blue;
+  font-weight: bold;
+  color: blue!important;
+}
+
+.custom-start {
+  position: relative;
+  /*
+  border: thin red solid;
+  */
+}
+
+.custom-start:before {
+  content: "";
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 5px solid green!important;
+  height: 100%;
+  /* Positioning */
+  top: 0;
+  left: 0;
+  /* Z - Positioning */
+  position: absolute;
+  z-index: 1;
+}
+
+.custom-end {
+  position: relative;
+  /*
+  border: thin blue solid;
+  */
+}
+
+.remove-padding {
+  margin: -8px -12px -8px -12px!important;
+}
+
+.custom-end:after {
+  content: "";
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 5px solid blue!important;
+  height: 100%;
+  /* Positioning */
+  top: 0;
+  right: 0;
+  /* Z - Positioning */
+  position: absolute;
+  z-index: 1;
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+
+.custom-day.focused {
+  background-color: orange;
+}
+
+.custom-day.range {
+  background-color: rgb(2, 117, 216, 0.5);
+  color: #151571;
+}
+
+.custom-day:hover.custom-selectable {
+  /*
+  background-color: blue!important;
+  */
+  border: thin solid blue!important;
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+  color: #151571;
+}
+
+.custom-invalid {
+  color: grey!important;
+  cursor: default;
+}
+
+.disable-select {
+  user-select: none;
+  /* supported by Chrome and Opera */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+}

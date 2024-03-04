@@ -1,0 +1,40 @@
+.item {
+  color: var(--colors-nied7);
+  cursor: default;
+  position: relative;
+  background-color: white;
+  max-height: 74px;
+  max-width: 300px;
+  min-width: 200px;
+}
+
+a {
+  color: var(--colors-nied7);
+}
+
+.button-as-image {
+  /* background-size: 40px 40px; */
+  height: 0;
+  padding: 0;
+  border-width: 0;
+}
+
+.img-wrapper {
+  background-color: transparent;
+  padding: 5px!important;
+}
+
+.img-wrapper>fa-icon {
+  color: var(--colors-nied7, orangered);
+  font-size: 64px;
+}
+
+p {
+  margin: 0;
+}
+
+.button-as-image>fa-icon {
+  font-size: 35px;
+  font-weight: 700;
+  vertical-align: bottom
+}

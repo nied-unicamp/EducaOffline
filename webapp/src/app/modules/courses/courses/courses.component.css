@@ -1,0 +1,9 @@
+.offlineAlertContainer {
+  position: relative;
+  margin: 0 -15px;
+}
+
+.offlineAlert {
+  position: relative;
+  text-align: center;
+}

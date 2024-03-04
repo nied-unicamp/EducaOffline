@@ -1,0 +1,20 @@
+<!-- filter dropdown -->
+<div ngbDropdown class="d-inline-block">
+  <!-- Button that tooggles the dropdown menu -->
+  <button class="btn btn-outline-secondary " id="filterDropdown" ngbDropdownToggle>
+
+    <!-- Filter icon -->
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <fa-icon icon="filter"></fa-icon>
+    </div>
+  </button>
+
+  <!-- Dropdown menu -->
+  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="filterDropdown">
+
+    <!-- Filter options -->
+    <button *ngFor="let filter of filterOptions" (click)="changeFilter(filter)" class="dropdown-item">
+      {{ getName(filter) }}
+    </button>
+  </div>
+</div>

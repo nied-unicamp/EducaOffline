@@ -1,0 +1,13 @@
+<div ngbDropdown placement="bottom-right" class="d-inline-block">
+    <button class="btn btn-secondary btn-block btn-flat no-border" id="dropdownBasic1" ngbDropdownToggle>{{ currentLanguage }}</button>
+
+    <!-- Dropdown -->
+    <div ngbDropdownMenu class="rounded-0 dropdown-menu-left" aria-labelledby="dropdownBasic1">
+
+      <!-- All language -->
+      <ng-container *ngFor="let language of languageNames">
+        <button ngbDropdownItem class="dropdown-item itemBtn" (click)="switchLanguage(language)">{{ language }}</button>
+      </ng-container>
+
+    </div>
+</div>

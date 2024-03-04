@@ -1,0 +1,16 @@
+p {
+    margin: 0;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.email > a {
+    word-break: break-all;
+    color: var(--colors-nied7);
+}
+
+.description {
+    word-break: break-word;
+}

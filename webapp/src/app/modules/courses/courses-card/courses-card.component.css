@@ -1,0 +1,81 @@
+.small-box {
+  color: #ffffff;
+  background-color: var(--colors-nied2);
+  /* min-height: 120px; */
+}
+
+
+.container-fluid,
+fa-icon {
+  color: var(--colors-nied7);
+}
+
+#iconeAdd {
+  color: white;
+}
+
+.container-three-dots{
+  padding: 0;
+  margin: 0;
+}
+
+.container-offline{
+  display: flex;
+  justify-content: space-between;
+}
+
+.teacher-icon {
+  position: absolute;
+  right: 40px;
+  top: 5px;
+  color: var(--colors-nied4);
+  font-size: 65px;
+}
+
+.title-course {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 40px;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.act,
+.prof {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.middle {
+  min-height: 79px;
+}
+
+.footer {
+  background-color: var(--colors-nied7);
+  color: #ffffff;
+}
+
+.createdDate {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 769px) and (max-width: 828px),
+  (min-width: 576px) and (max-width: 621px),
+  (min-width: 992px) and (max-width: 1430px) {
+  .middle {
+    height: 97px;
+  }
+}

@@ -1,0 +1,18 @@
+# Systemd/Systemctl service. Place this on:
+# /etc/systemd/system/core-api.service
+
+# To debug, please run:
+# sudo journalctl -u core-api
+
+[Unit]
+Description=Core API backend
+After=network.target docker.service
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/carlosavieira/dev/core/api/docker/
+ExecStart=docker-compose -f ./docker-compose.yml up
+ExecStop=docker-compose -f ./docker-compose.yml down
+# Restart=always
+[Install]
+WantedBy=multi-user.target

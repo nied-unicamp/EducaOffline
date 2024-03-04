@@ -1,0 +1,40 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "10 - Arquivos do projeto (Incompleto)",
+  "steps": [
+    {
+      "title": "Introdução",
+      "description": "A pasta `webapp` contém vários arquivos de configuração.\n\nJá falamos sobre o `package.json` e agora vamos dar destaque a: `angular.json` e `ngsw-config.json`"
+    },
+    {
+      "file": "angular.json",
+      "description": "O arquivo `angular.json` contém  toda a configuração base de um projeto em Angular.\n\nÉ aqui que definimos todos os outros arquivos e configurações do projeto. ",
+      "line": 1
+    },
+    {
+      "file": "angular.json",
+      "description": "Aqui, por exemplo, é definido qual é o nosso arquivo index.html, onde ficam nossos arquivos css globais e onde vamos colocar os arquivos que o Angular gera para colocarmos no servidor com o `ng build`",
+      "line": 16
+    },
+    {
+      "file": "angular.json",
+      "description": "São várias configurações dependentes de onde o código vai rodar e que configurações usar.",
+      "line": 45
+    },
+    {
+      "file": "angular.json",
+      "description": "Aqui também são definidas as configurações para:\n\n- `ng serve`\n- `ng lint`\n- etc",
+      "line": 204
+    },
+    {
+      "file": "ngsw-config.json",
+      "description": "Já no arquivo `ngsw-config.json`, é definida a configuração geral do service  worker, que define quais tipos de arquivos devem ser salvos pelo navegador.\n\nIsso é essencial para a aplicação funcionar offline.",
+      "line": 1
+    },
+    {
+      "title": "Pastas",
+      "description": "------INCOMPLETO-----\n\nContinuar descrição dos arquivos do projeto."
+    }
+  ],
+  "ref": "main"
+}

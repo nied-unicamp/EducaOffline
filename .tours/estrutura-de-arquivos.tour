@@ -1,0 +1,42 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "2 - Estrutura de arquivos",
+  "steps": [
+    {
+      "file": "README.md",
+      "description": "Primeiro, temos o nosso arquivo README.md. Aqui ficam as informações básicas para baixar e executar o projeto.",
+      "line": 1
+    },
+    {
+      "file": "webapp/README.md",
+      "description": "Já na pasta `webapp`, temos os arquivos para o frontend da aplicação",
+      "line": 1
+    },
+    {
+      "file": "api/README.md",
+      "description": "Dentro da pasta `api`, temos todos os arquivos do backend da aplicação, incluindo configurações para o banco de dados.",
+      "line": 1
+    },
+    {
+      "file": ".gitignore",
+      "description": "Temos um arquivo .gitignore para configuração do git",
+      "line": 1
+    },
+    {
+      "file": ".gitlab-ci.yml",
+      "description": "Temos também esse arquivo `.gitlab-ci.yml` para configuração de CI/CD no gitlab\n\nEsse arquivo é feito de forma que todo código atualizado no branch `main` do projeto seja automaticamente compilado e enviado para o [ambiente de testes da proteo](https://proteo.nied.unicamp.br/stag/) ",
+      "line": 1
+    },
+    {
+      "file": ".vscode/settings.json",
+      "description": "Na pasta `.vscode`, temos os algumas configurações básicas do projeto para serem usadas pelo editor de texto. ",
+      "line": 1
+    },
+    {
+      "file": ".tours/introduo-ao-projeto.tour",
+      "description": "E dentro da pasta `.tours`, temos os arquivos referentes a esse guia que você está usando nesse momento!",
+      "line": 1
+    }
+  ],
+  "ref": "main"
+}

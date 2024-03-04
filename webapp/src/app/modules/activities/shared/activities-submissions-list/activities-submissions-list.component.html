@@ -1,0 +1,57 @@
+<!-- Submission Table -->
+<div class="row">
+  <table class="table table-striped">
+
+    <!-- Table header -->
+    <thead>
+      <tr>
+        <th style="width:35%">{{translationText?.name}}</th>
+        <th style="width:15%" *ngIf="screenSize!=='small'">
+          {{translationText?.grade}}
+        </th>
+        <th style="width:20%">{{translationText?.status}}</th>
+        <th style="width:30%;">{{translationText?.action}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Rows of submissions -->
+      <tr *ngFor="let submission of submissions$ | async">
+
+        <!-- Name -->
+        <td>{{submission.lastModifiedBy.name}}</td>
+
+        <!-- Grade -->
+        <td *ngIf="screenSize!=='small'">
+          {{(eval.isEditing) ? eval.value?.score : '-'}}
+        </td>
+
+        <!-- Status -->
+        <td [ngClass]="{'table-success': (eval.isEditing),
+        'table-warning': !(eval.isEditing)}">
+          {{(eval.isEditing)? 'Avaliado': 'Para avaliar'}}
+        </td>
+
+        <!-- Action -->
+        <td>
+
+          <button (click)="evaluateModal.open()">Avaliar</button>
+          <app-modal-form #evaluateModal [screenSize]="'lg'" [title]="'Avaliar submissão'">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-auto">
+                  <!-- <app-activities-submission [item]="item"></app-activities-submission> -->
+                </div>
+                <div class="col-auto">
+                  <app-activities-evaluate #eval [item]="{submission: submission}"
+                    (sent)="reload();evaluateModal.close()">
+                  </app-activities-evaluate>
+                </div>
+              </div>
+            </div>
+          </app-modal-form>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

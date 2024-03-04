@@ -1,0 +1,109 @@
+
+/* .response-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+} */
+
+div.responseArea {
+  padding: 20px;
+  box-shadow: 0px 0px 5px rgb(0 0 0 / 25%);
+  background: #fff;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+div.infoArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+hr {
+  margin: auto;
+  margin-bottom: 10px;
+  border: solid 1px #000;
+  width: 100%;
+}
+
+h1.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+button {
+  font-weight: bold;
+}
+
+.well {
+  margin:10px 0px;
+  background-color: #fff;
+  border: none;
+}
+
+.col h3{
+  margin: 0;
+  float: left;
+}
+
+.header {
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.line {
+  border-bottom: 1px solid black;
+  padding: 0 0 0 0;
+}
+
+hr {
+  margin: auto;
+  margin-bottom: 10px;
+  border: solid 1px #000;
+  width: 100%;
+}
+
+.custom-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+@media screen and (min-width: 991px) {
+  form {
+    min-width: 600px;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 560px){
+  form {
+    min-width: 400px;
+  }
+}
+
+@media screen and (max-width: 560px) and (min-width: 400px){
+  form {
+    min-width: 350px;
+  }
+}

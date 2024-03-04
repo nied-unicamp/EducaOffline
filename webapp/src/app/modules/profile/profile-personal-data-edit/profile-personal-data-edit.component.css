@@ -1,0 +1,16 @@
+#file {
+    opacity: 1;
+    z-index: 1;
+    position: relative;
+}
+
+.modal-footer {
+    margin-left: -16px;
+    margin-right: -16px;
+}
+
+.button-as-image {
+    height: 0;
+    padding: 0;
+    border-width: 0;
+  }

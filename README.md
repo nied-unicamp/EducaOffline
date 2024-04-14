@@ -101,6 +101,7 @@ api/docker/db/setup.sql
 api/src/main/java/br/- niedunicamp/ApplicationStart.java
 api/src/main/resources/application.yml
 ```
+_ATENÇÃO_: depois de modificar os arquivos ``.env``, lembre-se de adicioná-los ao ``.gitignore`` para evitar o vazamento de informações sensíveis.
 #### Alterações para inicialização do ApplicationStart
 ##### No path abaixo definir o email e senha que serão utilizados pelo administrador
 ```bash
